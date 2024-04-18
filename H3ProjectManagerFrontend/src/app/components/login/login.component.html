@@ -1,32 +1,18 @@
-<p>login works!</p>
 
 
-<div class="form">
-    <div class="input">
-        <div class="header">
-        <h2>Project manager login.</h2>
-        <h6>Something.</h6>
-        </div>
-
-        <div class="form-group">
-            <label >Login</label>
-            <div>
-                <Input placeholder="Enter login" />
-            </div>            
-        </div>
-
-        <div class="form-group">
-            <label >Password</label>
-            <div>
-                <Input type="password" placeholder="Enter password" />
-            </div>
-        </div>
-        <div>
-            <button class="loginButton" style="margin-top:20px">Login</button>
-        </div>
-        <div>
-            <button class="newUserButton" >Create new user</button>
-        </div>
-        
+<body>
+    <div class="container">
+        <h1>Velkommen</h1>
+        <form>
+            <label >Brugernavn:</label>
+            <input type="text" id="email" name="email" required>
+    
+            <label for="password">Adgangskode:</label>
+            <input type="password" id="password" name="password" required>
+    
+            <button type="submit">LOG IND</button>
+        </form>
+    
+        <p>Har du ikke en konto? <a href="#">Tilmeld dig</a></p>
     </div>
-</div>
+</body>
