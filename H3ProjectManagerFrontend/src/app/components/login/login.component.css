@@ -4,10 +4,10 @@
     box-sizing: border-box;
 }
 body{
-    background-color: green;
+    background: rgb(30, 30, 30);
 }
 
-/* Slet op over ^^^^ + body i html*/
+/* Slet op over ^^^^ + body i html - det er kun for at se selve "login boksen" */
 
 .container {
     width: 400px;
@@ -21,7 +21,7 @@ body{
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.1px);
     -webkit-backdrop-filter: blur(8.1px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
