@@ -1,5 +1,26 @@
 
+<div class="content">
 
+    <div class="header-section">
+        
+        <app-header-bar></app-header-bar>
+    </div>
 
-<router-outlet />
+    <div class="main-content">
+        
+        <!-- This is where the router will display the components that is defined in app.routes so the route "" (no route) will display the frontpage component and "login" will display the login component-->
+        <!-- This way the header will always be on top of the rendered component -->
+        <!-- And the footer will always be below the rendered component -->
+        <router-outlet />
+
+    </div>
+    
+    <!-- <router-outlet name="modal"></router-outlet> -->
+    <div class="footer-section">
+        
+        <app-footer-bar></app-footer-bar>
+        
+    </div>
+    
+</div>
 
