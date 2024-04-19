@@ -17,8 +17,8 @@ header {
 }
 
 /* Top Bar */
-.top-bar {
-  display: flex;
+.nav-bar {
+  display: flex;  
   justify-content: space-between;
   align-items: center;
 }
@@ -83,6 +83,7 @@ nav a {
 
 .benefits li {
   margin-bottom: 10px;
+
 }
 
 .benefits li::before {
