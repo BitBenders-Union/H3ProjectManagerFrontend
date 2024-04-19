@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: green;
+    /* background-color: green; */
 }
 
 /* Slet op over ^^^^ + body i html*/
@@ -53,13 +53,9 @@ input {
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
+    /* button defined in root css */
     padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
 }
 
 button:hover {
