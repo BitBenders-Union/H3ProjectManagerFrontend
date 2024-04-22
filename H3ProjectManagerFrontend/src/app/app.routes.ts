@@ -8,6 +8,6 @@ import { UserRegistrationComponent } from './components/userRegistration/userReg
 export const routes: Routes = [
   { path: '', component: FrontpageComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'project-dashboard', component: ProjectDashboardComponent}
+  { path: 'project-dashboard', component: ProjectDashboardComponent},
 
 ];

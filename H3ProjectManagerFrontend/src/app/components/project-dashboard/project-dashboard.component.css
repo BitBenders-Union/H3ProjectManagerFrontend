@@ -1,22 +1,40 @@
 
+.wrapper{
+    padding: 20px;
+    width: 100vw;
+    border: 1px dashed magenta;
+}
 
 .overview{
-    width: 100vw;
     display: flex;
-    border: 1px dashed magenta;
-    padding: 20px;
+    
 }
 
 .title{
-    border: 1px dashed magenta;
     flex: 1;
     display: flex;
 
 }
 
 .create{
-    border: 1px dashed magenta;
     flex: 1;
     display: flex;
     justify-content: flex-end;
 }
+
+.search-form{
+    margin: 20px 0;
+    /* border: 1px dashed magenta; */
+
+}
+
+.search-form input{
+    padding: 10px;
+}
+.search-input{
+    height: 25px;
+    border-radius: 10px;
+    
+
+}
+
