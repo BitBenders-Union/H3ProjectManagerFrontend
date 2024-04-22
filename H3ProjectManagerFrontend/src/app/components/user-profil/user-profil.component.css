@@ -1,8 +1,41 @@
 .wrapper{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px dashed magenta; */
+    padding: 20px;
+}
 
+
+
+.editProfilContainer{
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 
 }
 
-.editProfilContainer{
+.userInfo{
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-self: center;
 
+  /* border: 1px solid black; */
+
+}
+
+.userInfo input, label, select{
+  margin: 10px 10px;
+  padding: 10px 10px;
+}
+
+.userLabel{
+  display: flex;
+  flex-direction: column;
+}
+
+.userInput{
+  display: flex;
+  flex-direction: column;
 }
