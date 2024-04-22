@@ -16,20 +16,12 @@ import { CommonModule } from '@angular/common';
 export class UserDashboardComponent {
 
 
-  ownProjects: any[] = [];
-
-  othersProjects: any[] = [];
 
   ngOnInit(){
 
-    this.ownProjects = this.getProjects();
-    this.othersProjects = this.getProjects();
   }
 
-  // get a list of projects, change to api call
-  getProjects(){
 
-    return [0, 0, 0];
-  }
+
 
 }

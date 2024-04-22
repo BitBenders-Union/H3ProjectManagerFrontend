@@ -12,8 +12,8 @@
     backdrop-filter: blur(8.1px);
     -webkit-backdrop-filter: blur(8.1px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-     background-color: #1b1d1e; /*slet den her */
-     color: white;
+    background-color: #1b1d1e; /*slet den her */
+    color: white;
 }
 
 h1 {

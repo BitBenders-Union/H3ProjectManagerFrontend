@@ -1,0 +1,22 @@
+
+
+.overview{
+    width: 100vw;
+    display: flex;
+    border: 1px dashed magenta;
+    padding: 20px;
+}
+
+.title{
+    border: 1px dashed magenta;
+    flex: 1;
+    display: flex;
+
+}
+
+.create{
+    border: 1px dashed magenta;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
