@@ -4,10 +4,13 @@ import { FrontpageComponent } from './components/frontpage/frontpage.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserRegistrationComponent } from './components/userRegistration/userRegistration.component';
+import { UserProfilComponent } from './components/user-profil/user-profil.component';
 
 export const routes: Routes = [
   { path: '', component: FrontpageComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'user-registrering', component: UserRegistrationComponent},
+  { path: 'user-profil', component: UserProfilComponent},
   { path: 'project-dashboard', component: ProjectDashboardComponent}
 
 ];
