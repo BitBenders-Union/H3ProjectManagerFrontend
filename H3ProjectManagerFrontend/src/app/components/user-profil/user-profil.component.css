@@ -2,27 +2,19 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    /* border: 1px dashed magenta; */
     padding: 20px;
 }
-
-
 
 .editProfilContainer{
   display: flex;
   flex: 1;
   justify-content: flex-end;
-
 }
 
 .userInfo{
   display: flex;
-  /* flex-direction: column; */
   justify-content: center;
   align-self: center;
-
-  /* border: 1px solid black; */
-
 }
 
 .userInfo input, label, select{
@@ -30,12 +22,16 @@
   padding: 10px 10px;
 }
 
-.userLabel{
+.userLabel, .userInput{
   display: flex;
   flex-direction: column;
 }
 
-.userInput{
+.saveButton{
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-self: flex-end;
+  margin-top: 20px;
 }
+
+
