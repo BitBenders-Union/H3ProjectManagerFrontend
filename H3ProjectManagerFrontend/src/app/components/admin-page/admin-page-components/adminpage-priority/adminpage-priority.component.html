@@ -1,0 +1,30 @@
+
+<div class="priority-container">
+  <div class="h2-collapsbutton-container">
+    <h2>Prioriter</h2>
+    <button class="collapse-button" (click)="toggleVisibility()">
+      {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
+    </button>
+  </div>
+
+  <ul *ngIf="!isCollapsed">
+    <li class="priority-li-container" *ngFor="let priority of priotrityList">
+      <div class="priority-info">
+        <span class="priority-name">{{ priority.name }}</span>  <input class="editInput" *ngIf="isEditingPriority === priority" type="text" [(ngModel)]="priority.name" />  
+      </div>
+      <div class="buttons-container">
+        <button *ngIf="!isEditingPriority" (click)="editPriority(priority)">Edit</button>
+        <button *ngIf="isEditingPriority === priority" (click)="savePriority(priority)">Save</button>  <button class="delete-button" (click)="deletePriority(priority)">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  <h3>Tilføj prioritet</h3>
+  <form (ngSubmit)="addPriority()">
+    <label for="name">Prioritets navn:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="newPriority.name" required>
+    <button class="add-button" type="submit">Tilføj Afdeling</button>
+  </form>
+</div>
+
+

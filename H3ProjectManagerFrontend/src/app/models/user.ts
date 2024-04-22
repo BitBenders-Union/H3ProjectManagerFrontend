@@ -1,6 +1,6 @@
-export interface user{
-    id: number;
-    username: string;
-    firstName: string;
-    lastName: string;
+export class User{
+    public id? : number = 0;
+    public username? : string = "";
+    public firstName? : string = "";
+    public lastName? : string = "";
 }
