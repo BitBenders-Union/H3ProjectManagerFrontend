@@ -2,26 +2,29 @@
 .content{
     display: flex;
     flex-direction: column;
-    height: 100vh;
-
-
 }
 
 .main-content{
-    flex: 11;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: flex-start; */
-    /* min-height: 83.5%; */
+    min-height: 84vh;
+    
+
 }
 
 .header-section{
-    flex: 1;
+    min-height: 8vh;
+
+
 }
 
 
 .footer-section{
-    flex: 1;
+    min-height: 8vh;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 
 }
