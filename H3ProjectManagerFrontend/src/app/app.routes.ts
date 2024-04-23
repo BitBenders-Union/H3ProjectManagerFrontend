@@ -14,6 +14,4 @@ export const routes: Routes = [
   { path: 'user-profil', component: UserProfilComponent},
   { path: 'project-dashboard', component: ProjectDashboardComponent},
   { path: 'admin-page', component: AdminPageComponent}
-
-
 ];
