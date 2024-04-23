@@ -1,17 +1,11 @@
-
-
-
-    <div class="container">
-        <h1>Velkommen</h1>
-        <form>
-            <label >Brugernavn:</label>
-            <input type="text" id="email" name="email" required>
-    
-            <label for="password">Adgangskode:</label>
-            <input type="password" id="password" name="password" required>
-    
-            <button type="submit">LOG IND</button>
-        </form>
-    
-        <p>Har du ikke en konto? <a href="#">Tilmeld dig</a></p>
-    </div>
+<div class="container">
+    <h1>Velkommen</h1>
+    <form (ngSubmit)="onSubmit()">
+        <label >Brugernavn:</label>
+        <input type="text" id="username" [(ngModel)]="loginModel.username" [ngModelOptions]="{standalone: true}" required placeholder="Brugernavn">
+        <label for="password">Adgangskode:</label>
+        <input type="password" id="password" [(ngModel)]="loginModel.password" [ngModelOptions]="{standalone: true}" required placeholder="Password">
+        <button type="submit">LOG IND</button>
+    </form>
+    <p>Har du ikke en konto? <a href="#">Tilmeld dig</a></p>
+</div>

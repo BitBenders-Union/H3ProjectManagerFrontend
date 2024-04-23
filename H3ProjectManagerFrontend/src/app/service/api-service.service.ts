@@ -18,6 +18,7 @@ export class ApiServiceService<TModel> {
     return this.http.get<TModel[]>(this.url);
   }
 
+
   delete(model: TModel) : boolean {
     this.http.delete<TModel>(this.url, {
       body: model
