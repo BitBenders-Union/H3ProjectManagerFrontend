@@ -9,7 +9,8 @@
 
         <div class="create">
 
-            <button>Create Project</button>
+            <button (click)="createNewProject()">Create Project</button>
+
         </div>
 
     </div>
@@ -23,38 +24,32 @@
     </div>
 
 
-    <div class="project-container">
 
-        <div class="project-sort">
-
-            <h2>Name</h2>
-            <h2>Category</h2>
-            <h2>User</h2>
-
-            <div class="settings-icon">
-            </div>
-            
-        </div>
-
-        <hr>
-
-        <div class="projects" *ngFor="let project of projectList; let i = index">
-            <div class="entries">
-
-                <h3>My Title {{i}}</h3>
-                <p>My Category</p>
-                <p>My User</p>
-                <div class="settings-icon">
-                    <i class="fa-solid fa-ellipsis"></i>
-    
-                </div>
-
-            </div>
-
-            <hr>
-
-        </div>
-
+    <div class="grid-container">
+        <div class="grid-item"><h2>Title</h2></div>
+        <div class="grid-item"><h2>Category</h2></div>
+        <div class="grid-item"><h2>Owner</h2></div>
+        <div class="grid-item"> </div>
     </div>
+    <hr>
+    
+
+    <div class="projects" *ngFor="let project of projectList; let i = index">
+        
+        <div class="grid-container">
+            <div class="grid-item"><p>{{project.name}}</p></div>
+            <div class="grid-item"><p>{{project.category}}</p></div>
+            <div class="grid-item"><p>{{project.owner}}</p></div>
+            <div class="grid-item"> <i class="fa-solid fa-ellipsis" (click)="navigateToProjectDetails(i)"></i></div>
+        </div>
+        <hr>
+    
+    </div>
+
+
+
+
+
+
 
 </div>

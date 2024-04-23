@@ -1,6 +1,6 @@
 
 .wrapper{
-    padding: 20px;
+    /* margin: 20px; */
     width: 100vw;
 }
 
@@ -22,8 +22,7 @@
 }
 
 .search-form{
-    margin: 20px 0;
-    /* border: 1px dashed magenta; */
+    /* margin: 20px 0; */
 
 }
 
@@ -32,43 +31,33 @@
 }
 
 .search-input{
-    height: 30px;
+    height: 35px;
     border-radius: 10px;
+    font-size: large;
 }
 
 
 .project-sort{
     display: flex;
     justify-content: space-between;
-    /* border: 1px dashed magenta; */
-
-
 
 }
 
 
-.projects{
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 40px;
 }
 
 
-.entries{
-    display: flex;
-    justify-content: space-between;
-    
+.grid-item {
+    margin: 20px 0;
 }
 
-.settings-icon{
-    display: flex;
-    width: 20px;
-
+.grid-item i{
+    cursor: pointer;
 }
 
-
-
-
-  
-  
+.grid-item p{
+    margin-left: 2px;
+}

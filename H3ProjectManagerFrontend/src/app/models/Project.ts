@@ -4,3 +4,11 @@ export class Project {
     public startDate? : Date = new Date();
     public endDate? : Date = new Date();
 }
+
+export interface ProjectDashboard{
+    id: number;
+    name: string;
+    category: string;
+    owner: string;
+
+}

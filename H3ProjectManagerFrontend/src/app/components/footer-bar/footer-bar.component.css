@@ -2,8 +2,12 @@
 
 /* Footer */
 footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     background-color: #f0f0f0;
-    padding: 20px 0;
+    /* background-color: black; */
+    height: 80px;
     text-align: center;
   }
   
