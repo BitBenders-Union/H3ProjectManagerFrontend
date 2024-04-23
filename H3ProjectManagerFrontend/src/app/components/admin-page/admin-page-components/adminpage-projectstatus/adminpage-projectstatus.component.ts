@@ -3,22 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-adminpage-department',
+  selector: 'app-adminpage-projectstatus',
   imports: [ CommonModule, FormsModule, ],
   standalone: true,
-  templateUrl: './adminpage-department.component.html',
+  templateUrl: './adminpage-projectstatus.component.html',
   styleUrls: ['../admin-page-components.css'],
-  // styleUrls: ['./adminpage-department.component.css'], // This is the standard css file 
+  // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
 })
-export class AdminpageDepartmentComponent implements OnInit {
+export class AdminpageProjectstatusComponent implements OnInit {
 
-   // Temp data
+  // Temp data
   entityList = [
-    { name: 'Department 1' },
-    { name: 'Department 2' },
-    { name: 'Department 3' },
-    { name: 'Department 4' },
-    { name: 'Department 5' }
+    { name: 'Projekt status 1' },
+    { name: 'Projekt status 2' },
+    { name: 'Projekt status 3' },
+    { name: 'Projekt status 4' },
+    { name: 'Projekt status 5' }
   ];
 
   newEntity = { name: '' };
