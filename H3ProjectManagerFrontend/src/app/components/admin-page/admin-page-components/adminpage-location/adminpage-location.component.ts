@@ -6,12 +6,18 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-adminpage-location',
   imports: [ CommonModule, FormsModule, ],
   standalone: true,
-  templateUrl: './adminpage-location.component.html',
-  styleUrls: ['../admin-page-components.css'],
+  templateUrl: '../adminpage-generic/adminpage-generic.component.html',
+  styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
+  // templateUrl: './adminpage-location.component.html', // This is the standard html file
   // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
 
 })
 export class AdminpageLocationComponent implements OnInit {
+
+  heading: string = "Lokationer";
+  addEntityHeading: string = "Tilføj lokation";
+  labelName: string = "Lokation navn:";
+  addButtonText: string = "Tilføj lokation";
 
   // Temp data
   entityList = [
