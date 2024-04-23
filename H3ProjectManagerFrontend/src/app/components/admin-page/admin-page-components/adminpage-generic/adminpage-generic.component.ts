@@ -3,28 +3,27 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-adminpage-projectstatus',
+  selector: 'app-adminpage-generic',
   imports: [ CommonModule, FormsModule, ],
   standalone: true,
-  templateUrl: '../adminpage-generic/adminpage-generic.component.html',
-  styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
-  // templateUrl: './adminpage-projectstatus.component.html',
-  // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
+  templateUrl: './adminpage-generic.component.html',
+  styleUrls: ['./adminpage-generic.component.css']
 })
-export class AdminpageProjectstatusComponent implements OnInit {
+export class AdminpageGenericComponent implements OnInit {
 
-  heading: string = "Projekt statusser";
-  addEntityHeading: string = "Tilføj projekt status";
-  labelName: string = "Projekt status navn:";
-  addButtonText: string = "Tilføj projekt status";
+  heading: string = "Generic heading";
+  addEntityHeading: string = "Generic add entity heading";
+  labelName: string = "Generic label name";
+  addButtonText: string = "Gereric add button text";
+
 
   // Temp data
   entityList = [
-    { name: 'Projekt status 1' },
-    { name: 'Projekt status 2' },
-    { name: 'Projekt status 3' },
-    { name: 'Projekt status 4' },
-    { name: 'Projekt status 5' }
+    { name: 'Location 1' },
+    { name: 'Location 2' },
+    { name: 'Location 3' },
+    { name: 'Location 4' },
+    { name: 'Location 5' }
   ];
 
   newEntity = { name: '' };

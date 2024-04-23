@@ -4,16 +4,22 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-adminpage-priority',
-  templateUrl: './adminpage-priority.component.html',
   imports: [CommonModule, FormsModule],
   standalone: true,
-  styleUrls: ['../admin-page-components.css'],
+  templateUrl: '../adminpage-generic/adminpage-generic.component.html',
+  styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
+  //  templateUrl: './adminpage-priority.component.html', // This is the standard html file
   // styleUrls: ['./adminpage-priority.component.css'], // This is the standard css file
 })
 export class AdminpagePriorityComponent implements OnInit {
 
-     // Temp data
-  priotrityList = [
+  heading: string = "Prioriteter";
+  addEntityHeading: string = "Tilføj prioritet";
+  labelName: string = "Prioritets navn:";
+  addButtonText: string = "Tilføj prioritet";
+
+  // Temp data
+  entityList = [
     { name: 'Priority 1' },
     { name: 'Priority 2' },
     { name: 'Priority 3' },
@@ -21,11 +27,11 @@ export class AdminpagePriorityComponent implements OnInit {
     { name: 'Priority 5' },
   ];
 
-  newPriority = { name: '' };
+  newEntity = { name: '' };
 
   isCollapsed = false; // Initially visible
 
-  isEditingPriority: any = null; // Track currently edited priority
+  isEditing: any = null; // Track currently edited priority
 
   constructor() {}
 
@@ -35,23 +41,21 @@ export class AdminpagePriorityComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  addPriority() {
-    this.priotrityList.push(this.newPriority);
-    this.newPriority = { name: '' }; // Clear the input field
-    
+  addButton() {
+    this.entityList.push(this.newEntity);
+    this.newEntity = { name: '' };  // Clear the input field
   }
 
-  editPriority(priority: any) {
-    this.isEditingPriority =
-      this.isEditingPriority === priority ? null : priority;
+  editButton(entity: any) {
+    this.isEditing =
+    this.isEditing === entity ? null : entity;
   }
 
-  savePriority(priority: any) {    
-    this.isEditingPriority = null; // Stop editing after saving
+  saveButton(entity: any) {    
+    this.isEditing = null; // Stop editing after saving
   }
 
-  deletePriority(priority: any) {
-    const index = this.priotrityList.indexOf(priority);
-    this.priotrityList.splice(index, 1);
+  deleteButton(entity: any) {
+    console.log(entity)
   }
 }

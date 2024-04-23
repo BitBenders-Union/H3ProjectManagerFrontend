@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="h2-collapsbutton-container">
+        <h2>{{ heading }}</h2>
+        <button class="collapse-button" (click)="toggleVisibility()">
+            {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
+        </button>
+    </div>
+
+    <ul *ngIf="!isCollapsed">
+        <li class="li-container" *ngFor="let entity of entityList">
+            <div class="info-container">
+                <span class="span-name">{{ entity.name }}</span>
+                <input class="editInput" *ngIf="isEditing === entity" type="text" [(ngModel)]="entity.name" />
+
+            </div>
+            <div class="buttons-container">
+                <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
+                <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button> <button
+                    class="delete-button" (click)="deleteButton(entity)">Delete</button>
+
+            </div>
+        </li>
+    </ul>
+
+    <h3>{{ addEntityHeading }}</h3>
+    <form (ngSubmit)="addButton()">
+        <label for="name">{{ labelName }}</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newEntity.name" required>
+        <button class="add-button" type="submit">{{ addButtonText }}</button>
+    </form>
+</div>

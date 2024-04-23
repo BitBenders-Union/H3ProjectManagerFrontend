@@ -6,11 +6,18 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-adminpage-projecttaskstatus',
   imports: [CommonModule, FormsModule],
   standalone: true,
-  templateUrl: './adminpage-projecttaskstatus.component.html',
-  styleUrls: ['../admin-page-components.css'],
-  // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file})
+  templateUrl: '../adminpage-generic/adminpage-generic.component.html',
+  styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
+  // templateUrl: './adminpage-projecttaskstatus.component.html', // This is the standard html file  
+  // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
 })
 export class AdminpageProjecttaskstatusComponent implements OnInit {
+
+  heading: string = "Opgave status";
+  addEntityHeading: string = "Tilføj opgave status";
+  labelName: string = "Opgave status navn:";
+  addButtonText: string = "Tilføj opgave status";
+
   // Temp data
   entityList = [
     { name: 'Task status 1' },
