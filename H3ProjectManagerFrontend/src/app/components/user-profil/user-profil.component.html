@@ -1,0 +1,33 @@
+<div class="wrapper">
+
+  <div class="editProfilContainer">
+    <button class="editUserButton">Tilbage</button>
+  </div>
+
+  <div class="userInfoWrapper">
+    <div class="userInfo">
+
+      <div class="userLabel">
+        <label>Brugernavn: </label>
+        <label>Fornavn: </label>
+        <label>Efternavn: </label>
+        <label>Afdeling: </label>
+        <label>Oprettet: </label>
+      </div>
+
+      <div class="userInput">
+        <input type="text" placeholder="user.userName" disabled>
+        <input type="text" placeholder="user.firstName">
+        <input type="text" placeholder="user.lastName">
+        <select type="text" placeholder="user.Department">
+          <option value="">Vælg en afdeling</option>
+          <option *ngFor="let afdeling of afdelinger"></option>
+        </select>
+        <input type="text" placeholder="user.createdDate" disabled>
+      </div>
+    </div>
+
+    <div class="saveButton">
+      <button class="saveUserButton">Gem</button>
+    </div>
+  </div>

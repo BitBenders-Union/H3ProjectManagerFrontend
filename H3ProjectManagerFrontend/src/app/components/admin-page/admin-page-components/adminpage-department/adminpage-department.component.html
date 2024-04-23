@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="h2-collapsbutton-container">
+        <h2>Afdelinger</h2>
+        <button class="collapse-button" (click)="toggleVisibility()">
+            {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
+        </button>
+    </div>
+
+    <ul *ngIf="!isCollapsed">
+        <li class="li-container" *ngFor="let department of departmentList">
+            <div class="info-container">
+                <span class="span-name">{{ department.name }}</span>
+                <input class="editInput" *ngIf="isEditingDepartment === department" type="text" [(ngModel)]="department.name" />
+
+            </div>
+            <div class="buttons-container">
+                <button *ngIf="!isEditingDepartment" (click)="editDepartment(department)">Edit</button>
+                <button *ngIf="isEditingDepartment === department" (click)="saveDepartment(department)">Save</button>  <button class="delete-button" (click)="deleteDepartment(department)">Delete</button>
+
+            </div>
+        </li>
+    </ul>
+
+    <h3>Tilføj Afdeling</h3>
+    <form (ngSubmit)="addDepartment()">
+        <label for="name">Afdelings navn:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newDepartment.name" required>
+        <button class="add-button" type="submit">Tilføj Afdeling</button>
+    </form>
+</div>
