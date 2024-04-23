@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './adminpage-priority.component.html',
   imports: [CommonModule, FormsModule],
   standalone: true,
-  styleUrls: ['./adminpage-priority.component.css'],
+  styleUrls: ['../admin-page-components.css'],
+  // styleUrls: ['./adminpage-priority.component.css'], // This is the standard css file
 })
 export class AdminpagePriorityComponent implements OnInit {
 

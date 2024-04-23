@@ -1,5 +1,5 @@
 
-<div class="priority-container">
+<div class="container">
   <div class="h2-collapsbutton-container">
     <h2>Prioriter</h2>
     <button class="collapse-button" (click)="toggleVisibility()">
@@ -8,9 +8,9 @@
   </div>
 
   <ul *ngIf="!isCollapsed">
-    <li class="priority-li-container" *ngFor="let priority of priotrityList">
-      <div class="priority-info">
-        <span class="priority-name">{{ priority.name }}</span>  <input class="editInput" *ngIf="isEditingPriority === priority" type="text" [(ngModel)]="priority.name" />  
+    <li class="li-container" *ngFor="let priority of priotrityList">
+      <div class="info">
+        <span class="span-name">{{ priority.name }}</span>  <input class="editInput" *ngIf="isEditingPriority === priority" type="text" [(ngModel)]="priority.name" />  
       </div>
       <div class="buttons-container">
         <button *ngIf="!isEditingPriority" (click)="editPriority(priority)">Edit</button>

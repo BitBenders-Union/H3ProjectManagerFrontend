@@ -1,5 +1,16 @@
+/* .h2-collapsbutton-container{
+    display: flex;
+    justify-content: space-between;
+}
 
-.priority-li-container{    
+.collapse-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #727272;    
+    cursor: pointer;
+}
+
+.li-container{    
     margin: 10px;
     padding: 0px 5px;      
     border-bottom: 1px solid #000;
@@ -30,22 +41,7 @@ button{
     background-color: #f44336;
 }
 
-.collapse-button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #ccc;    
-    cursor: pointer;
-}
-
-.h2-collapsbutton-container{
-    display: flex;
-    justify-content: space-between;
-}
-
 .editInput{
     margin: 5px;
     padding: 3px;
-}
-
-
-
+} */

@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
   imports: [ CommonModule, FormsModule, ],
   standalone: true,
   templateUrl: './adminpage-department.component.html',
-  styleUrls: ['./adminpage-department.component.css']
+  styleUrls: ['../admin-page-components.css'],
+  // styleUrls: ['./adminpage-department.component.css'], // This is the standard css file 
 })
 export class AdminpageDepartmentComponent implements OnInit {
 

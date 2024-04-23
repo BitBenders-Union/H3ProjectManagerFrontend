@@ -1,4 +1,4 @@
-/* .h2-collapsbutton-container{
+.h2-collapsbutton-container{
     display: flex;
     justify-content: space-between;
 }
@@ -44,4 +44,4 @@ button{
 .editInput{
     margin: 5px;
     padding: 3px;
-} */
+}

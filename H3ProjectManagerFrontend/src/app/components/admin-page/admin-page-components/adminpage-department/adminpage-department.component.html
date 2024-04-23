@@ -1,4 +1,4 @@
-<div class="department-container">
+<div class="container">
     <div class="h2-collapsbutton-container">
         <h2>Afdelinger</h2>
         <button class="collapse-button" (click)="toggleVisibility()">
@@ -7,9 +7,9 @@
     </div>
 
     <ul *ngIf="!isCollapsed">
-        <li class="department-li-container" *ngFor="let department of departmentList">
-            <div class="department-info">
-                <span class="department-name">{{ department.name }}</span>
+        <li class="li-container" *ngFor="let department of departmentList">
+            <div class="info-container">
+                <span class="span-name">{{ department.name }}</span>
                 <input class="editInput" *ngIf="isEditingDepartment === department" type="text" [(ngModel)]="department.name" />
 
             </div>
