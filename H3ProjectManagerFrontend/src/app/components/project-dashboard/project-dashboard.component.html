@@ -1,32 +1,64 @@
 <div class="wrapper">
 
     <div class="overview">
+
         <div class="title">
+
             <h1>Projects</h1>
         </div>
+
         <div class="create">
+
             <button>Create Project</button>
         </div>
+
     </div>
     
     <div class="search-form">
+
         <form>
             <input type="search" placeholder="search" class="search-input">
-        </form>    
+        </form>
+
     </div>
 
 
     <div class="project-container">
+
         <div class="project-sort">
+
             <h2>Name</h2>
             <h2>Category</h2>
             <h2>User</h2>
-            <i class="settings-icon">***</i>
+
+            <div class="settings-icon">
+                <i class="settings-icon">***</i>
+            </div>
         </div>
+
         <hr>
-        <div class="projects" *ngFor="let item of list">
+
+        <div class="projects" *ngFor="let project of projectList; let i = index">
+            <div class="entries">
+
+                <h3>My Title {{i}}</h3>
+                <p>My Category</p>
+                <p>My User</p>
+                <i class="fa-solid fa-ellipsis-stroke"></i>
+                <!-- <i class="fa-solid fa-user"></i> -->
+
+
+            </div>
+            <div class="settings-icon">
+            </div>
+            <hr>
+
 
         </div>
-        
+
+
+
+            
     </div>
+
 </div>
