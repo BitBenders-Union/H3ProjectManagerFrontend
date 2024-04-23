@@ -1,8 +1,29 @@
-<div class="container">
+<div class="floating-menu">    
+    <div class="floating-menu-content">
+        <a (click)="scrollToSection('department')">- Afdelinger</a>
+        <a (click)="scrollToSection('priority')">- Prioriteter</a>
+        <a (click)="scrollToSection('location')">- Lokationer</a>
+        <a (click)="scrollToSection('projectstatus')">- Projekt status</a>
+        <a (click)="scrollToSection('projecttaskstatus')">- Task status</a>
+    </div>
+</div>
+
+<div id="department" class="container">
     <app-adminpage-department></app-adminpage-department>
 </div>
 
-<div class="container">
+<div id="priority" class="container">
     <app-adminpage-priority></app-adminpage-priority>
 </div>
 
+<div id="location" class="container">
+    <app-adminpage-location></app-adminpage-location>    
+</div>
+
+<div id="projectstatus" class="container">
+    <app-adminpage-projectstatus></app-adminpage-projectstatus>
+</div>
+
+<div id="projecttaskstatus" class="container">
+    <app-adminpage-projecttaskstatus></app-adminpage-projecttaskstatus>
+</div>

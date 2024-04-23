@@ -46,10 +46,7 @@ export class AdminpagePriorityComponent implements OnInit {
       this.isEditingPriority === priority ? null : priority;
   }
 
-  savePriority(priority: any) {
-    // Potentially add logic to save changes to the backend or local storage
-    // Here, you might update the priority data on your server or perform other actions
-    // after editing is complete.
+  savePriority(priority: any) {    
     this.isEditingPriority = null; // Stop editing after saving
   }
 
