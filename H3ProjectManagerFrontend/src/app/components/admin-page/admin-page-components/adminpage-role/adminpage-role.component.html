@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="h2-collapsbutton-container">
+    <h2>{{ heading }}</h2>
+    <button class="collapse-button" (click)="toggleVisibility()">
+      {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
+    </button>
+  </div>
+
+  <ul *ngIf="!isCollapsed">
+    <li class="li-container" *ngFor="let entity of entityList">
+      <div class="info-container">
+        <span class="span-name">{{ entity.name }}</span>
+        <input class="editInput" *ngIf="isEditing === entity" type="text" [(ngModel)]="entity.name" />
+        <br>
+        <span class="span-description">{{ entity.description }}</span>
+        <input class="editInput" *ngIf="isEditing === entity" type="text" [(ngModel)]="entity.description" />
+        <br>
+        <span class="span-isActive">{{ entity.isActive ? 'Active' : 'Inactive' }}</span>
+        <input class="editInput" *ngIf="isEditing === entity" type="checkbox" [(ngModel)]="entity.isActive" />
+
+      </div>
+      <div class="buttons-container">
+        <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
+        <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
+        <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  <h3>{{ addEntityHeading }}</h3>
+  <form (ngSubmit)="addButton()">
+    <div class="label-row">
+      <label for="name">{{ labelName }}</label>
+      <label for="description">{{ labelDescription }}</label>
+      <label for="isActive">Active</label>
+    </div>
+    
+    <div class="input-row">
+      <input type="text" id="name" name="name" [(ngModel)]="newEntity.name" required>
+      <input id="description" name="description" [(ngModel)]="newEntity.description" rows="3">
+      <input class="checkbox-container" type="checkbox" id="isActive" name="isActive" [(ngModel)]="newEntity.isActive">
+    </div>
+  
+    <div class="button-container">
+      <button class="add-button " type="submit" >{{ addButtonText }}</button>
+    </div>
+  
+    
+    
+  </form>
+  
+</div>
