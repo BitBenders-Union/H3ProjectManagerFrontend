@@ -6,11 +6,17 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-adminpage-department',
   imports: [ CommonModule, FormsModule, ],
   standalone: true,
-  templateUrl: './adminpage-department.component.html',
-  styleUrls: ['../admin-page-components.css'],
+  templateUrl: '../adminpage-generic/adminpage-generic.component.html',
+  styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
+  // templateUrl: './adminpage-department.component.html', // This is the standard html file
   // styleUrls: ['./adminpage-department.component.css'], // This is the standard css file 
 })
 export class AdminpageDepartmentComponent implements OnInit {
+
+  heading: string = "Afdelinger";
+  addEntityHeading: string = "Tilføj afdeling";
+  labelName: string = "Afdeling navn:";
+  addButtonText: string = "Tilføj afdeling";
 
    // Temp data
   entityList = [
