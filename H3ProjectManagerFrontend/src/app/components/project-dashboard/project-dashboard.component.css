@@ -40,7 +40,6 @@
 .project-sort{
     display: flex;
     justify-content: space-between;
-    margin: 10px 0;
     /* border: 1px dashed magenta; */
 
 
@@ -50,8 +49,8 @@
 
 .projects{
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
+    margin: 10px 0;
 
 }
 
