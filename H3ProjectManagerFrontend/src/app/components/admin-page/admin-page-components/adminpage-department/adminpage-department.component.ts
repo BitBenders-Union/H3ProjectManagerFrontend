@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
   // templateUrl: './adminpage-department.component.html', // This is the standard html file
-  // styleUrls: ['./adminpage-department.component.css'], // This is the standard css file 
+  // styleUrls: ['./adminpage-department.component.css'], // This is the standard css file
 })
 export class AdminpageDepartmentComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class AdminpageDepartmentComponent implements OnInit {
   ];
 
   newEntity = { name: '' };
-  
+
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
@@ -52,12 +52,12 @@ export class AdminpageDepartmentComponent implements OnInit {
     this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {    
+  saveButton(entity: any) {
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    console.log(entity)
+    this.entityList.splice(this.entityList.indexOf(entity), 1);
   }
 
 }

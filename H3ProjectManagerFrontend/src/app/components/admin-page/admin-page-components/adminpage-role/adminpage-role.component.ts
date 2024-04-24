@@ -24,7 +24,7 @@ export class AdminpageRoleComponent implements OnInit {
     { name: 'Role 3', description: 'Role 3 description', isActive : true},
     { name: 'Role 4', description: 'Role 4 description', isActive : true},
     { name: 'Role 5', description: 'Role 5 description', isActive : false}
-    
+
   ];
 
   newEntity = { name: '', description: '', isActive: true};
@@ -44,7 +44,7 @@ export class AdminpageRoleComponent implements OnInit {
 
   addButton() {
     this.entityList.push(this.newEntity);
-    this.newEntity = { name: '', description: '', isActive: true};  // Clear the input field    
+    this.newEntity = { name: '', description: '', isActive: true};  // Clear the input field
   }
 
   editButton(entity: any) {
@@ -52,12 +52,12 @@ export class AdminpageRoleComponent implements OnInit {
     this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {    
+  saveButton(entity: any) {
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    console.log(entity)
+    this.entityList.splice(this.entityList.indexOf(entity), 1);
   }
 
 }

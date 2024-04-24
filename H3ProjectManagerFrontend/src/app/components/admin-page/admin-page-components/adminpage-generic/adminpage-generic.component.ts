@@ -27,7 +27,7 @@ export class AdminpageGenericComponent implements OnInit {
   ];
 
   newEntity = { name: '' };
-  
+
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
@@ -51,12 +51,12 @@ export class AdminpageGenericComponent implements OnInit {
     this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {    
+  saveButton(entity: any) {
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    console.log(entity)
+    this.entityList.splice(this.entityList.indexOf(entity), 1);
   }
 
 }

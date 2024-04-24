@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
-  // templateUrl: './adminpage-projecttaskstatus.component.html', // This is the standard html file  
+  // templateUrl: './adminpage-projecttaskstatus.component.html', // This is the standard html file
   // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
 })
 export class AdminpageProjecttaskstatusComponent implements OnInit {
@@ -55,6 +55,6 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    console.log(entity);
+    this.entityList.splice(this.entityList.indexOf(entity), 1);
   }
 }
