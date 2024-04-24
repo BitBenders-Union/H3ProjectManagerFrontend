@@ -38,5 +38,25 @@ export class TokenService {
     localStorage.removeItem("RefreshToken");
     this.router.navigate(["/"])
   }
+
+  getIdFromToken(){
+    if(this.userPayLoad)
+      return this.userPayLoad.nameid;
+  }
+
+  getUsernameFromToken(){
+    if(this.userPayLoad)
+      return this.userPayLoad.username;
+  }
+
+  getFirstNameFromToken(){
+    if(this.userPayLoad)
+      return this.userPayLoad.firstname;
+  }
+
+  getLastNameFromToken(){
+    if(this.userPayLoad)
+      return this.userPayLoad.lastname;
+  }
   
 }
