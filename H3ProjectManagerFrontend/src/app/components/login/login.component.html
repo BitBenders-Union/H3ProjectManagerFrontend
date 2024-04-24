@@ -1,11 +1,13 @@
 <div class="container">
     <h1>Velkommen</h1>
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <label >Brugernavn:</label>
-        <input type="text" id="username" [(ngModel)]="loginModel.username" [ngModelOptions]="{standalone: true}" required placeholder="Brugernavn">
+        <input type="text" id="username" formControlName="username" placeholder="Brugernavn">
+        <span *ngIf="!loginForm.value.username.valid"> Username required</span>
         <label for="password">Adgangskode:</label>
-        <input type="password" id="password" [(ngModel)]="loginModel.password" [ngModelOptions]="{standalone: true}" required placeholder="Password">
-        <button type="submit">LOG IND</button>
+        <input type="password" id="password" formControlName="password" placeholder="Password">
+        <span *ngIf="!loginForm.value.password.valid"></span>
+        <button type="submit" [disabled]="!loginForm.valid">LOG IND</button>
     </form>
     <p>Har du ikke en konto? <a href="#">Tilmeld dig</a></p>
 </div>
