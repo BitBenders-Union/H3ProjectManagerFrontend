@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() { }
+  private userPayLoad: any;
+  constructor(private router: Router) {
+    this.userPayLoad = this.decodeToken();
+   }
 
   storeAccessToken(accessToken: string)
   {
@@ -17,5 +22,21 @@ export class TokenService {
     localStorage.setItem("RefreshToken", refreshToken);
   }
 
+  getToken(){
+    localStorage.getItem("AccessToken");
+  }
+
+  decodeToken() {
+    const token = this.getToken()!;
+    const jwtHelper = new JwtHelperService()
+
+    return jwtHelper.decodeToken(token);
+  }
+
+  signOut(){
+    localStorage.removeItem("AccessToken");
+    localStorage.removeItem("RefreshToken");
+    this.router.navigate(["/"])
+  }
   
 }
