@@ -14,25 +14,13 @@ export class ApiServiceService<TModel> {
 
   }
   
-  getAll() : Observable<TModel[]> {
-    return this.http.get<TModel[]>(this.url);
+  getAll(endpoint: string, userId: number) : Observable<TModel[]> {
+    return this.http.get<TModel[]>(this.url + endpoint + "/" + userId);
   }
 
 
-  delete(model: TModel) : boolean {
-    this.http.delete<TModel>(this.url, {
-      body: model
-    }).subscribe({
-      next: data => {
-        console.log(data);
-        return true;
-      },
-      error: error => {
-        console.error('There was an error!', error);
-        return false;
-      }
-    });
-    return false;
+  delete(endpoint: string, id: number) : Observable<any> {
+    return this.http.delete<TModel>(this.url + endpoint + "/" + id);
   }
 
 

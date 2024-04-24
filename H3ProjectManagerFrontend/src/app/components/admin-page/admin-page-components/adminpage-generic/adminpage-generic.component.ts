@@ -47,8 +47,7 @@ export class AdminpageGenericComponent implements OnInit {
   }
 
   editButton(entity: any) {
-    this.isEditing =
-    this.isEditing === entity ? null : entity;
+    this.isEditing = this.isEditing === entity ? null : entity;
   }
 
   saveButton(entity: any) {    

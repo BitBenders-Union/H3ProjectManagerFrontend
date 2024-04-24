@@ -1,3 +1,6 @@
+import { ProjectCategory } from "./ProjectCategory";
+import { User } from "./user";
+
 export class Project {
     public id? : number = 0;
     public name? : string = '';
@@ -8,7 +11,7 @@ export class Project {
 export interface ProjectDashboard{
     id: number;
     name: string;
-    category: string;
-    owner: string;
+    category: ProjectCategory;
+    owner: User;
 
 }
