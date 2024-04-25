@@ -1,4 +1,4 @@
-export class Token {
-    public accessToken? : string = '';
-    public refreshToken? : string = '';
+export class TokenModel {
+    public accessToken! : string
+    public refreshToken! : string
 }

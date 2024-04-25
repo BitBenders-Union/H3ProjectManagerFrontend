@@ -1,26 +1,53 @@
 import { Component } from '@angular/core';
 import { Login } from '../../models/Login';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
-
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApiServiceService } from '../../service/api-service.service';
+import { TokenModel } from '../../models/Token';
+import { error } from 'console';
+import { TokenService } from '../../service/token.service';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    ReactiveFormsModule
+
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
+
+  constructor(private service: ApiServiceService<TokenModel, Login>, private tokenService: TokenService) {    
+  }
+
+  endpoint: string = "Auth/Login"
+  token?: TokenModel
+
   loginModel: Login = {
     username: "",
     password: ""
   }
 
+  loginForm: FormGroup = new FormGroup({
+    username: new FormControl('',Validators.required),
+    password: new FormControl('',Validators.required)
+  })
+
   onSubmit(): void {
-    console.log(this.loginModel.username)
-    console.log(this.loginModel.password)
+    this.loginModel = this.loginForm.value
+    this.service.create(this.endpoint, this.loginModel).subscribe({
+      next: data => {
+        this.token = data
+        this.tokenService.storeAccessToken(this.token.accessToken);
+        this.tokenService.storeRefreshToken(this.token.refreshToken);
+        console.log(this.token)
+      },
+      error: error => {
+        console.error(error)
+      }
+    })
   }
 }
