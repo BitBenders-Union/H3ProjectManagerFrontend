@@ -1,4 +1,6 @@
+import { Priority } from "./Priority";
 import { ProjectCategory } from "./ProjectCategory";
+import { ProjectStatus } from "./ProjectStatus";
 import { User } from "./user";
 
 export class Project {
@@ -13,5 +15,16 @@ export interface ProjectDashboard{
     name: string;
     category: ProjectCategory;
     owner: User;
+
+}
+
+export interface ProjectCreate{
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    status: ProjectStatus
+    category: ProjectCategory;
+    priority: Priority;
+    ownerId: number;
 
 }

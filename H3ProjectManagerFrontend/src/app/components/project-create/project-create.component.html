@@ -1,0 +1,40 @@
+
+
+<div class="form-container">
+
+    <form action="" class="create-form" [formGroup]="projectForm" (ngSubmit)="create()">
+        <h1>Opret Project</h1>
+        <div class="form-group">
+            <label >Navn</label>
+            <input type="text" required>
+            <!-- Date Picker -->
+            <!-- Date Picker -->
+            <label>Start Dato</label>
+            <input type="date" required>
+            <label>Slut Dato</label>
+            <input type="date" required>
+            <label>Status</label>
+            <select>
+                <option value="" disabled selected>Vælg en status</option>
+                <option *ngFor="let item of status">{{item.name}}</option>
+            </select>
+            <label>Kategori</label>
+            <select >
+                <option value="" disabled selected>Vælg en kategori</option>
+                <option *ngFor="let item of category">{{item.name}}</option>
+            </select>
+            <label>Prioritet</label>
+            <select>
+                <option value="" disabled selected>Vælg en prioritet</option>
+                <option *ngFor="let item of priority">{{item.level}}: {{item.name}}</option>
+            </select>
+
+            
+        </div>
+        <div class="button-group">
+            <button class="cancel">Cancel</button>
+            <button class="submit">Submit</button>
+        </div>
+
+    </form>
+</div>
