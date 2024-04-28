@@ -1,3 +1,4 @@
+
 .h2-collapsbutton-container{
     display: flex;
     justify-content: space-between;
@@ -19,6 +20,32 @@
     align-items: center;
 }
 
+.editForm{
+    display: flex;
+    justify-content: space-between;    
+    align-items: center;
+    width: 100%;
+}
+.editLabelColumn{
+    display : flex;
+    flex-direction: column;    
+}
+
+.editInputColumn{
+    display : flex;
+    flex-direction: column;
+}
+
+
+.edit-Button-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editLabel, .editInput{
+    margin-bottom: 5px;    
+}
+
 button{
     margin: 10px;
     padding: 10px;
@@ -30,7 +57,7 @@ button{
 }
 
 .add-button{
-    background-color: #2ECC71;
+    background-color: #2ECC71;    
 }
 
 .update-button{
@@ -41,7 +68,36 @@ button{
     background-color: #f44336;
 }
 
-.editInput{
-    margin: 5px;
-    padding: 3px;
+
+.register-container h3{
+    margin: 10px 0px;    
+}
+
+.register-columns-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px 10px;    
+}
+
+.register-label-column{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.register-input-column{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.register-container label, input{
+    margin-bottom: 5px;
+}
+
+.button-column{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
 }

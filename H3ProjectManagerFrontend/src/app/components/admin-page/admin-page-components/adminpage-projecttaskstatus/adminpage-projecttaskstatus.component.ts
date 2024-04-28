@@ -1,10 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {  
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators, } from '@angular/forms';
+import { ProjectTaskStatus } from '../../../../models/ProjectTaskStatus';
 
 @Component({
   selector: 'app-adminpage-projecttaskstatus',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule , ReactiveFormsModule],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
@@ -18,8 +24,11 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   labelName: string = "Opgave status navn:";
   addButtonText: string = "Tilføj opgave status";
 
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
+
   // Temp data
-  entityList = [
+  entityList : ProjectTaskStatus[] = [
     { name: 'Task status 1' },
     { name: 'Task status 2' },
     { name: 'Task status 3' },
@@ -27,23 +36,33 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
     { name: 'Task status 5' },
   ];
 
-  newEntity = { name: '' };
+  newEntity : ProjectTaskStatus = { name: '' };
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor() {}
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+    });
+    this.editForm = this.fb.group({
+      newName: ['', Validators.required],
+    });
+  }
 
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
 
   addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '' }; // Clear the input field
+    if (this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.entityList.push(this.newEntity);
+      this.registerForm.reset();
+    }
   }
 
   editButton(entity: any) {
@@ -51,6 +70,10 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   }
 
   saveButton(entity: any) {
+    if (this.editForm.valid) { // Check if the form is valid
+      entity.name = this.editForm.value.newName; // Save the new name
+      this.editForm.reset(); // Clear the input field
+    }
     this.isEditing = null; // Stop editing after saving
   }
 
