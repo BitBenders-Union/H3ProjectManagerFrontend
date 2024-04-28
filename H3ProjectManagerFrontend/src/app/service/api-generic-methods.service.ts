@@ -20,6 +20,10 @@ export class ApiGenericMethodsService {
     return this.http.get<Tmodel[]>(`${this.url}${endpoint}`);
   }
 
+  getOne<TModel>(endpoint: string, id: number): Observable<TModel>{
+    return this.http.get<TModel>(`${this.url}${endpoint}/${id}`);
+  }
+
   post<TReturn, TInsert>(endpoint: string, userId: number, model: TInsert): Observable<TReturn>{
     return this.http.post<TReturn>(`${this.url}${endpoint}/${userId}`, model);
   }

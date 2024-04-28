@@ -1,9 +1,9 @@
-import { ProjectCreate } from './../../models/Project';
+import { Project, ProjectCreate } from './../../models/Project';
 import { Priority } from './../../models/Priority';
 import { ApiGenericMethodsService } from './../../service/api-generic-methods.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {  FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProjectStatus } from '../../models/ProjectStatus';
 import { ProjectCategory } from '../../models/ProjectCategory';
@@ -23,9 +23,9 @@ import { Router } from '@angular/router';
 export class ProjectCreateComponent implements OnInit {
   
   projectForm!: FormGroup
-  status: ProjectStatus[] = [];
-  category: ProjectCategory[] = [];
-  priority: Priority[] = [];
+  statusList: ProjectStatus[] = [];
+  categoryList: ProjectCategory[] = [];
+  priorityList: Priority[] = [];
   projectModel?: ProjectCreate;
 
   formIsValid: boolean = true;
@@ -37,62 +37,107 @@ export class ProjectCreateComponent implements OnInit {
     // create fromcontrols for formgroup
     this.projectForm = new FormGroup({
       name: new FormControl(),
-      startDate: new FormControl(),
-      endDate: new FormControl(),
-      status: new FormGroup({
-        id: new FormControl(),
-        name: new FormControl()
-      }),
-      category: new FormGroup({
-        id: new FormControl(),
-        name: new FormControl()
-      }),
-      priority: new FormGroup({
-        id: new FormControl(),
-        level: new FormControl(),
-        name: new FormControl()
-      }),
-      ownerId: new FormControl()
+      startDate: new FormControl("", Validators.required),
+      endDate: new FormControl("", Validators.required),
+      statusIndex: new FormControl("", Validators.required),
+      categoryIndex: new FormControl("", Validators.required),
+      priorityIndex: new FormControl("", Validators.required)
     })
 
     // fetch the required data to the form
+    // ownerId get from token
     // categories
-    // ownerId
     // priority
     // status
 
     this.service.getAllSimple<ProjectStatus>('ProjectStatus').subscribe({
       next: data => {
-        this.status = data;
+        this.statusList = data;
+      },
+      error: error => {
+        console.log(error.message);
+        // for testing purposes
+        // this.statusList = [{
+        //   id: 1,
+        //   name: "Active"
+        // }]
       }
     })
 
     this.service.getAllSimple<ProjectCategory>('ProjectCategory').subscribe({
       next: data => {
-        this.category = data;
+        this.categoryList = data;
+      },
+      error: error => {
+        console.log(error.message);
+        // for testing purposes
+        // this.categoryList = [{
+        //   id: 1,
+        //   name: "Software"
+        // }]
       }
     })
 
     this.service.getAllSimple<Priority>('Priority').subscribe({
       next: data => {
-        this.priority = data;
+        this.priorityList = data;
+      },
+      error: error => {
+        console.log(error.message);
+        // for testing purposes
+        // this.priorityList = [{
+        //   id: 1,
+        //   level: 1,
+        //   name: "Low"
+        // }]
       }
     })
 
-    
+    // get the current user id from token
 
-
-    
-    // this.service.getAddress();
   }
 
 
   create(){
     this.projectModel = this.projectForm.value;
-    if(this.formIsValid)
-      this.route.navigate(['/project-dashboard']);
+
+    this.formToModelMap();
+
+    if(this.projectModel != null || this.projectModel != undefined)
+      {
+        // TODO: change the hardcoded userId (in the post) to the current user id
+        this.service.post<Project, ProjectCreate>("Project", 1, this.projectModel!).subscribe({
+          next: data => {
+            this.route.navigate(['/project-dashboard'])
+          },
+          error: error => {
+            console.log(error.message);
+          }
+        })
+
+    }
 
   }
 
+  formToModelMap() {
+    // map the form to the model
+    console.log(this.projectForm.get('priority')?.value)
+    this.projectModel = {
+      name: this.projectForm.get('name')?.value,
+      startDate: this.projectForm.get('startDate')?.value,
+      endDate: this.projectForm.get('endDate')?.value,
+      status: this.statusList[this.projectForm.get('statusIndex')?.value],
+      category: this.categoryList[this.projectForm.get('categoryIndex')?.value],
+      priority: this.priorityList[this.projectForm.get('priorityIndex')?.value],
+      ownerId: 0 // get from token
+    }
+
+    console.log(this.projectModel)
+
+  }
+  
+
 
 }
+
+

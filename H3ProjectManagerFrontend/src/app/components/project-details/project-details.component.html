@@ -1,0 +1,65 @@
+
+
+<!-- here we display the chosen project's details and all of it's tasks -->
+
+<!-- 
+    we need the
+    Project Title
+    Project Category
+    Project Status
+    Project Priority
+    Project Start Date
+    Project End Date
+    Project Description
+    Project Tasks
+    Project Users
+ -->
+
+ <!-- 
+    the title, category, status, priority, start date, end date, description should be in this component
+    the tasks should be it's own component
+    the users should be it's own component - this componenet will display a list of usernames
+
+    left side should be the project details
+    right side should be the user list
+    below both should be the task list
+  -->
+
+<h1>{{project.name}}</h1>
+
+<div class="project-container">
+
+   <div class="column-container">
+      <div class="details-container">
+         <!-- for the project details -->
+         <p class="date">{{project.startDate}} - {{project.endDate}} </p>
+         <p class="status">{{project.status}}</p>
+         <p class="category">{{project.category}}</p>
+         <p class="priority">{{project.priority}}</p>
+         <p class="department">{{project.department}}</p>
+         <p class="client">{{project.client.name}}</p>
+         <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
+
+      </div>
+
+      <div class="user-container">
+         <!-- for the users -->
+         <ul>
+            <div class="user-item" *ngFor="let user of project.user">
+               <li>{{user.username}}</li>   
+            </div>
+         </ul>
+      </div>
+
+   </div>
+
+   <div class="task-container">
+         <!-- For the tasks -->
+      <div *ngIf="project.tasks">
+         <div class="task-item" *ngFor="let task of project.tasks" >
+            <app-task [task]="task" ></app-task>
+         </div>
+      </div>
+      <button class="create-task">Opret Task</button>
+   </div>
+</div>

@@ -2,7 +2,7 @@ import { ApiServiceService } from './../../service/api-service.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Project, ProjectDashboard } from '../../models/Project';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ProjectDashboardComponent implements OnInit {
   projectList : ProjectDashboard[] = []
 
   // make a service that gets all the projects for the user
-  constructor(private apiService: ApiGenericMethodsService) {}
+  constructor(private apiService: ApiGenericMethodsService, private route: Router) {}
 
   ngOnInit(){
     // call the service to get all the projects
@@ -32,9 +32,6 @@ export class ProjectDashboardComponent implements OnInit {
       },
       error: (error) => {
         console.error('There was an error in project-dashboard!', error.message);
-      },
-      complete: () => {
-        console.log("Complete");
       }
     })
 
@@ -42,11 +39,9 @@ export class ProjectDashboardComponent implements OnInit {
   }
 
   navigateToProjectDetails(index: number){
-    console.log(index);
+    this.route.navigate(['/project-details', this.projectList[index].id]);
   }
 
-  createNewProject(){
-    
-  }
+
 
 }

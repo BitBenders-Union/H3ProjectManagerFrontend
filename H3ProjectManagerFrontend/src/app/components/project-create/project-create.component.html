@@ -6,34 +6,30 @@
         <h1>Opret Project</h1>
         <div class="form-group">
             <label >Navn</label>
-            <input type="text" required>
-            <!-- Date Picker -->
-            <!-- Date Picker -->
+            <input type="text" formControlName="name" required placeholder="Projekt Navn">
             <label>Start Dato</label>
-            <input type="date" required>
+            <input type="date" required formControlName="startDate">
             <label>Slut Dato</label>
-            <input type="date" required>
-            <label>Status</label>
-            <select>
-                <option value="" disabled selected>Vælg en status</option>
-                <option *ngFor="let item of status">{{item.name}}</option>
-            </select>
-            <label>Kategori</label>
-            <select >
-                <option value="" disabled selected>Vælg en kategori</option>
-                <option *ngFor="let item of category">{{item.name}}</option>
-            </select>
-            <label>Prioritet</label>
-            <select>
-                <option value="" disabled selected>Vælg en prioritet</option>
-                <option *ngFor="let item of priority">{{item.level}}: {{item.name}}</option>
-            </select>
-
-            
+            <input type="date" required formControlName="endDate">
+                <label>Status</label>
+                <select formGroupName="statusIndex">
+                        <option [ngValue]="" disabled selected>Vælg en status</option>
+                        <option *ngFor="let item of statusList; let i = index" [ngValue]="i" >{{item.name}} </option>
+                </select>
+                <label>Kategori</label>
+                <select formGroupName="categoryIndex">
+                    <option [ngValue]="" disabled selected>Vælg en kategori</option>
+                    <option *ngFor="let item of categoryList; let i = index" [ngValue]="i">{{item.name}}</option>
+                </select>
+                <label>Prioritet</label>
+                <select formGroupName="priorityIndex">
+                    <option [ngValue]="" disabled selected>Vælg en prioritet</option>
+                    <option *ngFor="let item of priorityList; let i = index" [ngValue]="i">{{item.name}}</option>
+                </select>
         </div>
         <div class="button-group">
-            <button class="cancel">Cancel</button>
-            <button class="submit">Submit</button>
+            <button class="cancel" type="reset" routerLink="/project-dashboard">Cancel</button>
+            <button class="submit" type="submit">Submit</button>
         </div>
 
     </form>

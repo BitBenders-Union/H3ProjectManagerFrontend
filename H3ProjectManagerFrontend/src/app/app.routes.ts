@@ -7,6 +7,7 @@ import { UserRegistrationComponent } from './components/userRegistration/userReg
 import { UserProfilComponent } from './components/user-profil/user-profil.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { ProjectCreateComponent } from './components/project-create/project-create.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 
 export const routes: Routes = [
   { path: '', component: FrontpageComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'project-dashboard', component: ProjectDashboardComponent},
   { path: 'admin-page', component: AdminPageComponent},
   { path: 'project-create', component: ProjectCreateComponent},
+  { path: 'project-details/:id', component: ProjectDetailsComponent}
   
 ];
