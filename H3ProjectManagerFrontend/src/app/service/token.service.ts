@@ -22,12 +22,12 @@ export class TokenService {
     localStorage.setItem("RefreshToken", refreshToken);
   }
 
-  getToken(){
+  static getToken(){
     localStorage.getItem("AccessToken");
   }
 
-  decodeToken() {
-    const token = this.getToken()!;
+  decodeToken(){
+    const token = TokenService.getToken()!;
     const jwtHelper = new JwtHelperService()
 
     return jwtHelper.decodeToken(token);
@@ -46,7 +46,7 @@ export class TokenService {
 
   getUsernameFromToken(){
     if(this.userPayLoad)
-      return this.userPayLoad.username;
+      return this.userPayLoad.name;
   }
 
   getFirstNameFromToken(){
