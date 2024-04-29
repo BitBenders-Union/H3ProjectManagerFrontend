@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { TokenModel } from '../models/Token';
+import { Observable, Subject, catchError, of, retry, switchMap, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
+  url: string = environment.apiUrl;
   private userPayLoad: any;
-  constructor(private router: Router) {
+  constructor(private router: Router, private http: HttpClient) {
     this.userPayLoad = this.decodeToken();
    }
 
@@ -22,12 +27,15 @@ export class TokenService {
     localStorage.setItem("RefreshToken", refreshToken);
   }
 
-  static getToken(){
-    localStorage.getItem("AccessToken");
+  getAccessToken(){
+    return localStorage.getItem("AccessToken");
+  }
+  getRefreshToken(){
+    return localStorage.getItem("RefreshToken");
   }
 
   decodeToken(){
-    const token = TokenService.getToken()!;
+    const token = this.getAccessToken()!;
     const jwtHelper = new JwtHelperService()
 
     return jwtHelper.decodeToken(token);
@@ -58,5 +66,24 @@ export class TokenService {
     if(this.userPayLoad)
       return this.userPayLoad.lastname;
   }
-  
+
+  renewToken(): Observable<TokenModel>{
+    const token = new TokenModel();
+    token.accessToken = this.getAccessToken()!;
+    token.refreshToken = this.getRefreshToken()!;
+
+    if(!token.accessToken || !token.refreshToken)
+      this.signOut();
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<TokenModel>(this.url + "Auth/RefreshToken", token, {headers}).pipe(
+      (retry(2)),
+      catchError((err: any) => {
+        return throwError(() => {
+          this.signOut()
+          this.router.navigate(["/"])
+        });
+      })
+    );
+  }
 }
