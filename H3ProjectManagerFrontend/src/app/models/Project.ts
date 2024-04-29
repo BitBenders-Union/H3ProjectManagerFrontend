@@ -1,3 +1,11 @@
+import { Client } from "./Client";
+import { Department } from "./Department";
+import { Priority } from "./Priority";
+import { ProjectCategory } from "./ProjectCategory";
+import { ProjectStatus } from "./ProjectStatus";
+import { ProjectTaskDetails } from "./ProjectTask";
+import { User } from "./user";
+
 export class Project {
     public id? : number = 0;
     public name? : string = '';
@@ -8,7 +16,33 @@ export class Project {
 export interface ProjectDashboard{
     id: number;
     name: string;
-    category: string;
-    owner: string;
+    category: ProjectCategory;
+    owner: User;
 
+}
+
+export interface ProjectCreate{
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    status: ProjectStatus
+    category: ProjectCategory;
+    priority: Priority;
+    ownerId: number;
+
+}
+
+export interface ProjectDetails{
+    id: number;
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    status: ProjectStatus;
+    tasks: ProjectTaskDetails[];
+    category: ProjectCategory;
+    priority: Priority;
+    client: Client;
+    department: Department[];
+    user: User[];
+    ownerId: number;
 }
