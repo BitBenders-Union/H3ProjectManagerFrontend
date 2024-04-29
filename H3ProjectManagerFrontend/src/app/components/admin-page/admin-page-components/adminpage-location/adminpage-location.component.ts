@@ -63,12 +63,13 @@ export class AdminpageLocationComponent implements OnInit {
   }
 
   toggleVisibility() {
-    this.isCollapsed = !this.isCollapsed;
+    this.isCollapsed = !this.isCollapsed; // Toggle the visibility of the form
   }
 
   addButton() {
-    console.log(this.registerForm.value);
-    this.newEntity = this.registerForm.value;
+    if(this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+    }
 
     this.apiService.post<ProjectLocation, ProjectLocation>('Location', this.newEntity, undefined)
       .subscribe((data) => {
