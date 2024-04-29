@@ -1,0 +1,4 @@
+ProjectCategory - kræver mere end bare "string"
+
+ProjectStatus - Hvor er den ? - eller hvad er den ? -den er i api, har jeg glemt den ?
+

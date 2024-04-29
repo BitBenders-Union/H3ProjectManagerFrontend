@@ -8,6 +8,7 @@ import {
   Validators, } from '@angular/forms';
 import { Project } from '../../../../models/Project';
 import { ProjectTaskCategory } from '../../../../models/ProjectTaskCategory';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projecttaskcategory',
@@ -29,13 +30,7 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : ProjectTaskCategory[] = [
-    { name: 'Task category 1' },
-    { name: 'Task category 2' },
-    { name: 'Task category 3' },
-    { name: 'Task category 4' },
-    { name: 'Task category 5' },
-  ];
+  entityList : ProjectTaskCategory[] = [];
 
   newEntity : ProjectTaskCategory = { name: '' };
 
@@ -43,7 +38,10 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -51,6 +49,10 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
     });
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
+    });
+
+    this.apiService.getAllSimple<ProjectTaskCategory>('ProjectTaskCategory').subscribe((data) => {
+      this.entityList = data;
     });
   }
 
@@ -61,8 +63,11 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
   addButton() {
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
-      this.entityList.push(this.newEntity);
       this.registerForm.reset();
+      this.apiService.post<ProjectTaskCategory, ProjectTaskCategory>('ProjectTaskCategory', this.newEntity).subscribe((data) => {
+        this.entityList.push(data);
+
+      });      
     }
   }
 
@@ -80,7 +85,9 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    this.apiService.delete<ProjectTaskCategory, number>('ProjectTaskCategory', entity.id).subscribe(() => {
+      this.entityList.splice(this.entityList.indexOf(entity), 1);
+    });
   }
 
 }

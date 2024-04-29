@@ -20,6 +20,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./adminpage-location.component.css'], // This is the standard css file
 })
 export class AdminpageLocationComponent implements OnInit {
+
+  // Variables for the html file
   heading: string = 'Lokationer';
   addEntityHeading: string = 'Tilføj lokation';
   labelName: string = 'Lokation navn:';
@@ -58,7 +60,6 @@ export class AdminpageLocationComponent implements OnInit {
       .getAllSimple<ProjectLocation>('Location')
       .subscribe((data) => {
         this.entityList = data;
-        console.log(this.entityList);
       });
   }
 
@@ -69,13 +70,13 @@ export class AdminpageLocationComponent implements OnInit {
   addButton() {
     if(this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
-    }
+      this.registerForm.reset(); // Clear the input field
 
-    this.apiService.post<ProjectLocation, ProjectLocation>('Location', this.newEntity, undefined)
+      this.apiService.post<ProjectLocation, ProjectLocation>('Location', this.newEntity, undefined)
       .subscribe((data) => {
         this.entityList.push(data);
       });
-    this.registerForm.reset(); // Clear the input field
+    }
   }
 
   editButton(entity: any) {
@@ -91,7 +92,7 @@ export class AdminpageLocationComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    this.apiService.delete<ProjectLocation, number>('Location?id=', entity.id).subscribe(data => {
+    this.apiService.delete<ProjectLocation, number>('Location', entity.id).subscribe(data => {
       // Compare the id of the entity we want to delete with the id of the entities in the list
       // If the id is the same, remove the entity from the list else keep it
       this.entityList = this.entityList.filter(item => item.id !== entity.id);

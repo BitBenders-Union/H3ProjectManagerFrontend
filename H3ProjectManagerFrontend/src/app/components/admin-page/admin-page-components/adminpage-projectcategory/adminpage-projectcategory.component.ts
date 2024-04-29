@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  
+import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators, } from '@angular/forms';
+  Validators,
+} from '@angular/forms';
 import { Project } from '../../../../models/Project';
 import { ProjectCategory } from '../../../../models/ProjectCategory';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projectcategory',
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
@@ -19,31 +21,27 @@ import { ProjectCategory } from '../../../../models/ProjectCategory';
   // styleUrls: ['./adminpage-projectcategory.component.css'] // This is the standard css file
 })
 export class AdminpageProjectcategoryComponent implements OnInit {
-
-  heading: string = "Projekt kategorier";
-  addEntityHeading: string = "Tilføj projekt kategori";
-  labelName: string = "Projekt kategori navn:";
-  addButtonText: string = "Tilføj projekt kategori";
+  heading: string = 'Projekt kategorier';
+  addEntityHeading: string = 'Tilføj projekt kategori';
+  labelName: string = 'Projekt kategori navn:';
+  addButtonText: string = 'Tilføj projekt kategori';
 
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : ProjectCategory[] = [
-    { name: 'Project category 1' },
-    { name: 'Project category 2' },
-    { name: 'Project category 3' },
-    { name: 'Project category 4' },
-    { name: 'Project category 5' }
-  ];
+  entityList: ProjectCategory[] = [];
 
-  newEntity : ProjectCategory = { name: '' };
+  newEntity: ProjectCategory = { name: '' };
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -52,6 +50,12 @@ export class AdminpageProjectcategoryComponent implements OnInit {
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
     });
+
+    // this.apiService
+    //   .getAllSimple<ProjectCategory>('ProjectCategory')
+    //   .subscribe((data) => {
+    //     this.entityList = data;
+    //   });
   }
 
   toggleVisibility() {
@@ -61,18 +65,23 @@ export class AdminpageProjectcategoryComponent implements OnInit {
   addButton() {
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
-      this.entityList.push(this.newEntity);
       this.registerForm.reset();
+
+      // this.apiService
+      //   .post<ProjectCategory, ProjectCategory>('ProjectCategory', this.newEntity)
+      //   .subscribe((data) => {
+      //     this.entityList.push(data);
+      //   });
     }
   }
 
   editButton(entity: any) {
-    this.isEditing =
-    this.isEditing === entity ? null : entity;
+    this.isEditing = this.isEditing === entity ? null : entity;
   }
 
   saveButton(entity: any) {
-    if (this.editForm.valid) { // Check if the form is valid
+    if (this.editForm.valid) {
+      // Check if the form is valid
       entity.name = this.editForm.value.newName; // Save the new name
       this.editForm.reset(); // Clear the input field
     }
@@ -80,6 +89,8 @@ export class AdminpageProjectcategoryComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    // this.apiService.delete<ProjectCategory, number>('ProjectCategory', entity.id).subscribe((data) => {
+    //   this.entityList = this.entityList.filter((e) => e !== entity);
+    // });
   }
 }

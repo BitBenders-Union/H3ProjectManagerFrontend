@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators, } from '@angular/forms';
 import { ProjectTaskStatus } from '../../../../models/ProjectTaskStatus';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projecttaskstatus',
@@ -28,13 +29,7 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : ProjectTaskStatus[] = [
-    { name: 'Task status 1' },
-    { name: 'Task status 2' },
-    { name: 'Task status 3' },
-    { name: 'Task status 4' },
-    { name: 'Task status 5' },
-  ];
+  entityList : ProjectTaskStatus[] = [];
 
   newEntity : ProjectTaskStatus = { name: '' };
 
@@ -42,7 +37,10 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -50,6 +48,10 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
     });
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
+    });
+
+    this.apiService.getAllSimple<ProjectTaskStatus>('ProjectTaskStatus').subscribe((data) => {
+      this.entityList = data;
     });
   }
 

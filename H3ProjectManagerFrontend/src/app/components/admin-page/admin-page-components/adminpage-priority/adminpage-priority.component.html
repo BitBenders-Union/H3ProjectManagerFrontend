@@ -25,10 +25,10 @@
         <div class="edit-Button-container">
           <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
           <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
-          <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
         </div>
-
+        
       </form>
+      <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
     </li>
   </ul>
 
@@ -41,9 +41,9 @@
           <label for="regLevel">{{ labelLevel }}</label>
         </div>
         <div class="register-input-column">
-          <input type="text" id="regName" name="name" class="form-control" formControlName="name" placeholder="Name"
+          <input type="text" id="regName" class="form-control" formControlName="name" placeholder="Name"
             required />
-          <input type="text" id="regLevel" name="levl" class="form-control" formControlName="level"
+          <input type="number" min="0" max="5" id="regLevel" name="levl" class="form-control" formControlName="level"
             placeholder="Level" required />
         </div>
       </div>

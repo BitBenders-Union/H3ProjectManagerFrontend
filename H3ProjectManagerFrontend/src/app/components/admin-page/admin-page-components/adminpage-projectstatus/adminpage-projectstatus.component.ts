@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators, } from '@angular/forms';
 import { ProjectStatus } from '../../../../models/ProjectStatus';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projectstatus',
@@ -28,13 +29,7 @@ export class AdminpageProjectstatusComponent implements OnInit {
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : ProjectStatus[] = [
-    { name: 'Projekt status 1' },
-    { name: 'Projekt status 2' },
-    { name: 'Projekt status 3' },
-    { name: 'Projekt status 4' },
-    { name: 'Projekt status 5' }
-  ];
+  entityList : ProjectStatus[] = [];
 
   newEntity : ProjectStatus = { name: '' };
 
@@ -42,7 +37,10 @@ export class AdminpageProjectstatusComponent implements OnInit {
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -51,6 +49,10 @@ export class AdminpageProjectstatusComponent implements OnInit {
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
     });
+
+    // this.apiService.getAllSimple<ProjectStatus>('ProjectStatus').subscribe((data) => {
+    //   this.entityList = data;
+    // });
   }
 
   toggleVisibility() {
@@ -60,8 +62,11 @@ export class AdminpageProjectstatusComponent implements OnInit {
   addButton() {
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
-      this.entityList.push(this.newEntity);
       this.registerForm.reset();
+
+      // this.apiService.post<ProjectStatus, ProjectStatus>('ProjectStatus', this.newEntity).subscribe((data) => {
+      //   this.entityList.push(data);
+      // });
     }    
   }
 

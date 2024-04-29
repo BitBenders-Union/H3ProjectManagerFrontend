@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators, } from '@angular/forms';
 import { Priority } from '../../../../models/Priority';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-priority',
@@ -27,14 +28,7 @@ export class AdminpagePriorityComponent implements OnInit {
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : Priority[]= [
-    { name: 'Priority 1', level: 1 },
-    { name: 'Priority 2', level: 2 },
-    { name: 'Priority 3', level: 3 },
-    { name: 'Priority 4', level: 4 },
-    { name: 'Priority 5', level: 5 }
-
-  ];
+  entityList : Priority[]= [];
 
   newEntity : Priority = { name: '', level: 0 }; // For adding new entity and reseting the input fields
 
@@ -42,7 +36,10 @@ export class AdminpagePriorityComponent implements OnInit {
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -53,6 +50,10 @@ export class AdminpagePriorityComponent implements OnInit {
       newName: ['', Validators.required],
       newLevel: ['', Validators.required]
     });
+
+    this.apiService.getAllSimple<Priority>('Priority').subscribe((data) => {
+      this.entityList = data;
+    });
   }
 
   toggleVisibility() {
@@ -60,8 +61,15 @@ export class AdminpagePriorityComponent implements OnInit {
   }
 
   addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '' };  // Clear the input field
+    console
+    if (this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.registerForm.reset();      
+
+      this.apiService.post<Priority, Priority>('Priority', this.newEntity).subscribe((data) => {
+        this.entityList.push(data);
+      });
+    }    
   }
 
   editButton(entity: any) {
@@ -74,6 +82,8 @@ export class AdminpagePriorityComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    this.apiService.delete<Priority, number>('Priority', entity.id).subscribe(data => {
+      this.entityList = this.entityList.filter((e) => e !== entity);
+    });
   }
 }

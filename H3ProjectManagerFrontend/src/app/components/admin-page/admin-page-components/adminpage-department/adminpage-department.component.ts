@@ -6,6 +6,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators, } from '@angular/forms';import { Department } from '../../../../models/Department';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-department',
@@ -27,13 +28,7 @@ export class AdminpageDepartmentComponent implements OnInit {
   editForm!: FormGroup; // Form group for the edit fields
 
    // Temp data
-  entityList : Department[] = [
-    { name: 'Department 1' },
-    { name: 'Department 2' },
-    { name: 'Department 3' },
-    { name: 'Department 4' },
-    { name: 'Department 5' }
-  ];
+  entityList : Department[] = [];
 
   newEntity : Department = new Department();
 
@@ -41,7 +36,10 @@ export class AdminpageDepartmentComponent implements OnInit {
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder) { }
+  constructor( 
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -50,6 +48,10 @@ export class AdminpageDepartmentComponent implements OnInit {
     });
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
+    });
+
+    this.apiService.getAllSimple<Department>('Department').subscribe((data) => {
+      this.entityList = data;
     });
   }
 
@@ -60,9 +62,13 @@ export class AdminpageDepartmentComponent implements OnInit {
   addButton() {    
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
-      this.entityList.push(this.newEntity);
       this.registerForm.reset();
     }
+
+    this.apiService.post<Department, Department>('Department', this.newEntity, undefined)
+      .subscribe((data) => {
+        this.entityList.push(data);
+      });
   }
 
   editButton(entity: any) {
@@ -78,6 +84,8 @@ export class AdminpageDepartmentComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    this.apiService.delete<Department, number>('Department', entity.id).subscribe(data => {
+      this.entityList = this.entityList.filter((t) => t.id !== entity.id);
+    });
   }
 }

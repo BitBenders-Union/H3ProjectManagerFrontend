@@ -6,53 +6,54 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators, } from '@angular/forms';
+  Validators,
+} from '@angular/forms';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 @Component({
   selector: 'app-adminpage-role',
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: './adminpage-role.component.html',
-  styleUrls: ['./adminpage-role.component.css']
+  styleUrls: ['./adminpage-role.component.css'],
 })
 export class AdminpageRoleComponent implements OnInit {
-
-  heading: string = "Roller";
-  addEntityHeading: string = "Tilføj rolle";
-  labelName: string = "Rolle navn:";
-  labelDescription: string = "Beskrivelse:";
-  addButtonText: string = "Tilføj rolle";
+  heading: string = 'Roller';
+  addEntityHeading: string = 'Tilføj rolle';
+  labelName: string = 'Rolle navn:';
+  labelDescription: string = 'Beskrivelse:';
+  addButtonText: string = 'Tilføj rolle';
 
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : Role[]= [
-    { name: 'Role 1', description: 'Role 1 description', isActive : true},
-    { name: 'Role 2', description: 'Role 2 description', isActive : true},
-    { name: 'Role 3', description: 'Role 3 description', isActive : true},
-    { name: 'Role 4', description: 'Role 4 description', isActive : true},
-    { name: 'Role 5', description: 'Role 5 description', isActive : false}
+  entityList: Role[] = [];
 
-  ];
-
-  newEntity : Role = { name: '', description: '', isActive: true};
+  newEntity: Role = { name: '', description: '', isActive: true };
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb : FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      isActive: [true, Validators.required]
+      isActive: [true, Validators.required],
     });
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
       newDescription: ['', Validators.required],
-      newIsActive: [true, Validators.required]
+      newIsActive: [true, Validators.required],
+    });
+
+    this.apiService.getAllSimple<Role>('Role').subscribe((data) => {
+      this.entityList = data;
     });
   }
 
@@ -61,13 +62,19 @@ export class AdminpageRoleComponent implements OnInit {
   }
 
   addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '', description: '', isActive: true};  // Clear the input field
+    if (this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.apiService
+        .post<Role, Role>('Role', this.newEntity)
+        .subscribe((data) => {
+          this.entityList.push(data);
+        });
+      this.registerForm.reset();
+    }
   }
 
   editButton(entity: any) {
-    this.isEditing =
-    this.isEditing === entity ? null : entity;
+    this.isEditing = this.isEditing === entity ? null : entity;
   }
 
   saveButton(entity: any) {
@@ -75,7 +82,8 @@ export class AdminpageRoleComponent implements OnInit {
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    this.apiService.delete<Role, number>('Role', entity.id).subscribe((data) => {
+      this.entityList.splice(this.entityList.indexOf(entity), 1);
+    });
   }
-
 }

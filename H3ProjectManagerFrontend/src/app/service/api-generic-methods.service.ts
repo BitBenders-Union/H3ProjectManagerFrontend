@@ -32,7 +32,7 @@ export class ApiGenericMethodsService {
   }
 
   delete<TReturn, TDelete>(endpoint: string, id: number): Observable<TReturn>{    
-    return this.http.delete<TReturn>(`${this.url}${endpoint}${id}`);
+    return this.http.delete<TReturn>(`${this.url}${endpoint+'?id='}${id}`);
   }
   
 
