@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {  
+import {
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -30,7 +30,7 @@ export class AdminpageGenericComponent implements OnInit {
     { name: 'Something 2' },
     { name: 'Something 3' },
     { name: 'Something 4' },
-    { name: 'Something 5' }    
+    { name: 'Something 5' }
   ];
 
   newEntity = { name: '' };
@@ -59,12 +59,10 @@ export class AdminpageGenericComponent implements OnInit {
     this.newEntity = this.registerForm.value;
     this.entityList.push(this.newEntity);
     this.registerForm.reset();
-    
+
   }
 
   editButton(entity: any) {
-    // Toggle editing, if isEditing is null, set it to the entity, else set it to null
-    // This will show the edit form for the entity
     this.isEditing = this.isEditing === entity ? null : entity;
   }
 
