@@ -26,7 +26,7 @@ export class ProjectDashboardComponent implements OnInit {
     // call the service to get all the projects
 
     this.apiService.getAll<ProjectDashboard>("Project/getAll", 1).subscribe({
-      next: (data) => {
+      next: (data: ProjectDashboard[]) => {
         console.log(data);
         this.projectList = data;
       },

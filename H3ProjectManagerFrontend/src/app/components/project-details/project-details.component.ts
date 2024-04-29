@@ -43,6 +43,92 @@ export class ProjectDetailsComponent implements OnInit{
       },
       error: (error: Error) => {
         console.log(error.message);
+        this.project = {
+          id: 0,
+          name: 'Project - Title',
+          ownerId: 0,
+          startDate: new Date(),
+          endDate: new Date(),
+          status: {
+            id: 0,
+            name: 'Status - Name',
+          
+          },
+          tasks: [
+            {
+              id: 0,
+              name: 'Project not found',
+              description: 'Project not found',
+              projectId: 0,
+              priority: {
+                id: 0,
+                name: 'Project not found',
+              },
+              status: {
+                id: 0,
+                name: 'Project not found',
+              },
+              projectTaskCategory: {
+                id: 0,
+                name: 'Project not found',
+              },
+              userDetail: [],
+              comments: []
+            },
+            {
+              id: 1,
+              name: 'Project not found',
+              description: 'Project not found',
+              projectId: 0,
+              priority: {
+                id: 0,
+                name: 'Project not found',
+              },
+              status: {
+                id: 0,
+                name: 'Project not found',
+              },
+              projectTaskCategory: {
+                id: 0,
+                name: 'Project not found',
+              },
+              userDetail: [],
+              comments: []
+            }
+          ],
+          category: {
+            id: 0,
+            name: 'Category - Name',
+          },
+          priority: {
+            id: 0,
+            name: 'Priority - Name',
+          },
+          client: {
+            id: 0,
+            name: 'Client - Name',
+          },
+          department: [
+            {
+              id: 0,
+              name: 'Department - Name',
+            }
+          ],
+          user: [
+            {
+              id: 0,
+              username: 'User 1',
+              firstName: 'First',
+              lastName: 'Last',
+            },
+            {
+              id: 1,
+              username: 'bob',
+              firstName: 'bob',
+              lastName: 'bob',
+            }
+          ]
+        }
         // this.route.navigate(['/project-dashboard']);
       }
     })

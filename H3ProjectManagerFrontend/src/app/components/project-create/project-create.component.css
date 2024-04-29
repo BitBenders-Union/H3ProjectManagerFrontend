@@ -1,45 +1,54 @@
 .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
 
-  .create-form {
-    background-color: #fff;
-    border-radius: 5px;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
-    padding: 2rem;
-    width: 400px; /* Adjust width as needed */
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    margin: 10px 0;
-  }
-  
-  .form-group input[type="text"],
-  .form-group input[type="date"],
-  .form-group select {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box; /* Ensures content fits within width */
-  }
+.create-form {
+  background-color: #fff;
+  border-radius: 5px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  padding: 2rem;
+  width: 400px; /* Adjust width as needed */
+}
 
-  .button-group {
-    display: flex;
-    justify-content: space-between;
+.form-group {
+  margin-bottom: 1rem;
+}
 
-  }
+.form-group label{
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
 
-  .cancel{
-    background-color: red;
-  }
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Ensures content fits within width */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.cancel{
+  background-color: rgb(255, 0, 0);
+}
+
+.cancel:hover{
+  background-color: #b10000;
+}
+
+
+.ng-invalid.ng-touched input:not(.ng-untouched):not(.ng-valid){
+  border: 1px solid red;
+}

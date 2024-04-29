@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
     RouterLink
   ],
   templateUrl: './project-create.component.html',
-  styleUrl: './project-create.component.css'
+  styleUrls: ['./project-create.component.css', '../../app.component.css']
 })
 export class ProjectCreateComponent implements OnInit {
   
@@ -36,8 +36,14 @@ export class ProjectCreateComponent implements OnInit {
 
     // create fromcontrols for formgroup
     this.projectForm = new FormGroup({
-      name: new FormControl(),
-      startDate: new FormControl("", Validators.required),
+      name: new FormControl("", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
+      ]),
+      startDate: new FormControl("", [
+        Validators.required,
+      ]),
       endDate: new FormControl("", Validators.required),
       statusIndex: new FormControl("", Validators.required),
       categoryIndex: new FormControl("", Validators.required),
