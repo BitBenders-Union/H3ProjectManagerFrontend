@@ -112,7 +112,7 @@ export class ProjectCreateComponent implements OnInit {
     if(this.projectModel != null || this.projectModel != undefined)
       {
         // TODO: change the hardcoded userId (in the post) to the current user id
-        this.service.post<Project, ProjectCreate>("Project", 1, this.projectModel!).subscribe({
+        this.service.post<Project, ProjectCreate>("Project", this.projectModel!, 1).subscribe({
           next: data => {
             this.route.navigate(['/project-dashboard'])
           },

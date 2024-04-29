@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProjectLocation } from '../../../../models/ProjectLocation';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-adminpage-location',
@@ -28,16 +29,8 @@ export class AdminpageLocationComponent implements OnInit {
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-
-
-  //Temp data - will be replaced by API call
-  entityList: ProjectLocation[] = [
-    // { id: 0, name: 'Location 1', address: 'Address 1' },
-    // { id: 1, name: 'Location 2', address: 'Address 2' },
-    // { id: 2, name: 'Location 3', address: 'Address 3' },
-    // { id: 3, name: 'Location 4', address: 'Address 4' },
-    // { id: 4, name: 'Location 5', address: 'Address 5' },
-  ];
+  // List of entities to be displayed when the page is loaded gets data from the database from onInit
+  entityList: ProjectLocation[] = [];
 
   //For adding new entity and reseting the input fields
   newEntity: ProjectLocation = new ProjectLocation();
@@ -46,7 +39,10 @@ export class AdminpageLocationComponent implements OnInit {
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor(private fb: FormBuilder, private apiService : ApiGenericMethodsService) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -58,9 +54,12 @@ export class AdminpageLocationComponent implements OnInit {
       newAddress: ['', Validators.required],
     });
 
-    this.apiService.getAllSimple<ProjectLocation>('Location').subscribe(data => {
-      this.entityList = data;
-    });
+    this.apiService
+      .getAllSimple<ProjectLocation>('Location')
+      .subscribe((data) => {
+        this.entityList = data;
+        console.log(this.entityList);
+      });
   }
 
   toggleVisibility() {
@@ -70,7 +69,11 @@ export class AdminpageLocationComponent implements OnInit {
   addButton() {
     console.log(this.registerForm.value);
     this.newEntity = this.registerForm.value;
-    this.entityList.push(this.newEntity);
+
+    this.apiService.post<ProjectLocation, ProjectLocation>('Location', this.newEntity, undefined)
+      .subscribe((data) => {
+        this.entityList.push(data);
+      });
     this.registerForm.reset(); // Clear the input field
   }
 
@@ -80,25 +83,17 @@ export class AdminpageLocationComponent implements OnInit {
 
   saveButton(entity: any) {
     this.isEditing = null; // Stop editing after saving
-    if (this.editForm.valid){
+    if (this.editForm.valid) {
       entity.name = this.editForm.get('newName')?.value;
       entity.address = this.editForm.get('newAddress')?.value;
     }
   }
 
-  saveEditButton(entity: any) {
-    if (this.editForm.valid) {
-      const updatedEntity = {
-        ...entity, // Spread operator to copy existing properties
-        name: this.editForm.get('name')?.value,
-        address: this.editForm.get('address')?.value,
-      };
-      this.entityList[this.entityList.indexOf(entity)] = updatedEntity;
-      this.isEditing = null;
-    }
-  }
-
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    this.apiService.delete<ProjectLocation, number>('Location?id=', entity.id).subscribe(data => {
+      // Compare the id of the entity we want to delete with the id of the entities in the list
+      // If the id is the same, remove the entity from the list else keep it
+      this.entityList = this.entityList.filter(item => item.id !== entity.id);
+    });
   }
 }

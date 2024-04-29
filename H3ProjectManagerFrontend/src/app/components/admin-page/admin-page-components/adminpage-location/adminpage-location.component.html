@@ -25,10 +25,10 @@
                 <div class="edit-Button-container">
                     <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
                     <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
-                    <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
                 </div>
-
+                
             </form>
+            <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
         </li>
     </ul>
 
