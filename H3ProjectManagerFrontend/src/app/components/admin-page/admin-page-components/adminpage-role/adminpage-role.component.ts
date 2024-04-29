@@ -1,10 +1,15 @@
+import { Role } from './../../../../models/Role';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators, } from '@angular/forms';
 @Component({
   selector: 'app-adminpage-role',
-  imports: [ CommonModule, FormsModule, ],
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: './adminpage-role.component.html',
   styleUrls: ['./adminpage-role.component.css']
@@ -17,8 +22,11 @@ export class AdminpageRoleComponent implements OnInit {
   labelDescription: string = "Beskrivelse:";
   addButtonText: string = "Tilføj rolle";
 
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
+
   // Temp data
-  entityList = [
+  entityList : Role[]= [
     { name: 'Role 1', description: 'Role 1 description', isActive : true},
     { name: 'Role 2', description: 'Role 2 description', isActive : true},
     { name: 'Role 3', description: 'Role 3 description', isActive : true},
@@ -27,15 +35,25 @@ export class AdminpageRoleComponent implements OnInit {
 
   ];
 
-  newEntity = { name: '', description: '', isActive: true};
+  newEntity : Role = { name: '', description: '', isActive: true};
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor() { }
+  constructor(private fb : FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      isActive: [true, Validators.required]
+    });
+    this.editForm = this.fb.group({
+      newName: ['', Validators.required],
+      newDescription: ['', Validators.required],
+      newIsActive: [true, Validators.required]
+    });
   }
 
   toggleVisibility() {

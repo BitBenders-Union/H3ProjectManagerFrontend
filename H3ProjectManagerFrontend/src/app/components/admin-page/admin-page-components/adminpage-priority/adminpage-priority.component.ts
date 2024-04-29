@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { 
+import {
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -11,7 +11,7 @@ import { Priority } from '../../../../models/Priority';
 @Component({
   selector: 'app-adminpage-priority',
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  standalone: true,  
+  standalone: true,
    templateUrl: './adminpage-priority.component.html', // This is the standard html file
   styleUrls: ['./adminpage-priority.component.css'], // This is the standard css file
 })
@@ -23,8 +23,8 @@ export class AdminpagePriorityComponent implements OnInit {
   labelLevel: string = 'Prioritets Level:';
   addButtonText: string = "Tilføj prioritet";
 
-  priorityRegisterForm!: FormGroup; // Form group for the input fields
-  priorityEditForm!: FormGroup; // Form group for the edit fields
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
   entityList : Priority[]= [
@@ -33,7 +33,7 @@ export class AdminpagePriorityComponent implements OnInit {
     { name: 'Priority 3', level: 3 },
     { name: 'Priority 4', level: 4 },
     { name: 'Priority 5', level: 5 }
-    
+
   ];
 
   newEntity : Priority = { name: '', level: 0 }; // For adding new entity and reseting the input fields
@@ -45,11 +45,11 @@ export class AdminpagePriorityComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.priorityRegisterForm = this.fb.group({
+    this.registerForm = this.fb.group({
       name: ['', Validators.required],
       level: ['', Validators.required]
     });
-    this.priorityEditForm = this.fb.group({
+    this.editForm = this.fb.group({
       newName: ['', Validators.required],
       newLevel: ['', Validators.required]
     });
