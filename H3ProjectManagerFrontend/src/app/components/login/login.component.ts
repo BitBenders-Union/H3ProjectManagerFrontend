@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiServiceService } from '../../service/api-service.service';
 import { TokenModel } from '../../models/Token';
-import { error } from 'console';
 import { TokenService } from '../../service/token.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,7 +20,11 @@ import { TokenService } from '../../service/token.service';
 
 export class LoginComponent {
 
-  constructor(private service: ApiServiceService<TokenModel, Login>, private tokenService: TokenService) {    
+  constructor(
+    private service: ApiServiceService<TokenModel,Login>,
+    private tokenService: TokenService,
+    private route: Router
+  ) {    
   }
 
   endpoint: string = "Auth/Login"
@@ -47,6 +51,9 @@ export class LoginComponent {
       },
       error: error => {
         console.error(error)
+      },
+      complete : () =>{
+        this.route.navigate(['/project-dashboard'])
       }
     })
   }

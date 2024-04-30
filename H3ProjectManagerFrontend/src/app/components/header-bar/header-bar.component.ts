@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {RouterOutlet, RouterLink, RouterModule, Router } from '@angular/router';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -17,9 +18,23 @@ import {RouterOutlet, RouterLink, RouterModule, Router } from '@angular/router';
 })
 export class HeaderBarComponent {
 
+  
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tokenService: TokenService) {}
 
+  ngOnInit(): void {
+  }
 
+  isLoggedIn(): boolean {
+    return this.tokenService.getAccessToken() !== null;
+  }
+
+  getUsernameFromToken(): string | null {
+    return this.tokenService.getUsernameFromToken();
+  }
+
+  signOut(): void {
+    this.tokenService.signOut();
+  }
 
 }
