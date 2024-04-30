@@ -5,6 +5,9 @@
         <a (click)="scrollToSection('location')">- Lokationer</a>
         <a (click)="scrollToSection('projectstatus')">- Projekt status</a>
         <a (click)="scrollToSection('projecttaskstatus')">- Task status</a>
+        <a (click)="scrollToSection('projectcategory')">- Projekt kategorier</a>
+        <a (click)="scrollToSection('projecttaskcategory')">- Task kategorier</a>
+        <a (click)="scrollToSection('role')">- Roller</a>
     </div>
 </div>
 
@@ -12,28 +15,28 @@
     <app-adminpage-department></app-adminpage-department>
 </div>
 
-<div id="priority" class="container">
-    <app-adminpage-priority></app-adminpage-priority>
-</div>
-
 <div id="location" class="container">
     <app-adminpage-location></app-adminpage-location>
 </div>
 
-<div id="projectstatus" class="container">
-    <app-adminpage-projectstatus></app-adminpage-projectstatus>
-</div>
-
-<div id="projecttaskstatus" class="container">
-    <app-adminpage-projecttaskstatus></app-adminpage-projecttaskstatus>
+<div id="priority" class="container">
+    <app-adminpage-priority></app-adminpage-priority>
 </div>
 
 <div id="projectcategory" class="container">
     <app-adminpage-projectcategory></app-adminpage-projectcategory>
 </div>
 
+<div id="projectstatus" class="container">
+    <app-adminpage-projectstatus></app-adminpage-projectstatus>
+</div>
+
 <div id="projecttaskcategory" class="container">
     <app-adminpage-projecttaskcategory></app-adminpage-projecttaskcategory>
+</div>
+
+<div id="projecttaskstatus" class="container">
+    <app-adminpage-projecttaskstatus></app-adminpage-projecttaskstatus>
 </div>
 
 <div id="role" class="container">

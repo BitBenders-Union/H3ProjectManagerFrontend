@@ -1,14 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {  
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators, } from '@angular/forms';
+import { ProjectTaskStatus } from '../../../../models/ProjectTaskStatus';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projecttaskstatus',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule , ReactiveFormsModule],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
-  // templateUrl: './adminpage-projecttaskstatus.component.html', // This is the standard html file  
+  // templateUrl: './adminpage-projecttaskstatus.component.html', // This is the standard html file
   // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
 })
 export class AdminpageProjecttaskstatusComponent implements OnInit {
@@ -18,32 +25,46 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   labelName: string = "Opgave status navn:";
   addButtonText: string = "Tilføj opgave status";
 
-  // Temp data
-  entityList = [
-    { name: 'Task status 1' },
-    { name: 'Task status 2' },
-    { name: 'Task status 3' },
-    { name: 'Task status 4' },
-    { name: 'Task status 5' },
-  ];
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
 
-  newEntity = { name: '' };
+  // Temp data
+  entityList : ProjectTaskStatus[] = [];
+
+  newEntity : ProjectTaskStatus = { name: '' };
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor() {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+    });
+    this.editForm = this.fb.group({
+      newName: ['', Validators.required],
+    });
+
+    this.apiService.getAllSimple<ProjectTaskStatus>('ProjectTaskStatus').subscribe((data) => {
+      this.entityList = data;
+    });
+  }
 
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
 
   addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '' }; // Clear the input field
+    if (this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.entityList.push(this.newEntity);
+      this.registerForm.reset();
+    }
   }
 
   editButton(entity: any) {
@@ -51,10 +72,14 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   }
 
   saveButton(entity: any) {
+    if (this.editForm.valid) { // Check if the form is valid
+      entity.name = this.editForm.value.newName; // Save the new name
+      this.editForm.reset(); // Clear the input field
+    }
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    console.log(entity);
+    this.entityList.splice(this.entityList.indexOf(entity), 1);
   }
 }

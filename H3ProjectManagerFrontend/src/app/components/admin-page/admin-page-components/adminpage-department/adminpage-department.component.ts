@@ -1,15 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {  
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators, } from '@angular/forms';import { Department } from '../../../../models/Department';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-department',
-  imports: [ CommonModule, FormsModule, ],
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule ],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
-  // templateUrl: './adminpage-department.component.html', // This is the standard html file
-  // styleUrls: ['./adminpage-department.component.css'], // This is the standard css file 
+  //templateUrl: './adminpage-department.component.html', // This is the standard html file
+  //styleUrls: ['./adminpage-department.component.css'], // This is the standard css file
 })
 export class AdminpageDepartmentComponent implements OnInit {
 
@@ -18,46 +24,68 @@ export class AdminpageDepartmentComponent implements OnInit {
   labelName: string = "Afdeling navn:";
   addButtonText: string = "Tilføj afdeling";
 
-   // Temp data
-  entityList = [
-    { name: 'Department 1' },
-    { name: 'Department 2' },
-    { name: 'Department 3' },
-    { name: 'Department 4' },
-    { name: 'Department 5' }
-  ];
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
 
-  newEntity = { name: '' };
-  
+   // Temp data
+  entityList : Department[] = [];
+
+  newEntity : Department = new Department();
+
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor() { }
+  constructor( 
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
   ngOnInit() {
+    this.registerForm = this.fb.group({
+      // name: ['', Validators.required],
+      name: [''],
+    });
+    this.editForm = this.fb.group({
+      newName: ['', Validators.required],
+    });
+
+    this.apiService.getAllSimple<Department>('Department').subscribe((data) => {
+      this.entityList = data;
+    });
   }
 
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '' };  // Clear the input field
+  addButton() {    
+    if (this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.registerForm.reset();
+    }
+
+    this.apiService.post<Department, Department>('Department', this.newEntity, undefined)
+      .subscribe((data) => {
+        this.entityList.push(data);
+      });
   }
 
   editButton(entity: any) {
-    this.isEditing =
-    this.isEditing === entity ? null : entity;
+    this.isEditing = this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {    
+  saveButton(entity: any) {
+    if (this.editForm.valid) { // Check if the form is valid
+      entity.name = this.editForm.value.newName; // Save the new name
+      this.editForm.reset(); // Clear the input field
+    }
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    console.log(entity)
+    this.apiService.delete<Department, number>('Department', entity.id).subscribe(data => {
+      this.entityList = this.entityList.filter((t) => t.id !== entity.id);
+    });
   }
-
 }

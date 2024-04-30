@@ -1,31 +1,50 @@
 <div class="container">
     <div class="h2-collapsbutton-container">
-        <h2>{{ heading }}</h2>
-        <button class="collapse-button" (click)="toggleVisibility()">
-            {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
-        </button>
+        <div>
+            <h2>{{ heading }}</h2>
+        </div>
+        <div><button class="collapse-button" (click)="toggleVisibility()">
+                {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
+            </button></div>
     </div>
 
     <ul *ngIf="!isCollapsed">
         <li class="li-container" *ngFor="let entity of entityList">
-            <div class="info-container">
-                <span class="span-name">{{ entity.name }}</span>
-                <input class="editInput" *ngIf="isEditing === entity" type="text" [(ngModel)]="entity.name" />
+            <form class="editForm" [formGroup]="editForm" (ngSubmit)="editButton(entity)">
+                <div class="editLabelColumn">
+                    <label class="span-name" for="editName"> {{ entity.name }}</label>
+                </div>
 
-            </div>
-            <div class="buttons-container">
-                <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
-                <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button> <button
-                    class="delete-button" (click)="deleteButton(entity)">Delete</button>
+                <div class="editInputColumn">
+                    <input class="editInput" id="editName" *ngIf="isEditing === entity" type="text" name="newName"
+                        formControlName="newName" />
+                </div>
 
-            </div>
+                <div class="buttons-container">
+                    <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
+                    <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
+                </div>
+            </form>
+            <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
         </li>
     </ul>
 
-    <h3>{{ addEntityHeading }}</h3>
-    <form (ngSubmit)="addButton()">
-        <label for="name">{{ labelName }}</label>
-        <input type="text" id="name" name="name" [(ngModel)]="newEntity.name" required>
-        <button class="add-button" type="submit">{{ addButtonText }}</button>
-    </form>
+    <div class="register-container">
+        <h3>{{ addEntityHeading }}</h3>
+        <form class="register-form" [formGroup]="registerForm" (ngSubmit)="addButton()">
+            <div class="reg-columns-container">
+                <div class="reg-label-column">
+                    <label for="name">{{ labelName }}</label>
+                </div>
+                <div class="reg-input-column">
+                    <input type="text" id="regName" name="name" class="form-control" formControlName="name"
+                        placeholder="Name" required />
+                </div>
+            </div>
+            <div class="reg-button-container">
+                <button class="add-button" type="submit">{{ addButtonText }}</button>
+            </div>
+        </form>
+    </div>
+
 </div>

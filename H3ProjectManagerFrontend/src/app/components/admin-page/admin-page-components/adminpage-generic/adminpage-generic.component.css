@@ -1,6 +1,8 @@
 .h2-collapsbutton-container{
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    
 }
 
 .collapse-button {
@@ -11,6 +13,7 @@
 }
 
 .li-container{    
+    width: 100%;
     margin: 10px;
     padding: 0px 5px;      
     border-bottom: 1px solid #000;
@@ -18,6 +21,33 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.editForm{
+    display: flex;
+    justify-content: space-between;    
+    align-items: center;
+    width: 100%;
+}
+.editLabelColumn{
+    display : flex;
+    flex-direction: column;    
+}
+
+.editInputColumn{
+    display : flex;
+    flex-direction: column;
+}
+
+
+.edit-Button-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editLabel, .editInput{
+    margin-bottom: 5px;    
+}
+
 
 button{
     margin: 10px;
@@ -45,3 +75,38 @@ button{
     margin: 5px;
     padding: 3px;
 }
+
+.register-container h3{
+    margin: 10px;
+    width: 500px;
+}
+
+
+.reg-columns-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.reg-label-column {
+    display: flex;
+    flex-direction: column;    
+    margin-left: 10px;
+    
+}
+
+.reg-input-column{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 10px;
+}
+
+
+
+.reg-button-container{
+    display: flex;
+    
+    justify-content: flex-end;
+}
+

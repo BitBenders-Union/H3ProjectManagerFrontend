@@ -1,64 +1,101 @@
+import { ApiGenericMethodsService } from './../../../../service/api-generic-methods.service';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ProjectLocation } from '../../../../models/ProjectLocation';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-adminpage-location',
-  imports: [ CommonModule, FormsModule, ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
-  templateUrl: '../adminpage-generic/adminpage-generic.component.html',
-  styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
-  // templateUrl: './adminpage-location.component.html', // This is the standard html file
-  // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
-
+  templateUrl: './adminpage-location.component.html', // This is the standard html file
+  styleUrls: ['./adminpage-location.component.css'], // This is the standard css file
 })
 export class AdminpageLocationComponent implements OnInit {
 
-  heading: string = "Lokationer";
-  addEntityHeading: string = "Tilføj lokation";
-  labelName: string = "Lokation navn:";
-  addButtonText: string = "Tilføj lokation";
+  // Variables for the html file
+  heading: string = 'Lokationer';
+  addEntityHeading: string = 'Tilføj lokation';
+  labelName: string = 'Lokation navn:';
+  labelAddress: string = 'Lokation Adresse:';
+  addButtonText: string = 'Tilføj lokation';
 
-  // Temp data
-  entityList = [
-    { name: 'Location 1' },
-    { name: 'Location 2' },
-    { name: 'Location 3' },
-    { name: 'Location 4' },
-    { name: 'Location 5' }
-  ];
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
 
-  newEntity = { name: '' };
-  
+  // List of entities to be displayed when the page is loaded gets data from the database from onInit
+  entityList: ProjectLocation[] = [];
+
+  //For adding new entity and reseting the input fields
+  newEntity: ProjectLocation = new ProjectLocation();
+
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) {}
 
   ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+    });
+    this.editForm = this.fb.group({
+      newName: ['', Validators.required],
+      newAddress: ['', Validators.required],
+    });
+
+    this.apiService
+      .getAllSimple<ProjectLocation>('Location')
+      .subscribe((data) => {
+        this.entityList = data;
+      });
   }
 
   toggleVisibility() {
-    this.isCollapsed = !this.isCollapsed;
+    this.isCollapsed = !this.isCollapsed; // Toggle the visibility of the form
   }
 
   addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '' };  // Clear the input field
+    if(this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.registerForm.reset(); // Clear the input field
+
+      this.apiService.post<ProjectLocation, ProjectLocation>('Location', this.newEntity, undefined)
+      .subscribe((data) => {
+        this.entityList.push(data);
+      });
+    }
   }
 
   editButton(entity: any) {
-    this.isEditing =
-    this.isEditing === entity ? null : entity;
+    this.isEditing = this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {    
+  saveButton(entity: any) {
     this.isEditing = null; // Stop editing after saving
+    if (this.editForm.valid) {
+      entity.name = this.editForm.get('newName')?.value;
+      entity.address = this.editForm.get('newAddress')?.value;
+    }
   }
 
   deleteButton(entity: any) {
-    console.log(entity)
+    this.apiService.delete<ProjectLocation, number>('Location', entity.id).subscribe(data => {
+      // Compare the id of the entity we want to delete with the id of the entities in the list
+      // If the id is the same, remove the entity from the list else keep it
+      this.entityList = this.entityList.filter(item => item.id !== entity.id);
+    });
   }
-
 }

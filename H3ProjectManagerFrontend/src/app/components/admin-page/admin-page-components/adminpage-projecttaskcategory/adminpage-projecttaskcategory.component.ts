@@ -1,10 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {  
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators, } from '@angular/forms';
+import { Project } from '../../../../models/Project';
+import { ProjectTaskCategory } from '../../../../models/ProjectTaskCategory';
+import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projecttaskcategory',
-  imports: [ CommonModule, FormsModule, ],
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
@@ -18,24 +26,34 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
   labelName: string = "Opgave kategori navn:";
   addButtonText: string = "Tilføj opgave kategori";
 
-  // Temp data
-  entityList = [
-    { name: 'Task category 1' },
-    { name: 'Task category 2' },
-    { name: 'Task category 3' },
-    { name: 'Task category 4' },
-    { name: 'Task category 5' },
-  ];
+  registerForm!: FormGroup; // Form group for the input fields
+  editForm!: FormGroup; // Form group for the edit fields
 
-  newEntity = { name: '' };
+  // Temp data
+  entityList : ProjectTaskCategory[] = [];
+
+  newEntity : ProjectTaskCategory = { name: '' };
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiGenericMethodsService
+  ) { }
 
   ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+    });
+    this.editForm = this.fb.group({
+      newName: ['', Validators.required],
+    });
+
+    this.apiService.getAllSimple<ProjectTaskCategory>('ProjectTaskCategory').subscribe((data) => {
+      this.entityList = data;
+    });
   }
 
   toggleVisibility() {
@@ -43,8 +61,14 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
   }
 
   addButton() {
-    this.entityList.push(this.newEntity);
-    this.newEntity = { name: '' };  // Clear the input field
+    if (this.registerForm.valid) {
+      this.newEntity = this.registerForm.value;
+      this.registerForm.reset();
+      this.apiService.post<ProjectTaskCategory, ProjectTaskCategory>('ProjectTaskCategory', this.newEntity).subscribe((data) => {
+        this.entityList.push(data);
+
+      });      
+    }
   }
 
   editButton(entity: any) {
@@ -52,12 +76,18 @@ export class AdminpageProjecttaskcategoryComponent implements OnInit {
     this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {    
+  saveButton(entity: any) {
+    if (this.editForm.valid) { // Check if the form is valid
+      entity.name = this.editForm.value.newName; // Save the new name
+      this.editForm.reset(); // Clear the input field
+    }
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    console.log(entity)
+    this.apiService.delete<ProjectTaskCategory, number>('ProjectTaskCategory', entity.id).subscribe(() => {
+      this.entityList.splice(this.entityList.indexOf(entity), 1);
+    });
   }
 
 }

@@ -8,45 +8,57 @@
 
   <ul *ngIf="!isCollapsed">
     <li class="li-container" *ngFor="let entity of entityList">
-      <div class="info-container">
-        <span class="span-name">{{ entity.name }}</span>
-        <input class="editInput" *ngIf="isEditing === entity" type="text" [(ngModel)]="entity.name" />
-        <br>
-        <span class="span-description">{{ entity.description }}</span>
-        <input class="editInput" *ngIf="isEditing === entity" type="text" [(ngModel)]="entity.description" />
-        <br>
-        <span class="span-isActive">{{ entity.isActive ? 'Active' : 'Inactive' }}</span>
-        <input class="editInput" *ngIf="isEditing === entity" type="checkbox" [(ngModel)]="entity.isActive" />
+      <form class="editForm" [formGroup]="editForm" (ngSubmit)="editButton(entity)">
 
-      </div>
-      <div class="buttons-container">
-        <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
-        <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
-        <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
-      </div>
+        <div class="editLabelColumn">
+          <label class="label-name">{{ entity.name }}</label>
+          <label class="label-description">{{ entity.description }}</label>
+          <label class="label-isActive">{{ entity.isActive ? 'Active' : 'Inactive' }}</label>
+        </div>
+
+        <div class="editInputColumn">
+          <input class="editInput" *ngIf="isEditing === entity" type="text" name="newName" formControlName="newName"
+            placeholder="Rolle navn" />
+
+          <input class="editInput" *ngIf="isEditing === entity" type="text" name="newDescription"
+            formControlName="newDescription" placeholder="Rolle beskrivelse" />
+
+          <input class="editInput" *ngIf="isEditing === entity" type="checkbox" name="isActive"
+            formControlName="isActive" placeholder="Level" />
+        </div>
+
+        <div class="edit-Button-container">
+          <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
+          <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
+        </div>
+      </form>
+      <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
     </li>
   </ul>
 
-  <h3>{{ addEntityHeading }}</h3>
-  <form (ngSubmit)="addButton()">
-    <div class="label-row">
-      <label for="name">{{ labelName }}</label>
-      <label for="description">{{ labelDescription }}</label>
-      <label for="isActive">Active</label>
-    </div>
-    
-    <div class="input-row">
-      <input type="text" id="name" name="name" [(ngModel)]="newEntity.name" required>
-      <input id="description" name="description" [(ngModel)]="newEntity.description" rows="3">
-      <input class="checkbox-container" type="checkbox" id="isActive" name="isActive" [(ngModel)]="newEntity.isActive">
-    </div>
-  
-    <div class="button-container">
-      <button class="add-button " type="submit" >{{ addButtonText }}</button>
-    </div>
-  
-    
-    
-  </form>
-  
-</div>
+  <div class="register-container">
+    <h3>{{ addEntityHeading }}</h3>
+    <form [formGroup]="registerForm" (ngSubmit)="addButton()">
+      <div class="register-columns-container">
+        <div class="register-label-column">
+          <label for="name">{{ labelName }}</label>
+          <label for="description">{{ labelDescription }}</label>
+          <label for="isActive">Active</label>
+        </div>
+
+        <div class="register-input-column">
+          <input type="text" id="name" name="name" formControlName="name" placeholder="Navn" required>
+          <input id="description" name="description" formControlName="description" placeholder="Rolle beskrivelse" required>
+          <input class="checkbox-container" type="checkbox" id="isActive" name="isActive"
+          formControlName="isActive" >
+        </div>
+
+        <div class="button-cotainer">
+          <button class="add-button " type="submit">{{ addButtonText }}</button>
+        </div>
+      </div>
+
+
+    </form>
+
+  </div>

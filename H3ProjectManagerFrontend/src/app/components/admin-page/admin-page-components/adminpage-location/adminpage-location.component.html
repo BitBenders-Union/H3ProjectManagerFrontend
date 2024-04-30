@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="h2-collapsbutton-container">
+        <h2>{{ heading }}</h2>
+        <button class="collapse-button" (click)="toggleVisibility()">
+            {{ isCollapsed ? 'Expand' : 'Collapse' }} [-]
+        </button>
+    </div>
+
+    <ul *ngIf="!isCollapsed">
+        <li class="li-container" *ngFor="let entity of entityList">
+            <form class="editForm" [formGroup]="editForm" (ngSubmit)="editButton(entity)">
+
+                <div class="editLabelColumn">
+                    <label class="editLabel" for="editName">{{ entity.name }}</label>
+                    <label class="editLabel" for="editAddress">{{ entity.address }}</label>
+                </div>
+
+                <div class="editInputColumn">
+                    <input class="editInput" id="editName" *ngIf="isEditing === entity" type="text" name="newName"
+                        formControlName="newName" />
+                    <input class="editInput" id="editAddress" *ngIf="isEditing === entity" type="text" name="newAddress"
+                        formControlName="newAddress" placeholder="Address" />
+                </div>
+
+                <div class="edit-Button-container">
+                    <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
+                    <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
+                </div>
+                
+            </form>
+            <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
+        </li>
+    </ul>
+
+
+
+    <div class="register-container">
+        <h3>{{ addEntityHeading }}</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="addButton()">
+            <div class="register-columns-container">
+                <div class="register-label-column">
+                    <label for="regName">{{ labelName }}</label>
+                    <label for="regAddress">{{ labelAddress }}</label>
+                </div>
+                <div class="register-input-column">
+                    <input type="text" id="regName" name="name" class="form-control" formControlName="name"
+                        placeholder="Name" required />
+                    <input type="text" id="regAddress" name="address" class="form-control" formControlName="address"
+                        placeholder="Address" required  />
+                </div>
+            </div>
+            <div class="button-column">
+                <button class="add-button" type="submit">{{ addButtonText }}</button>
+            </div>
+        </form>
+    </div>
+</div>
