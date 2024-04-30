@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiGenericMethodsService {
 
   url: string = environment.apiUrl;
-  
+
   constructor(private http: HttpClient) { }
 
   getAll<TModel>(endpoint: string, userId: number): Observable<TModel[]>{
@@ -31,13 +31,13 @@ export class ApiGenericMethodsService {
     return this.http.post<TReturn>(`${this.url}${endpoint}/`, model);
   }
 
-  delete<TReturn, TDelete>(endpoint: string, id: number): Observable<TReturn>{    
-    return this.http.delete<TReturn>(`${this.url}${endpoint+'?id='}${id}`);
+  delete<TReturn, TDelete>(endpoint: string, id: number): Observable<TReturn>{
+    return this.http.delete<TReturn>(`${this.url}${endpoint+'/'}${id}`);
   }
-  
+
 
   // some method for the tavle
-  //#region 
+  //#region
   address: string = "Falkevej45";
 
   getAddress() {

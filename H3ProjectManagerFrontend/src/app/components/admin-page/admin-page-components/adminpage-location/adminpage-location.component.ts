@@ -1,5 +1,4 @@
-import { ApiGenericMethodsService } from './../../../../service/api-generic-methods.service';
-import { HttpClient } from '@angular/common/http';
+import { Login } from './../../../../models/Login';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -10,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProjectLocation } from '../../../../models/ProjectLocation';
-import { Observable } from 'rxjs';
+import { ApiGenericMethodsService } from './../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-location',
@@ -52,8 +51,8 @@ export class AdminpageLocationComponent implements OnInit {
       address: ['', Validators.required],
     });
     this.editForm = this.fb.group({
-      newName: ['', Validators.required],
-      newAddress: ['', Validators.required],
+      name: ['', Validators.required],
+      address: ['', Validators.required],
     });
 
     this.apiService
@@ -84,11 +83,13 @@ export class AdminpageLocationComponent implements OnInit {
   }
 
   saveButton(entity: any) {
-    this.isEditing = null; // Stop editing after saving
     if (this.editForm.valid) {
-      entity.name = this.editForm.get('newName')?.value;
-      entity.address = this.editForm.get('newAddress')?.value;
+      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+      this.editForm.reset(); // Clear the input field
+
+      // Needs the update method
     }
+    this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {

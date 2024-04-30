@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Project } from '../../../../models/Project';
 import { ProjectCategory } from '../../../../models/ProjectCategory';
 import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
@@ -80,10 +79,13 @@ export class AdminpageProjectcategoryComponent implements OnInit {
   }
 
   saveButton(entity: any) {
-    if (this.editForm.valid) {
-      // Check if the form is valid
-      entity.name = this.editForm.value.newName; // Save the new name
+    if (this.editForm.valid) { // Check if the form is valid
+
+      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
       this.editForm.reset(); // Clear the input field
+
+      // Needs the update method
+
     }
     this.isEditing = null; // Stop editing after saving
   }

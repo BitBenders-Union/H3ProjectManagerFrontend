@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {  
+import {
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -73,8 +73,12 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
 
   saveButton(entity: any) {
     if (this.editForm.valid) { // Check if the form is valid
-      entity.name = this.editForm.value.newName; // Save the new name
+
+      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
       this.editForm.reset(); // Clear the input field
+
+      // Needs the update method
+
     }
     this.isEditing = null; // Stop editing after saving
   }

@@ -64,11 +64,13 @@ export class AdminpageRoleComponent implements OnInit {
   addButton() {
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
+
       this.apiService
         .post<Role, Role>('Role', this.newEntity)
         .subscribe((data) => {
           this.entityList.push(data);
         });
+
       this.registerForm.reset();
     }
   }
@@ -78,6 +80,14 @@ export class AdminpageRoleComponent implements OnInit {
   }
 
   saveButton(entity: any) {
+    if (this.editForm.valid) { // Check if the form is valid
+
+      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+      this.editForm.reset(); // Clear the input field
+
+      // Needs the update method
+
+    }
     this.isEditing = null; // Stop editing after saving
   }
 

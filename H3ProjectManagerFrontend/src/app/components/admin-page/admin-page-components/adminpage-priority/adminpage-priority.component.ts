@@ -64,12 +64,12 @@ export class AdminpagePriorityComponent implements OnInit {
     console
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
-      this.registerForm.reset();      
+      this.registerForm.reset();
 
       this.apiService.post<Priority, Priority>('Priority', this.newEntity).subscribe((data) => {
         this.entityList.push(data);
       });
-    }    
+    }
   }
 
   editButton(entity: any) {
@@ -78,6 +78,14 @@ export class AdminpagePriorityComponent implements OnInit {
   }
 
   saveButton(entity: any) {
+    if (this.editForm.valid) { // Check if the form is valid
+
+      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+      this.editForm.reset(); // Clear the input field
+
+      // Needs the update method
+
+    }
     this.isEditing = null; // Stop editing after saving
   }
 

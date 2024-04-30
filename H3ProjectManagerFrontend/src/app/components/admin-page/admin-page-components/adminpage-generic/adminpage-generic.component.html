@@ -10,7 +10,7 @@
 
     <ul *ngIf="!isCollapsed">
         <li class="li-container" *ngFor="let entity of entityList">
-            <form class="editForm" [formGroup]="editForm" (ngSubmit)="editButton(entity)">
+            <form class="editForm" [formGroup]="editForm" (ngSubmit)="saveButton(entity)">
                 <div class="editLabelColumn">
                     <label class="span-name" for="editName"> {{ entity.name }}</label>
                 </div>
@@ -22,7 +22,7 @@
 
                 <div class="buttons-container">
                     <button *ngIf="!isEditing" (click)="editButton(entity)">Edit</button>
-                    <button *ngIf="isEditing === entity" (click)="saveButton(entity)">Save</button>
+                    <button *ngIf="isEditing === entity" type="submit">Save</button>
                 </div>
             </form>
             <button class="delete-button" (click)="deleteButton(entity)">Delete</button>
