@@ -3,11 +3,16 @@
         <div class="container">
             <div class="nav-bar">
                 <h1 class="logo" routerLink="/">PM Tools</h1>
-                <nav>
+                <nav *ngIf="!isLoggedIn()">
                     <ul>
                         <li><a routerLink="/login">Login</a></li>
                         <li><a routerLink="/user-registrering">Opret bruger</a></li>
                     </ul>
+                </nav>
+                <nav *ngIf="isLoggedIn()"> <ul>
+                    <li>Hello, {{ getUsernameFromToken() }}</li>
+                    <li><a (click)="signOut()">Sign Out</a></li>
+                  </ul>
                 </nav>
             </div>
         </div>

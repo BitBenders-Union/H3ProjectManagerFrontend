@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { TokenModel } from '../models/Token';
@@ -27,8 +27,13 @@ export class TokenService {
     localStorage.setItem("RefreshToken", refreshToken);
   }
 
-  getAccessToken(){
-    return localStorage.getItem("AccessToken");
+  getAccessToken(): string | null {
+    const token = localStorage.getItem("AccessToken");
+    if (token) {
+      return token;
+    } else {
+      return null; // Or handle the missing token case (e.g., redirect to login)
+    }
   }
   getRefreshToken(){
     return localStorage.getItem("RefreshToken");
