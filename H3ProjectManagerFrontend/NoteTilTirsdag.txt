@@ -1,4 +1,5 @@
 ProjectCategory - kræver mere end bare "string"
 
-ProjectStatus - Hvor er den ? - eller hvad er den ? -den er i api, har jeg glemt den ?
+ProjectStatus - Har ingen kontroller, - kræver en liste af projects i backend model
 
+ProjectTaskStatus - Kræver en liste af ProjectTask i backend model - skal den ligge i adminpanel ?

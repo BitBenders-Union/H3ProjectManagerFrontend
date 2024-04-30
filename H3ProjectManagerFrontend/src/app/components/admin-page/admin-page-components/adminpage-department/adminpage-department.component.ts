@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {  
+import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators, } from '@angular/forms';import { Department } from '../../../../models/Department';
+  Validators,
+} from '@angular/forms';
+import { Department } from '../../../../models/Department';
 import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-department',
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
@@ -18,33 +20,31 @@ import { ApiGenericMethodsService } from '../../../../service/api-generic-method
   //styleUrls: ['./adminpage-department.component.css'], // This is the standard css file
 })
 export class AdminpageDepartmentComponent implements OnInit {
-
-  heading: string = "Afdelinger";
-  addEntityHeading: string = "Tilføj afdeling";
-  labelName: string = "Afdeling navn:";
-  addButtonText: string = "Tilføj afdeling";
+  heading: string = 'Afdelinger';
+  addEntityHeading: string = 'Tilføj afdeling';
+  labelName: string = 'Afdeling navn:';
+  addButtonText: string = 'Tilføj afdeling';
 
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-   // Temp data
-  entityList : Department[] = [];
+  // Temp data
+  entityList: Department[] = [];
 
-  newEntity : Department = new Department();
+  newEntity: Department = new Department();
 
   isCollapsed = false; // Initially visible
 
   isEditing: any = null; // Track currently edited priority
 
-  constructor( 
+  constructor(
     private fb: FormBuilder,
     private apiService: ApiGenericMethodsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      // name: ['', Validators.required],
-      name: [''],
+      name: ['', Validators.required],
     });
     this.editForm = this.fb.group({
       newName: ['', Validators.required],
@@ -59,16 +59,17 @@ export class AdminpageDepartmentComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  addButton() {    
+  addButton() {
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
       this.registerForm.reset();
-    }
 
-    this.apiService.post<Department, Department>('Department', this.newEntity, undefined)
-      .subscribe((data) => {
-        this.entityList.push(data);
-      });
+      this.apiService
+        .post<Department, Department>('Department', this.newEntity, undefined)
+        .subscribe((data) => {
+          this.entityList.push(data);
+        });
+    }
   }
 
   editButton(entity: any) {
@@ -77,15 +78,21 @@ export class AdminpageDepartmentComponent implements OnInit {
 
   saveButton(entity: any) {
     if (this.editForm.valid) { // Check if the form is valid
-      entity.name = this.editForm.value.newName; // Save the new name
+
+      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
       this.editForm.reset(); // Clear the input field
+
+      // Needs the update method
+
     }
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    this.apiService.delete<Department, number>('Department', entity.id).subscribe(data => {
-      this.entityList = this.entityList.filter((t) => t.id !== entity.id);
-    });
+    this.apiService
+      .delete<Department, number>('Department', entity.id)
+      .subscribe((data) => {
+        this.entityList = this.entityList.filter((t) => t.id !== entity.id);
+      });
   }
 }
