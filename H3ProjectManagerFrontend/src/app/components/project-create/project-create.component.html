@@ -12,17 +12,17 @@
             <label>Slut Dato</label>
             <input type="date" required formControlName="endDate">
                 <label>Status</label>
-                <select formGroupName="statusIndex">
+                <select formControlName="statusIndex">
                         <option [ngValue]="" disabled selected>Vælg en status</option>
                         <option *ngFor="let item of statusList; let i = index" [ngValue]="i" >{{item.name}} </option>
                 </select>
                 <label>Kategori</label>
-                <select formGroupName="categoryIndex">
+                <select formControlName="categoryIndex">
                     <option [ngValue]="" disabled selected>Vælg en kategori</option>
                     <option *ngFor="let item of categoryList; let i = index" [ngValue]="i">{{item.name}}</option>
                 </select>
                 <label>Prioritet</label>
-                <select formGroupName="priorityIndex">
+                <select formControlName="priorityIndex">
                     <option [ngValue]="" disabled selected>Vælg en prioritet</option>
                     <option *ngFor="let item of priorityList; let i = index" [ngValue]="i">{{item.name}}</option>
                 </select>

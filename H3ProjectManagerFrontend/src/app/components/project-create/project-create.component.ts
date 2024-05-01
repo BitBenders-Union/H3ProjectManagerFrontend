@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { ProjectStatus } from '../../models/ProjectStatus';
 import { ProjectCategory } from '../../models/ProjectCategory';
 import { Router } from '@angular/router';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-project-create',
@@ -30,7 +31,7 @@ export class ProjectCreateComponent implements OnInit {
 
   formIsValid: boolean = true;
 
-  constructor(private service : ApiGenericMethodsService, private route: Router ) { }
+  constructor(private service : ApiGenericMethodsService, private route: Router, private token: TokenService ) { }
 
   ngOnInit(): void {
 
@@ -50,23 +51,12 @@ export class ProjectCreateComponent implements OnInit {
       priorityIndex: new FormControl("", Validators.required)
     })
 
-    // fetch the required data to the form
-    // ownerId get from token
-    // categories
-    // priority
-    // status
-
     this.service.getAllSimple<ProjectStatus>('ProjectStatus').subscribe({
       next: data => {
         this.statusList = data;
       },
       error: error => {
         console.log(error.message);
-        // for testing purposes
-        // this.statusList = [{
-        //   id: 1,
-        //   name: "Active"
-        // }]
       }
     })
 
@@ -76,11 +66,6 @@ export class ProjectCreateComponent implements OnInit {
       },
       error: error => {
         console.log(error.message);
-        // for testing purposes
-        // this.categoryList = [{
-        //   id: 1,
-        //   name: "Software"
-        // }]
       }
     })
 
@@ -90,16 +75,8 @@ export class ProjectCreateComponent implements OnInit {
       },
       error: error => {
         console.log(error.message);
-        // for testing purposes
-        // this.priorityList = [{
-        //   id: 1,
-        //   level: 1,
-        //   name: "Low"
-        // }]
       }
     })
-
-    // get the current user id from token
 
   }
 
@@ -112,7 +89,7 @@ export class ProjectCreateComponent implements OnInit {
     if(this.projectModel != null || this.projectModel != undefined)
       {
         // TODO: change the hardcoded userId (in the post) to the current user id
-        this.service.post<Project, ProjectCreate>("Project", this.projectModel!, 1).subscribe({
+        this.service.post<Project, ProjectCreate>("Project", this.projectModel!, undefined).subscribe({
           next: data => {
             this.route.navigate(['/project-dashboard'])
           },
@@ -135,7 +112,17 @@ export class ProjectCreateComponent implements OnInit {
       status: this.statusList[this.projectForm.get('statusIndex')?.value],
       category: this.categoryList[this.projectForm.get('categoryIndex')?.value],
       priority: this.priorityList[this.projectForm.get('priorityIndex')?.value],
-      ownerId: 0 // get from token
+      owner: this.token.getUsernameFromToken(),
+      client: undefined,
+      projectTasks: [],
+      department: [],
+      users: [{
+        id: this.token.getIdFromToken(),
+        username: this.token.getUsernameFromToken(),
+        firstName: this.token.getFirstNameFromToken(),
+        lastName: this.token.getLastNameFromToken()
+      }]
+
     }
 
     console.log(this.projectModel)

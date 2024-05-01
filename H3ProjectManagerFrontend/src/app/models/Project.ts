@@ -28,7 +28,11 @@ export interface ProjectCreate{
     status: ProjectStatus
     category: ProjectCategory;
     priority: Priority;
-    ownerId: number;
+    owner: string;
+    client?: Client;
+    projectTasks?: ProjectTaskDetails[];
+    department?: Department[];
+    users?: User[];
 
 }
 
