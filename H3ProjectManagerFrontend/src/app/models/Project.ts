@@ -16,8 +16,8 @@ export class Project {
 export interface ProjectDashboard{
     id: number;
     name: string;
-    category: ProjectCategory;
-    owner: User;
+    category: string;
+    owner: string;
 
 }
 
