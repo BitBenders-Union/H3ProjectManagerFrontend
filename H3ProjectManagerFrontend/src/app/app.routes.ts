@@ -17,6 +17,7 @@ export const routes: Routes = [
   { path: 'project-dashboard', component: ProjectDashboardComponent},
   { path: 'admin-page', component: AdminPageComponent},
   { path: 'project-create', component: ProjectCreateComponent},
-  { path: 'project-details/:id', component: ProjectDetailsComponent}
-  
+  { path: 'project-details/:id', component: ProjectDetailsComponent},
+
+
 ];
