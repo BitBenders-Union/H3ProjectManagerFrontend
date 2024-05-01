@@ -50,9 +50,9 @@ export class AdminpageProjectstatusComponent implements OnInit {
       newName: ['', Validators.required],
     });
 
-    // this.apiService.getAllSimple<ProjectStatus>('ProjectStatus').subscribe((data) => {
-    //   this.entityList = data;
-    // });
+    this.apiService.getAllSimple<ProjectStatus>('ProjectStatus').subscribe((data) => {
+      this.entityList = data;
+    });
   }
 
   toggleVisibility() {
@@ -64,29 +64,34 @@ export class AdminpageProjectstatusComponent implements OnInit {
       this.newEntity = this.registerForm.value;
       this.registerForm.reset();
 
-      // this.apiService.post<ProjectStatus, ProjectStatus>('ProjectStatus', this.newEntity).subscribe((data) => {
-      //   this.entityList.push(data);
-      // });
+      this.apiService.post<ProjectStatus, ProjectStatus>('ProjectStatus', this.newEntity).subscribe((data) => {
+        this.entityList.push(data);
+      });
     }
   }
 
   editButton(entity: any) {
+    // if isEditing is the same as the entity, set isEditing to null, else set isEditing to the entity,
+    // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
+    // when "save" is clicked, isEditing is set to null and the form is hidden
     this.isEditing = this.isEditing === entity ? null : entity;
   }
 
   saveButton(entity: any) {
     if (this.editForm.valid) { // Check if the form is valid
-
-      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+      entity.name = this.editForm.value.newName; // Sets the property of entity to the value of the input field
       this.editForm.reset(); // Clear the input field
 
-      // Needs the update method
-
+      // Update the entity in the database
+      this.apiService.update<ProjectStatus, ProjectStatus>('ProjectStatus', entity).subscribe((data) => {
+      });
     }
     this.isEditing = null; // Stop editing after saving
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    this.apiService.delete<ProjectStatus, number>('ProjectStatus', entity.id).subscribe(data => {
+      this.entityList = this.entityList.filter((item) => item !== entity);
+    });
   }
 }

@@ -1,5 +1,0 @@
-ProjectCategory - kræver mere end bare "string"
-
-ProjectStatus - Har ingen kontroller, - kræver en liste af projects i backend model
-
-ProjectTaskStatus - Kræver en liste af ProjectTask i backend model - skal den ligge i adminpanel ?

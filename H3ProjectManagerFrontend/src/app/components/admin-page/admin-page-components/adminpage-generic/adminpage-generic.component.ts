@@ -50,28 +50,30 @@ export class AdminpageGenericComponent implements OnInit {
     });
   }
 
+  //Methodes in this component are not implemented, they are just placeholders for the real methods in the child components, 
+  //otherwise the html file will not work.
+  
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
 
   addButton() {
-    console.log(this.registerForm.value);
-    this.newEntity = this.registerForm.value;
-    this.entityList.push(this.newEntity);
-    this.registerForm.reset();
-
+    
   }
 
   editButton(entity: any) {
-    this.isEditing = this.isEditing === entity ? null : entity;
+    // if isEditing is the same as the entity, set isEditing to null, else set isEditing to the entity,
+    // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
+    // when "save" is clicked, isEditing is set to null and the form is hidden
+    this.isEditing = this.isEditing === entity ? null : entity;    
   }
 
   saveButton(entity: any) {
-    this.isEditing = null; // Stop editing after saving
+    
   }
 
   deleteButton(entity: any) {
-    this.entityList.splice(this.entityList.indexOf(entity), 1);
+    
   }
 
 }
