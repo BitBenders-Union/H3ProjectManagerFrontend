@@ -5,13 +5,14 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators, } from '@angular/forms';
+  Validators,
+} from '@angular/forms';
 import { ProjectTaskStatus } from '../../../../models/ProjectTaskStatus';
 import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-adminpage-projecttaskstatus',
-  imports: [CommonModule, FormsModule , ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: '../adminpage-generic/adminpage-generic.component.html',
   styleUrls: ['../adminpage-generic/adminpage-generic.component.css'],
@@ -19,19 +20,18 @@ import { ApiGenericMethodsService } from '../../../../service/api-generic-method
   // styleUrls: ['./adminpage-location.component.css'] // This is the standard css file
 })
 export class AdminpageProjecttaskstatusComponent implements OnInit {
-
-  heading: string = "Opgave status";
-  addEntityHeading: string = "Tilføj opgave status";
-  labelName: string = "Opgave status navn:";
-  addButtonText: string = "Tilføj opgave status";
+  heading: string = 'Opgave status';
+  addEntityHeading: string = 'Tilføj opgave status';
+  labelName: string = 'Opgave status navn:';
+  addButtonText: string = 'Tilføj opgave status';
 
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
   // Temp data
-  entityList : ProjectTaskStatus[] = [];
+  entityList: ProjectTaskStatus[] = [];
 
-  newEntity : ProjectTaskStatus = new ProjectTaskStatus();
+  newEntity: ProjectTaskStatus = new ProjectTaskStatus();
 
   isCollapsed = false; // Initially visible
 
@@ -40,7 +40,7 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiGenericMethodsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -50,9 +50,11 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
       name: ['', Validators.required],
     });
 
-    this.apiService.getAllSimple<ProjectTaskStatus>('ProjectTaskStatus').subscribe((data) => {
-      this.entityList = data;
-    });
+    this.apiService
+      .getAllSimple<ProjectTaskStatus>('ProjectTaskStatus')
+      .subscribe((data) => {
+        this.entityList = data;
+      });
   }
 
   toggleVisibility() {
@@ -64,9 +66,14 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
       this.newEntity = this.registerForm.value;
       this.registerForm.reset();
 
-      this.apiService.post<ProjectTaskStatus, ProjectTaskStatus>('ProjectTaskStatus', this.newEntity).subscribe((data) => {
-        this.entityList.push(data);
-      });
+      this.apiService
+        .post<ProjectTaskStatus, ProjectTaskStatus>(
+          'ProjectTaskStatus',
+          this.newEntity
+        )
+        .subscribe((data) => {
+          this.entityList.push(data);
+        });
     }
   }
 
@@ -102,8 +109,12 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   }
 
   deleteButton(entity: ProjectTaskStatus) {
-    this.apiService.delete<ProjectTaskStatus, number>('ProjectTaskStatus', entity.id!).subscribe((data) => {
-      this.entityList = this.entityList.filter((x) => x.id !== entity.id);
-    });
+    this.apiService
+      .delete<ProjectTaskStatus, number>('ProjectTaskStatus', entity.id!)
+      .subscribe((data) => {
+        // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.
+        this.entityList = this.entityList.filter((x) => x.id !== entity.id);
+      });
   }
 }
