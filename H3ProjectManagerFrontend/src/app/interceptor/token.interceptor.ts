@@ -19,6 +19,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req:HttpRequest<unknown>, ne
       //Look for http error response
       if(err instanceof HttpErrorResponse){
         if(err.status === 401){
+          //make API call for new token if status 401
           auth.renewToken().subscribe(data =>
             {
               auth.storeAccessToken(data.accessToken);

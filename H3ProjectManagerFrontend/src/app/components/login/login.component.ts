@@ -5,13 +5,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ApiServiceService } from '../../service/api-service.service';
 import { TokenModel } from '../../models/Token';
 import { TokenService } from '../../service/token.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink,
+    RouterModule
 
   ],
   templateUrl: './login.component.html',
@@ -39,6 +41,9 @@ export class LoginComponent {
     username: new FormControl('',Validators.required),
     password: new FormControl('',Validators.required)
   })
+
+  usernameForm = this.loginForm.get('username');
+  passwordForm = this.loginForm.get('password');
 
   onSubmit(): void {
     this.loginModel = this.loginForm.value
