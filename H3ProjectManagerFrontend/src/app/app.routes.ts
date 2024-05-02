@@ -8,13 +8,14 @@ import { UserProfilComponent } from './components/user-profil/user-profil.compon
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { ProjectCreateComponent } from './components/project-create/project-create.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: FrontpageComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: UserRegistrationComponent},
-  { path: 'user-profil', component: UserProfilComponent},
-  { path: 'project-dashboard', component: ProjectDashboardComponent},
+  { path: 'user-profil', component: UserProfilComponent, canActivate: [authGuard]},
+  { path: 'project-dashboard', component: ProjectDashboardComponent, canActivate: [authGuard]},
   { path: 'admin-page', component: AdminPageComponent},
   { path: 'project-create', component: ProjectCreateComponent},
   { path: 'project-details/:id', component: ProjectDetailsComponent}
