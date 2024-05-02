@@ -12,14 +12,14 @@
 
         <div class="editLabelColumn">
           <label class="editLabel" for="editName">{{ entity.name }}</label>
-          <label class="editLabel" for="editAddress">{{ entity.level }}</label>
+          <label class="editLabel" for="editLevel">{{ entity.level }}</label>
         </div>
 
         <div class="editInputColumn">
-          <input class="editInput" id="editName" *ngIf="isEditing === entity" type="text" name="newName"
-            formControlName="newName" />
-          <input class="editInput" id="editAddress" *ngIf="isEditing === entity" type="text" name="newAddress"
-            formControlName="newAddress" placeholder="Address" />
+          <input class="editInput" id="editName" *ngIf="isEditing === entity" type="text"
+            formControlName="name" />
+          <input class="editInput" id="editLevel" *ngIf="isEditing === entity" type="number" min="0" max="5"
+            formControlName="level" />
         </div>
 
         <div class="edit-Button-container">
