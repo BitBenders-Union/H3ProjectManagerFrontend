@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { ProjectLocation } from '../../../../models/ProjectLocation';
 import { ApiGenericMethodsService } from './../../../../service/api-generic-methods.service';
+import { Department } from '../../../../models/Department';
 
 @Component({
   selector: 'app-adminpage-location',
@@ -19,7 +20,6 @@ import { ApiGenericMethodsService } from './../../../../service/api-generic-meth
   styleUrls: ['./adminpage-location.component.css'], // This is the standard css file
 })
 export class AdminpageLocationComponent implements OnInit {
-
   // Variables for the html file
   heading: string = 'Lokationer';
   addEntityHeading: string = 'Tilføj lokation';
@@ -67,40 +67,66 @@ export class AdminpageLocationComponent implements OnInit {
   }
 
   addButton() {
-    if(this.registerForm.valid) {
+    if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
+      console.log(this.newEntity);
       this.registerForm.reset(); // Clear the input field
 
-      this.apiService.post<ProjectLocation, ProjectLocation>('Location', this.newEntity, undefined)
-      .subscribe((data) => {
-        this.entityList.push(data);
-      });
+      this.apiService
+        .post<ProjectLocation, ProjectLocation>(
+          'Location',
+          this.newEntity,
+          undefined
+        )
+        .subscribe((data) => {
+          this.entityList.push(data);
+        });
     }
   }
 
-  editButton(entity: any) {    
+  editButton(entity: ProjectLocation) {
     // if isEditing is the same as the entity, set isEditing to null, else set isEditing to the entity,
-    // ngIF in the html file will then show the edit form if isEditing is equal to the entity, 
+    // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
     // when "save" is clicked, isEditing is set to null and the form is hidden
     this.isEditing = this.isEditing === entity ? null : entity;
+
+    //set editform input fields to the values of the entity
+    this.editForm.setValue({
+      name: entity.name,
+      address: entity.address,
+    });
   }
 
-  saveButton(entity: any) {
-    if (this.editForm.valid) { // Check if the form is valid
-      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+  saveButton(entity: ProjectLocation) {
+    if (this.editForm.valid) {
+      // Check if the form is valid
+      this.newEntity = this.editForm.value; // Sets the newEntity to the value of the input field
+      this.newEntity.id = entity.id; // Set the id of the newEntity to the id of the entity
+
+      // Update the entity in the database
+      this.apiService
+        .update<boolean, ProjectLocation>('Location', this.newEntity)
+        .subscribe((data: boolean) => {
+          if (data) {
+            // if data is true, update the entity in the list in "ts file"
+            entity.name = this.newEntity.name;
+            entity.address = this.newEntity.address;
+          }
+        });
       this.editForm.reset(); // Clear the input field
-
-      // Needs the update method
-
     }
     this.isEditing = null; // Stop editing after saving
   }
 
-  deleteButton(entity: any) {
-    this.apiService.delete<ProjectLocation, number>('Location', entity.id).subscribe(data => {      
-      this.entityList = this.entityList.filter(item => item.id !== entity.id);
-      // Compare the id of the entity we want to delete with the id of the entities in the list in "ts file"
-      // If the id is the same, remove the entity from the list else keep it.       
-    });
+  deleteButton(entity: ProjectLocation) {
+    this.apiService
+      .delete<ProjectLocation, number>('Location', entity.id!)
+      .subscribe((data) => {
+        this.entityList = this.entityList.filter(
+          (item) => item.id !== entity.id
+        );
+        // Compare the id of the entity we want to delete with the id of the entities in the list in "ts file"
+        // If the id is the same, remove the entity from the list else keep it.
+      });
   }
 }

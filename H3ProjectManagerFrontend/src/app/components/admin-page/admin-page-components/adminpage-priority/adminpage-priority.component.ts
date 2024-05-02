@@ -47,8 +47,8 @@ export class AdminpagePriorityComponent implements OnInit {
       level: ['', Validators.required]
     });
     this.editForm = this.fb.group({
-      newName: ['', Validators.required],
-      newLevel: ['', Validators.required]
+      name: ['', Validators.required],
+      level: ['', Validators.required]
     });
 
     this.apiService.getAllSimple<Priority>('Priority').subscribe((data) => {
@@ -72,26 +72,41 @@ export class AdminpagePriorityComponent implements OnInit {
     }
   }
 
-  editButton(entity: any) {
+  editButton(entity: Priority) {
     // if isEditing is the same as the entity, set isEditing to null, else set isEditing to the entity,
     // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
     // when "save" is clicked, isEditing is set to null and the form is hidden
     this.isEditing = this.isEditing === entity ? null : entity;
+
+    this.editForm.setValue({
+      name: entity.name,
+      level: entity.level
+    });
   }
 
-  saveButton(entity: any) {
-    if (this.editForm.valid) { // Check if the form is valid
-      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+  saveButton(entity: Priority) {
+    if (this.editForm.valid) {
+      // Check if the form is valid
+      this.newEntity = this.editForm.value; // Sets the newEntity to the value of the input field
+      this.newEntity.id = entity.id; // Set the id of the newEntity to the id of the entity
+
+      // Update the entity in the database
+      this.apiService
+        .update<boolean, Priority>('Priority', this.newEntity)
+        .subscribe((data: boolean) => {
+          if (data) {
+            // if data is true, update the entity in the list in "ts file"
+            entity.name = this.newEntity.name;
+            entity.level = this.newEntity.level;
+          }
+        });
       this.editForm.reset(); // Clear the input field
-
-      // Needs the update method
-
     }
     this.isEditing = null; // Stop editing after saving
   }
 
-  deleteButton(entity: any) {
-    this.apiService.delete<Priority, number>('Priority', entity.id).subscribe(data => {
+  deleteButton(entity: Priority) {
+    this.apiService.delete<Priority, number>('Priority', entity.id!).subscribe(data => {
       this.entityList = this.entityList.filter((e) => e !== entity);
     });
   }
