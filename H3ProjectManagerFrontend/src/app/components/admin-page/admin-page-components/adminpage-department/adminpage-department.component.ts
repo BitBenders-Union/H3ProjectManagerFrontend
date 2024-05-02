@@ -20,6 +20,7 @@ import { ApiGenericMethodsService } from '../../../../service/api-generic-method
   //styleUrls: ['./adminpage-department.component.css'], // This is the standard css file of the component, it has been out commented because the generic component is used
 })
 export class AdminpageDepartmentComponent implements OnInit {
+
   heading: string = 'Afdelinger';
   addEntityHeading: string = 'Tilføj afdeling';
   labelName: string = 'Afdeling navn:';
@@ -108,6 +109,8 @@ export class AdminpageDepartmentComponent implements OnInit {
     this.apiService
       .delete<boolean, number>('Department', entity.id!)
       .subscribe((data) => {
+        // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.F
         this.entityList = this.entityList.filter((t) => t.id !== entity.id);
       });
   }

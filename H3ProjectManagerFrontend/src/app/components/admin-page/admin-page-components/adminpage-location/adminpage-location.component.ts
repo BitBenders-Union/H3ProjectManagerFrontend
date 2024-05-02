@@ -122,11 +122,11 @@ export class AdminpageLocationComponent implements OnInit {
     this.apiService
       .delete<ProjectLocation, number>('Location', entity.id!)
       .subscribe((data) => {
+        // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.
         this.entityList = this.entityList.filter(
           (item) => item.id !== entity.id
         );
-        // Compare the id of the entity we want to delete with the id of the entities in the list in "ts file"
-        // If the id is the same, remove the entity from the list else keep it.
       });
   }
 }

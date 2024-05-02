@@ -103,6 +103,8 @@ export class AdminpageProjectstatusComponent implements OnInit {
 
   deleteButton(entity: ProjectStatus) {
     this.apiService.delete<boolean, number>('ProjectStatus', entity.id!).subscribe(data => {
+      // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.
       this.entityList = this.entityList.filter((item) => item !== entity);
     });
   }

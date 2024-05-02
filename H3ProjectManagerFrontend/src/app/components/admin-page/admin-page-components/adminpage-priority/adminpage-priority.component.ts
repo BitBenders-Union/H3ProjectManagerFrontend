@@ -107,6 +107,8 @@ export class AdminpagePriorityComponent implements OnInit {
 
   deleteButton(entity: Priority) {
     this.apiService.delete<Priority, number>('Priority', entity.id!).subscribe(data => {
+      // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.
       this.entityList = this.entityList.filter((e) => e !== entity);
     });
   }
