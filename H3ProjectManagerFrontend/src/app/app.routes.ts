@@ -12,7 +12,7 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
 export const routes: Routes = [
   { path: '', component: FrontpageComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'user-registrering', component: UserRegistrationComponent},
+  { path: 'register', component: UserRegistrationComponent},
   { path: 'user-profil', component: UserProfilComponent},
   { path: 'project-dashboard', component: ProjectDashboardComponent},
   { path: 'admin-page', component: AdminPageComponent},
