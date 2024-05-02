@@ -46,34 +46,34 @@ export class AdminpageGenericComponent implements OnInit {
       name: ['', Validators.required],
     });
     this.editForm = this.fb.group({
-      newName: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
 
-  //Methodes in this component are not implemented, they are just placeholders for the real methods in the child components, 
+  //Methodes in this component are not implemented, they are just placeholders for the real methods in the child components,
   //otherwise the html file will not work.
-  
+
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
 
   addButton() {
-    
+
   }
 
   editButton(entity: any) {
     // if isEditing is the same as the entity, set isEditing to null, else set isEditing to the entity,
     // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
     // when "save" is clicked, isEditing is set to null and the form is hidden
-    this.isEditing = this.isEditing === entity ? null : entity;    
+    this.isEditing = this.isEditing === entity ? null : entity;
   }
 
   saveButton(entity: any) {
-    
+
   }
 
   deleteButton(entity: any) {
-    
+
   }
 
 }

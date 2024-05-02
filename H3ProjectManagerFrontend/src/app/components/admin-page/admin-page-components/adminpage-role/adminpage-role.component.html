@@ -13,18 +13,18 @@
         <div class="editLabelColumn">
           <label class="label-name">{{ entity.name }}</label>
           <label class="label-description">{{ entity.description }}</label>
-          <label class="label-isActive">{{ entity.isActive ? 'Active' : 'Inactive' }}</label>
+          <label class="label-isActive">{{ entity.isActive ? 'Aktiv' : 'Inaktiv' }}</label>
         </div>
 
         <div class="editInputColumn">
-          <input class="editInput" *ngIf="isEditing === entity" type="text" name="newName" formControlName="newName"
+          <input class="editInput" *ngIf="isEditing === entity" type="text" formControlName="name"
             placeholder="Rolle navn" />
 
-          <input class="editInput" *ngIf="isEditing === entity" type="text" name="newDescription"
-            formControlName="newDescription" placeholder="Rolle beskrivelse" />
+          <input class="editInput" *ngIf="isEditing === entity" type="text" formControlName="description"
+          placeholder="Rolle beskrivelse" />
 
-          <input class="editInput" *ngIf="isEditing === entity" type="checkbox" name="isActive"
-            formControlName="isActive" placeholder="Level" />
+          <input class="editInput" *ngIf="isEditing === entity" type="checkbox" formControlName="isActive"
+          placeholder="Level" />
         </div>
 
         <div class="edit-Button-container">
