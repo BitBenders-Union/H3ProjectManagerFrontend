@@ -25,7 +25,7 @@ export class ApiGenericMethodsService {
   }
 
   post<TReturn, TInsert>(endpoint: string, model: TInsert, userId?: number): Observable<TReturn>{
-    return this.http.post<TReturn>(`${this.url}${endpoint}/${userId ? '/' + userId : ''}`, model);
+    return this.http.post<TReturn>(`${this.url}${endpoint}/${userId ? userId : ''}`, model);
   }
 
   update<TReturn, TInsert>(endpoint: string, model: TInsert): Observable<TReturn>{
