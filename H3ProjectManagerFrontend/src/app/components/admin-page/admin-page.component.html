@@ -1,40 +1,44 @@
-
 <div class="floating-menu">
-  <div class="floating-menu-content" *ngFor="let item of menuItems">
+  <div class="floating-menu-padding-contain">
+    <div class="floating-menu-content" *ngFor="let item of menuItems">
       <a (click)="scrollToSection( item.address)">- {{item.name}}</a>
+    </div>
   </div>
 </div>
 
+
+
+
 <div id="department" class="container">
-    <app-adminpage-department></app-adminpage-department>
+  <app-adminpage-department></app-adminpage-department>
 </div>
 
 <div id="location" class="container">
-    <app-adminpage-location></app-adminpage-location>
+  <app-adminpage-location></app-adminpage-location>
 </div>
 
 <div id="priority" class="container">
-    <app-adminpage-priority></app-adminpage-priority>
+  <app-adminpage-priority></app-adminpage-priority>
 </div>
 
 <div id="projectcategory" class="container">
-    <app-adminpage-projectcategory></app-adminpage-projectcategory>
+  <app-adminpage-projectcategory></app-adminpage-projectcategory>
 </div>
 
 <div id="projectstatus" class="container">
-    <app-adminpage-projectstatus></app-adminpage-projectstatus>
+  <app-adminpage-projectstatus></app-adminpage-projectstatus>
 </div>
 
 <div id="projecttaskcategory" class="container">
-    <app-adminpage-projecttaskcategory></app-adminpage-projecttaskcategory>
+  <app-adminpage-projecttaskcategory></app-adminpage-projecttaskcategory>
 </div>
 
 <div id="projecttaskstatus" class="container">
-    <app-adminpage-projecttaskstatus></app-adminpage-projecttaskstatus>
+  <app-adminpage-projecttaskstatus></app-adminpage-projecttaskstatus>
 </div>
 
 <div id="role" class="container">
-    <app-adminpage-role></app-adminpage-role>
+  <app-adminpage-role></app-adminpage-role>
 </div>
 
 
