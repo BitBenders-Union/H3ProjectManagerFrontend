@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { ProjectStatus } from '../../models/ProjectStatus';
 import { ProjectCategory } from '../../models/ProjectCategory';
 import { Router } from '@angular/router';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-project-create',
@@ -30,7 +31,7 @@ export class ProjectCreateComponent implements OnInit {
 
   formIsValid: boolean = true;
 
-  constructor(private service : ApiGenericMethodsService, private route: Router ) { }
+  constructor(private service : ApiGenericMethodsService, private route: Router, private token: TokenService ) { }
 
   ngOnInit(): void {
 
@@ -135,7 +136,7 @@ export class ProjectCreateComponent implements OnInit {
       status: this.statusList[this.projectForm.get('statusIndex')?.value],
       category: this.categoryList[this.projectForm.get('categoryIndex')?.value],
       priority: this.priorityList[this.projectForm.get('priorityIndex')?.value],
-      ownerId: 0 // get from token
+      owner:  // get from token
     }
 
     console.log(this.projectModel)
