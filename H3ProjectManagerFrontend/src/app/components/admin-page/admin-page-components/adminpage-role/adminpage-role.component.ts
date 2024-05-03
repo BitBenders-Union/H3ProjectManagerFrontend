@@ -26,9 +26,10 @@ export class AdminpageRoleComponent implements OnInit {
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-  // Temp data
+  // List of entities to be displayed when the page is loaded gets data from the database from api call in onInit
   entityList: Role[] = [];
 
+  // For adding new entity and reseting the input fields
   newEntity: Role = new Role();
 
   isCollapsed = false; // Initially visible
@@ -44,12 +45,12 @@ export class AdminpageRoleComponent implements OnInit {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      isActive: [false, ],
+      isActive: [false],
     });
     this.editForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      isActive: [false, ],
+      isActive: [false],
     });
 
     this.apiService.getAllSimple<Role>('Role').subscribe((data) => {
@@ -57,6 +58,7 @@ export class AdminpageRoleComponent implements OnInit {
     });
   }
 
+  // Function to toggle the visibility of the edit form
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -106,10 +108,12 @@ export class AdminpageRoleComponent implements OnInit {
   }
 
   deleteButton(entity: Role) {
-    this.apiService.delete<Role, number>('Role', entity.id!).subscribe((data) => {
-      // Filters the 'entityList' to remove the entity with a specific 'id'.
+    this.apiService
+      .delete<Role, number>('Role', entity.id!)
+      .subscribe((data) => {
+        // Filters the 'entityList' to remove the entity with a specific 'id'.
         //The new list will only include entities whose 'id' does not match the 'id' of the given entity.
-      this.entityList.splice(this.entityList.indexOf(entity), 1);
-    });
+        this.entityList.splice(this.entityList.indexOf(entity), 1);
+      });
   }
 }

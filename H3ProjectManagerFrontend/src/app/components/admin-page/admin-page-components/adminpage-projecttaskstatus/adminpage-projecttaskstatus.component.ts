@@ -28,9 +28,10 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-  // Temp data
+  // List of entities to be displayed when the page is loaded gets data from the database from api call in onInit
   entityList: ProjectTaskStatus[] = [];
 
+  // For adding new entity and reseting the input fields
   newEntity: ProjectTaskStatus = new ProjectTaskStatus();
 
   isCollapsed = false; // Initially visible
@@ -57,6 +58,7 @@ export class AdminpageProjecttaskstatusComponent implements OnInit {
       });
   }
 
+  // Function to toggle the visibility of the edit for
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }

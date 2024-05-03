@@ -22,7 +22,7 @@ import { AdminpageRoleComponent } from './admin-page-components/adminpage-role/a
   styleUrls: ['./admin-page.component.css'],
 })
 export class AdminPageComponent implements OnInit {
-  
+
   constructor() {}
 
   ngOnInit() {}
@@ -30,10 +30,12 @@ export class AdminPageComponent implements OnInit {
   isCollapsed = false; // Initially visible
 
 
+  // Function to toggle visibility of the form
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
 
+  // Function to scroll to the section with the given id
   scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {

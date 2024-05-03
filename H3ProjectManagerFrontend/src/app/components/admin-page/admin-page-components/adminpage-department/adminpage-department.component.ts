@@ -20,7 +20,6 @@ import { ApiGenericMethodsService } from '../../../../service/api-generic-method
   //styleUrls: ['./adminpage-department.component.css'], // This is the standard css file of the component, it has been out commented because the generic component is used
 })
 export class AdminpageDepartmentComponent implements OnInit {
-
   heading: string = 'Afdelinger';
   addEntityHeading: string = 'Tilføj afdeling';
   labelName: string = 'Afdeling navn:';
@@ -29,9 +28,10 @@ export class AdminpageDepartmentComponent implements OnInit {
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-  // Temp data
+  // List of entities to be displayed when the page is loaded gets data from the database from api call in onInit
   entityList: Department[] = [];
 
+  //For adding new entity and reseting the input fields
   newEntity: Department = new Department();
 
   isCollapsed = false; // Initially visible
@@ -56,6 +56,7 @@ export class AdminpageDepartmentComponent implements OnInit {
     });
   }
 
+  // Function to toggle the visibility of the edit form
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -81,7 +82,7 @@ export class AdminpageDepartmentComponent implements OnInit {
 
     // Set the value of the input field to the current name of the entity
     this.editForm.setValue({
-      name: entity.name
+      name: entity.name,
     });
   }
 

@@ -30,7 +30,7 @@ export class AdminpageLocationComponent implements OnInit {
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-  // List of entities to be displayed when the page is loaded gets data from the database from onInit
+  // List of entities to be displayed when the page is loaded gets data from the database from api call in onInit
   entityList: ProjectLocation[] = [];
 
   //For adding new entity and reseting the input fields
@@ -50,6 +50,7 @@ export class AdminpageLocationComponent implements OnInit {
       name: ['', Validators.required],
       address: ['', Validators.required],
     });
+
     this.editForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -62,6 +63,7 @@ export class AdminpageLocationComponent implements OnInit {
       });
   }
 
+  // Function to toggle the visibility of the edit form
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed; // Toggle the visibility of the form
   }
