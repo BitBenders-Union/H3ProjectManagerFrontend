@@ -29,9 +29,9 @@ export interface ProjectCreate{
     status: ProjectStatus
     category: ProjectCategory;
     priority: Priority;
-    client: Client;
-    projectTasks: ProjectTaskDetails[];
-    department: Department[];
+    client?: Client;
+    projectTasks?: ProjectTaskDetails[];
+    department?: Department[];
     users: User[];
     owner: string;
 
