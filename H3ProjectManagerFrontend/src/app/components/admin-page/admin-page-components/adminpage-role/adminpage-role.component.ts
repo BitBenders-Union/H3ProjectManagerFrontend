@@ -29,7 +29,7 @@ export class AdminpageRoleComponent implements OnInit {
   // Temp data
   entityList: Role[] = [];
 
-  newEntity: Role = { name: '', description: '', isActive: true };
+  newEntity: Role = new Role();
 
   isCollapsed = false; // Initially visible
 
@@ -44,12 +44,12 @@ export class AdminpageRoleComponent implements OnInit {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      isActive: [true, Validators.required],
+      isActive: [false, ],
     });
     this.editForm = this.fb.group({
-      newName: ['', Validators.required],
-      newDescription: ['', Validators.required],
-      newIsActive: [true, Validators.required],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      isActive: [false, ],
     });
 
     this.apiService.getAllSimple<Role>('Role').subscribe((data) => {
@@ -75,26 +75,38 @@ export class AdminpageRoleComponent implements OnInit {
     }
   }
 
-  editButton(entity: any) {
+  editButton(entity: Role) {
     // if isEditing is the same as the entity, set isEditing to null, else set isEditing to the entity,
     // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
     // when "save" is clicked, isEditing is set to null and the form is hidden
     this.isEditing = this.isEditing === entity ? null : entity;
   }
 
-  saveButton(entity: any) {
-    if (this.editForm.valid) { // Check if the form is valid
-      this.newEntity = this.editForm.value; // Set the new entity to the value of the form
+  saveButton(entity: Role) {
+    if (this.editForm.valid) {
+      // Check if the form is valid
+      this.newEntity = this.editForm.value; // Sets the newEntity to the value of the input field
+      this.newEntity.id = entity.id; // Set the id of the newEntity to the id of the entity
+
+      // Update the entity in the database
+      this.apiService
+        .update<boolean, Role>('Role', this.newEntity)
+        .subscribe((data: boolean) => {
+          console.log(data);
+          if (data) {
+            // if data is true, update the entity in the list in "ts file"
+            entity.name = this.newEntity.name;
+            entity.description = this.newEntity.description;
+            entity.isActive = this.newEntity.isActive;
+          }
+        });
       this.editForm.reset(); // Clear the input field
-
-      // Needs the update method
-
     }
     this.isEditing = null; // Stop editing after saving
   }
 
-  deleteButton(entity: any) {
-    this.apiService.delete<Role, number>('Role', entity.id).subscribe((data) => {
+  deleteButton(entity: Role) {
+    this.apiService.delete<Role, number>('Role', entity.id!).subscribe((data) => {
       this.entityList.splice(this.entityList.indexOf(entity), 1);
     });
   }

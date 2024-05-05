@@ -22,17 +22,18 @@ export interface ProjectDashboard{
 }
 
 export interface ProjectCreate{
+    id: number;
     name: string;
     startDate: Date;
     endDate: Date;
     status: ProjectStatus
     category: ProjectCategory;
     priority: Priority;
-    owner: string;
     client?: Client;
     projectTasks?: ProjectTaskDetails[];
     department?: Department[];
-    users?: User[];
+    users: User[];
+    owner: string;
 
 }
 

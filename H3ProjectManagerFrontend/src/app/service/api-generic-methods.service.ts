@@ -25,11 +25,11 @@ export class ApiGenericMethodsService {
   }
 
   post<TReturn, TInsert>(endpoint: string, model: TInsert, userId?: number): Observable<TReturn>{
-    return this.http.post<TReturn>(`${this.url}${endpoint}/${userId ? '/' + userId : ''}`, model);
+    return this.http.post<TReturn>(`${this.url}${endpoint}/${userId ? userId : ''}`, model);
   }
 
-  update<Treturn, TInsert>(endpoint: string, model: TInsert): Observable<Treturn>{
-    return this.http.put<Treturn>(`${this.url}${endpoint}`, model);
+  update<TReturn, TInsert>(endpoint: string, model: TInsert): Observable<TReturn>{
+    return this.http.put<TReturn>(`${this.url}${endpoint}`, model);
   }
 
   delete<TReturn, TDelete>(endpoint: string, id: number): Observable<TReturn>{

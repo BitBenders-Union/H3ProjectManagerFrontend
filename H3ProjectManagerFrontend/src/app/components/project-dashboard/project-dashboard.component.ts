@@ -26,7 +26,7 @@ export class ProjectDashboardComponent implements OnInit {
   ngOnInit(){
     // call the service to get all the projects
 
-    this.apiService.getAll<ProjectDashboard>("Project/GetFprIser", this.token.getIdFromToken()).subscribe({
+    this.apiService.getAll<ProjectDashboard>("Project/GetForUser", this.token.getIdFromToken()).subscribe({
       next: (data: ProjectDashboard[]) => {
         console.log(data);
         this.projectList = data;
