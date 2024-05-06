@@ -6,9 +6,10 @@ footer {
     justify-content: center;
     flex-direction: column;
     background-color: #f0f0f0;
-    /* background-color: black; */
     height: 8vh;
     text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
+
   }
   
   footer p {
