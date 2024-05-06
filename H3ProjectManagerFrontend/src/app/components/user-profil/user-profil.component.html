@@ -1,8 +1,8 @@
 <div class="wrapper">
 
-  <div class="editProfilContainer">
+  <!-- <div class="editProfilContainer">
     <button class="editUserButton">Tilbage</button>
-  </div>
+  </div> -->
 
   <div class="userInfoWrapper">
     <div class="userInfo">
@@ -14,20 +14,21 @@
         <label>Afdeling: </label>
         <label>Oprettet: </label>
       </div>
+        <form class="userInput" [formGroup]="detailsForm">
 
-      <div class="userInput">
-        <input type="text" placeholder="user.userName" disabled>
-        <input type="text" placeholder="user.firstName">
-        <input type="text" placeholder="user.lastName">
-        <select type="text" placeholder="user.Department">
-          <option value="">Vælg en afdeling</option>
-          <option *ngFor="let afdeling of afdelinger"></option>
-        </select>
-        <input type="text" placeholder="user.createdDate" disabled>
-      </div>
+          <input type="text" placeholder="Username" disabled >
+          <input type="text" placeholder="firstName" formControlName="firstName">
+          <input type="text" placeholder="Lastname" formControlName="lastName">
+          <select type="text" placeholder="Department" formGroupName="departmentsForm">
+            <option value="">Vælg en afdeling</option>
+            <option *ngFor="let department of departments" formControlName="name">{{department.name}}</option>
+          </select>
+          <input type="text" placeholder="Creation Date" disabled>
+        </form>
     </div>
 
     <div class="saveButton">
       <button class="saveUserButton">Gem</button>
     </div>
   </div>
+</div>
