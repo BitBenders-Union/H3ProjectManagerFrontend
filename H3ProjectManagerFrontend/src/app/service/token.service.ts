@@ -5,6 +5,7 @@ import { TokenModel } from '../models/Token';
 import { Observable, Subject, catchError, of, retry, switchMap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,20 @@ export class TokenService {
   getUsernameFromToken(){
     if(this.userPayLoad)
       return this.userPayLoad.name;
+  }
+
+  getUserFromToken(){
+    if(this.userPayLoad)
+      {
+        const user: User = {
+          id: this.userPayLoad.nameid,
+          username: this.userPayLoad.name,
+          firstName: this.userPayLoad.firstname,
+          lastName: this.userPayLoad.lastname
+        }
+        return user;
+      }
+      return
   }
 
   getFirstNameFromToken(){

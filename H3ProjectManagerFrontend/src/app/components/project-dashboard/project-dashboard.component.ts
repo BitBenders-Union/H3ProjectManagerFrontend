@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Project, ProjectDashboard } from '../../models/Project';
 import { Router, RouterLink } from '@angular/router';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -20,12 +21,12 @@ export class ProjectDashboardComponent implements OnInit {
   projectList : ProjectDashboard[] = []
 
   // make a service that gets all the projects for the user
-  constructor(private apiService: ApiGenericMethodsService, private route: Router) {}
+  constructor(private apiService: ApiGenericMethodsService, private route: Router, private token: TokenService) {}
 
   ngOnInit(){
     // call the service to get all the projects
 
-    this.apiService.getAll<ProjectDashboard>("Project/getAll", 1).subscribe({
+    this.apiService.getAll<ProjectDashboard>("Project/GetForUser", this.token.getIdFromToken()).subscribe({
       next: (data: ProjectDashboard[]) => {
         console.log(data);
         this.projectList = data;
