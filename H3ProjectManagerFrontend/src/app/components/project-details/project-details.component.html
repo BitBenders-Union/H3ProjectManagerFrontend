@@ -1,68 +1,53 @@
-
-
-<!-- here we display the chosen project's details and all of it's tasks -->
-
-<!-- 
-    we need the
-    Project Title
-    Project Category
-    Project Status
-    Project Priority
-    Project Start Date
-    Project End Date
-    Project Description
-    Project Tasks
-    Project Users
- -->
-
- <!-- 
-    the title, category, status, priority, start date, end date, description should be in this component
-    the tasks should be it's own component
-    the users should be it's own component - this componenet will display a list of usernames
-
-    left side should be the project details
-    right side should be the user list
-    below both should be the task list
-  -->
-
-<h1>{{project.name}}</h1>
-
-<div class="project-container">
-
-   <div class="column-container">
-      <div class="details-container">
-         <!-- for the project details -->
-         <p class="date">{{project.startDate.toDateString()}} - {{project.endDate.toDateString()}} </p>
-         <p class="status">{{project.status.name}}</p>
-         <p class="category">{{project.category.name}}</p>
-         <p class="priority">{{project.priority.name}}</p>
-         <div *ngFor="let item of project.department">
-            <p class="department">{{item.name}}</p>
-
-         </div>
-         <p class="client">{{project.client.name}}</p>
-         <!-- <p class="owner">{{owner.firstName}} {{owner.lastName}}</p> -->
-
+<div class="wrapper">
+   <div class="container">
+      <div class="title-container">
+         <h1 class="title">{{project.name}}</h1>
       </div>
-
-      <div class="user-container">
-         <!-- for the users -->
-         <ul>
-            <div class="user-item" *ngFor="let user of project.user">
-               <li>{{user.username}}</li>
+      <div class="table-container">
+         <div class="table-container-left">
+            <div class="table-container-left-title">
+               <h2>Details</h2>
             </div>
-         </ul>
-      </div>
-
-   </div>
-
-   <div class="task-container">
-         <!-- For the tasks -->
-      <div *ngIf="project.tasks">
-         <div class="task-item" *ngFor="let task of project.tasks" >
-            <app-task [task]="task" ></app-task>
+            <div class="table-container-left-details">
+               <div class="table-container-left-details-left">
+                  <p>Timespan:</p>
+                  <p>Status:</p>
+                  <p>Category:</p>
+                  <p>Priority:</p>
+                  <p>Client:</p>
+                  <p>Owner:</p>
+                  <p>Department:</p>
+               </div>
+               <div class="table-container-left-details-right">
+                  <p>{{project.startDate.toDateString()}} - {{project.endDate.toDateString()}}</p>
+                  <p class="status">{{project.status.name}}</p>
+                  <p class="category">{{project.category.name}}</p>
+                  <p class="priority">{{project.priority.name}}</p>
+                  <p class="client">{{project.client.name}}</p>
+                  <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
+                  <ul *ngFor="let item of project.department">
+                     <li>{{item.name}}</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="table-container-right">
+            <div class="table-container-right-title">
+               <h2>Team Members</h2>
+            </div>
+            <div class="table-container-right-details">
+               <ul *ngFor="let user of project.user">
+                  <li>{{user.username}}</li>
+               </ul>
+            </div>
          </div>
       </div>
-      <button class="create-task">Opret Task</button>
-   </div>
+      <button>Edit</button>
+   </div>   
 </div>
+<br>
+<hr>
+<div class="task" *ngFor="let i of project.tasks">
+   <app-task [task]="i"></app-task>
+</div>
+
