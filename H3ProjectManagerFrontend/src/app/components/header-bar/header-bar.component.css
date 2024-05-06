@@ -4,6 +4,7 @@ header {
     /* padding: 20px 0; */
     /* height: 80px; */
     height: 8vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
   
 .container {
@@ -43,3 +44,7 @@ header {
     text-decoration: none;
     color: #333;
   }
+
+a{
+  cursor: pointer;
+}
