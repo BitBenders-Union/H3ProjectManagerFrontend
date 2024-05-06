@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: UserRegistrationComponent},
   { path: 'user-profil', component: UserProfilComponent, canActivate: [authGuard]},
-  { path: 'project-dashboard', component: ProjectDashboardComponent, canActivate: [authGuard]},
+  { path: 'project-dashboard', component: ProjectDashboardComponent},
   { path: 'admin-page', component: AdminPageComponent},
   { path: 'project-create', component: ProjectCreateComponent},
   { path: 'project-details/:id', component: ProjectDetailsComponent},

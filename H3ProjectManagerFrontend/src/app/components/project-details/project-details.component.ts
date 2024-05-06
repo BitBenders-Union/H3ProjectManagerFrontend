@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
 import { ProjectDetails } from '../../models/Project';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { User } from '../../models/user';
 
@@ -11,7 +11,8 @@ import { User } from '../../models/user';
   standalone: true,
   imports: [
     CommonModule,
-    TaskComponent
+    TaskComponent,
+    NgFor
   ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
@@ -38,6 +39,7 @@ export class ProjectDetailsComponent implements OnInit{
     this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
       next: (data) => {
         this.project = data;
+        console.log(this.project)
         this.getprojectOwner();
 
       },
@@ -130,6 +132,13 @@ export class ProjectDetailsComponent implements OnInit{
           ]
         }
         // this.route.navigate(['/project-dashboard']);
+
+        this.owner = {
+          id: 0,
+          username: 'User 1',
+          firstName: 'First',
+          lastName: 'Last',
+        }
       }
     })
 
@@ -145,7 +154,4 @@ export class ProjectDetailsComponent implements OnInit{
       }
     })
   }
-
-
-
 }
