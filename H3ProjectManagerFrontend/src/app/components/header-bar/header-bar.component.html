@@ -10,10 +10,11 @@
                     </ul>
                 </nav>
                 <nav *ngIf="isLoggedIn()"> <ul>
-                    <li>Hello, {{ getUsernameFromToken() }}</li>
-                    <li><a (click)="signOut()">Sign Out</a></li>
+                    <li><a routerLink="/user-profile">Hello, {{ getUsernameFromToken() }}</a></li>
+                    <li><a routerLink="/project-dashboard">Projekter</a></li>
+                    <li><a (click)="signOut()">Log ud</a></li>
                   </ul>
                 </nav>
             </div>
         </div>
-    </header>
+</header>

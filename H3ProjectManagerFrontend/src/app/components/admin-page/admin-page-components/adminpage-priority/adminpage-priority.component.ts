@@ -5,7 +5,8 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators, } from '@angular/forms';
+  Validators,
+} from '@angular/forms';
 import { Priority } from '../../../../models/Priority';
 import { ApiGenericMethodsService } from '../../../../service/api-generic-methods.service';
 
@@ -13,24 +14,24 @@ import { ApiGenericMethodsService } from '../../../../service/api-generic-method
   selector: 'app-adminpage-priority',
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   standalone: true,
-   templateUrl: './adminpage-priority.component.html', // This is the standard html file
+  templateUrl: './adminpage-priority.component.html', // This is the standard html file
   styleUrls: ['./adminpage-priority.component.css'], // This is the standard css file
 })
 export class AdminpagePriorityComponent implements OnInit {
-
-  heading: string = "Prioriteter";
-  addEntityHeading: string = "Tilføj prioritet";
-  labelName: string = "Prioritets navn:";
+  heading: string = 'Prioriteter';
+  addEntityHeading: string = 'Tilføj prioritet';
+  labelName: string = 'Prioritets navn:';
   labelLevel: string = 'Prioritets Level:';
-  addButtonText: string = "Tilføj prioritet";
+  addButtonText: string = 'Tilføj prioritet';
 
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-  // Temp data
-  entityList : Priority[]= [];
+    // List of entities to be displayed when the page is loaded gets data from the database from api call in onInit
+  entityList: Priority[] = [];
 
-  newEntity : Priority = { name: '', level: 0 }; // For adding new entity and reseting the input fields
+  // For adding new entity and reseting the input fields
+  newEntity: Priority =  new Priority();
 
   isCollapsed = false; // Initially visible
 
@@ -44,11 +45,11 @@ export class AdminpagePriorityComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      level: ['', Validators.required]
+      level: ['', Validators.required],
     });
     this.editForm = this.fb.group({
       name: ['', Validators.required],
-      level: ['', Validators.required]
+      level: ['', Validators.required],
     });
 
     this.apiService.getAllSimple<Priority>('Priority').subscribe((data) => {
@@ -61,14 +62,15 @@ export class AdminpagePriorityComponent implements OnInit {
   }
 
   addButton() {
-    console
     if (this.registerForm.valid) {
       this.newEntity = this.registerForm.value;
       this.registerForm.reset();
 
-      this.apiService.post<Priority, Priority>('Priority', this.newEntity).subscribe((data) => {
-        this.entityList.push(data);
-      });
+      this.apiService
+        .post<Priority, Priority>('Priority', this.newEntity)
+        .subscribe((data) => {
+          this.entityList.push(data);
+        });
     }
   }
 
@@ -80,7 +82,7 @@ export class AdminpagePriorityComponent implements OnInit {
 
     this.editForm.setValue({
       name: entity.name,
-      level: entity.level
+      level: entity.level,
     });
   }
 
@@ -106,8 +108,12 @@ export class AdminpagePriorityComponent implements OnInit {
   }
 
   deleteButton(entity: Priority) {
-    this.apiService.delete<Priority, number>('Priority', entity.id!).subscribe(data => {
-      this.entityList = this.entityList.filter((e) => e !== entity);
-    });
+    this.apiService
+      .delete<Priority, number>('Priority', entity.id!)
+      .subscribe((data) => {
+        // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.
+        this.entityList = this.entityList.filter((e) => e !== entity);
+      });
   }
 }

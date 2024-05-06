@@ -8,6 +8,7 @@ import { UserProfilComponent } from './components/user-profil/user-profil.compon
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { ProjectCreateComponent } from './components/project-create/project-create.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { TaskComponent } from './components/task/task.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'admin-page', component: AdminPageComponent},
   { path: 'project-create', component: ProjectCreateComponent},
   { path: 'project-details/:id', component: ProjectDetailsComponent},
+  { path: 'task', component: TaskComponent},
 
 
 ];

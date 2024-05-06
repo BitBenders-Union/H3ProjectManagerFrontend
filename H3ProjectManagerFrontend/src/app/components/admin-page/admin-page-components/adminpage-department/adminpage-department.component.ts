@@ -28,9 +28,10 @@ export class AdminpageDepartmentComponent implements OnInit {
   registerForm!: FormGroup; // Form group for the input fields
   editForm!: FormGroup; // Form group for the edit fields
 
-  // Temp data
+  // List of entities to be displayed when the page is loaded gets data from the database from api call in onInit
   entityList: Department[] = [];
 
+  //For adding new entity and reseting the input fields
   newEntity: Department = new Department();
 
   isCollapsed = false; // Initially visible
@@ -55,6 +56,7 @@ export class AdminpageDepartmentComponent implements OnInit {
     });
   }
 
+  // Function to toggle the visibility of the edit form
   toggleVisibility() {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -80,7 +82,7 @@ export class AdminpageDepartmentComponent implements OnInit {
 
     // Set the value of the input field to the current name of the entity
     this.editForm.setValue({
-      name: entity.name
+      name: entity.name,
     });
   }
 
@@ -108,6 +110,8 @@ export class AdminpageDepartmentComponent implements OnInit {
     this.apiService
       .delete<boolean, number>('Department', entity.id!)
       .subscribe((data) => {
+        // Filters the 'entityList' to remove the entity with a specific 'id'.
+        //The new list will only include entities whose 'id' does not match the 'id' of the given entity.F
         this.entityList = this.entityList.filter((t) => t.id !== entity.id);
       });
   }

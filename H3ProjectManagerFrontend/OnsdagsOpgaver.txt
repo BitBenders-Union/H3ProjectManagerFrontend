@@ -1,4 +1,0 @@
-
-Api:
-ProjectCatefory Delete - tager ikke imod et ID ? 
-
