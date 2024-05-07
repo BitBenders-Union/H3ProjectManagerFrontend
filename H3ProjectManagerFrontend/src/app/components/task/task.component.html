@@ -7,7 +7,6 @@
             <div class="form-group">
                 <h3>{{task.name}}</h3>
             </div>
-
             <div class="form-group">
                 <label for="priority">{{ task.priority.name }}</label>
             </div>
@@ -17,8 +16,7 @@
             <div class="form-group">
                 <label for="projectTaskCategory">{{ task.projectTaskCategory.name }}</label>
             </div>
-            <button>Show details</button>
-
+            <button (click)="showTaskDetails(task)">Show / edit details</button>
         </div>
     </div>
 </div>

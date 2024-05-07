@@ -1,3 +1,86 @@
-<div class="wrapper">
 
-</div>
+
+    <div class="task-header">
+        <button *ngIf="!isEditing" (click)="toggleVisibility()">Edit</button>
+    </div>
+    <div class="task-container">
+        <form class="editform" [formGroup]="editForm" (ngSubmit)="saveButton()">
+            <div class="task-button-container">
+                <button *ngIf="isEditing">Save</button>
+            </div>
+            <div class="columns-container">
+                <div class="task-details-column">
+                    <label>Opgave: </label>
+                    <br>
+                    <label>Beskrivelse:</label>
+                    <br>
+                    <label>Priotet: </label>
+                    <br>
+                    <label>Status: </label>
+                    <br>
+                    <label>Kategori: </label>
+                </div>
+                <div class="task-content-column">
+                    <label>{{taskDetails.name}}</label>
+                    <br>
+                    <label>{{taskDetails.description}}</label>
+                    <br>
+                    <label>{{taskDetails.priority.name}}</label>
+                    <br>
+                    <label>{{taskDetails.status.name}}</label>
+                    <br>
+                    <label>{{taskDetails.projectTaskCategory.name}}</label>
+                </div>
+                <div *ngIf="isEditing" class="task-edit-column">
+                    <input type="text" formControlName="taskName">
+                    <br>
+                    <textarea type="text" formControlName="taskDescription"> </textarea>
+                    <br>
+                    <select formControlName="taskStatus">
+                        <option *ngFor="let status of statusList" [ngValue]="status">
+                            {{ status.name }}
+                        </option>
+                    </select>
+                    <br>
+                    <select formControlName="taskPriority">
+                        <option *ngFor="let priotet of priorityList" [ngValue]="priotet">
+                            {{ priotet.name }}
+                        </option>
+                    </select>
+                    <br>
+                    <select formControlName="taskCategory">
+                        <option *ngFor="let category of categoryList" [ngValue]="category">
+                            {{ category.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="task-user-container">
+                <h4>Users:</h4>
+                <br>
+                <div class="user-container" *ngFor="let user of taskDetails.userDetail">
+                    <div class="user-label-container">
+                        <label>{{user.username}}</label>
+                    </div>
+                    <div class="user-button-container" *ngIf="isEditing">
+                        <button class="delete-button" (click)="removeUser(user)">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="task-user-container" *ngIf="isEditing">
+                <h4>Users to add:</h4>
+                <br>
+                <div class="user-container" *ngFor="let user of listOfUsers">
+                    <div class="user-label-container">
+                        <label>{{user.username}}</label>
+                    </div>
+
+                    <div class="user-button-container">
+                        <button (click)="addUser(user)">add</button>
+                    </div>
+                </div>
+            </div>
+        </form>
