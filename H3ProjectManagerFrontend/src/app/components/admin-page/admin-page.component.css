@@ -17,7 +17,7 @@
 
 .floating-menu{
     position: fixed;
-    top: 25%;
+    top: 29.5%;
     right: 15%;
     transform: translateY(-50%);
     z-index: 1000;

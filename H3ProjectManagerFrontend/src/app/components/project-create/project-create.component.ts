@@ -52,25 +52,14 @@ export class ProjectCreateComponent implements OnInit {
       priorityIndex: new FormControl('', Validators.required),
     });
 
-    // fetch the required data to the form
-    // ownerId get from token
-    // categories
-    // priority
-    // status
-
     this.service.getAllSimple<ProjectStatus>('ProjectStatus').subscribe({
       next: (data) => {
         this.statusList = data;
       },
       error: (error) => {
         console.log(error.message);
-        // for testing purposes
-        // this.statusList = [{
-        //   id: 1,
-        //   name: "Active"
-        // }]
-      },
-    });
+      }
+    })
 
     this.service.getAllSimple<ProjectCategory>('ProjectCategory').subscribe({
       next: (data) => {
@@ -78,13 +67,8 @@ export class ProjectCreateComponent implements OnInit {
       },
       error: (error) => {
         console.log(error.message);
-        // for testing purposes
-        // this.categoryList = [{
-        //   id: 1,
-        //   name: "Software"
-        // }]
-      },
-    });
+      }
+    })
 
     this.service.getAllSimple<Priority>('Priority').subscribe({
       next: (data) => {
@@ -92,16 +76,9 @@ export class ProjectCreateComponent implements OnInit {
       },
       error: (error) => {
         console.log(error.message);
-        // for testing purposes
-        // this.priorityList = [{
-        //   id: 1,
-        //   level: 1,
-        //   name: "Low"
-        // }]
-      },
-    });
+      }
+    })
 
-    // get the current user id from token
   }
 
   create() {

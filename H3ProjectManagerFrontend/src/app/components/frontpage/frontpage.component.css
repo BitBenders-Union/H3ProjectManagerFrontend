@@ -15,6 +15,7 @@
 .content-right {
   width: 40%;
   text-align: center;
+  padding-top: 4px;
 }
 
 .content-right img {
