@@ -41,8 +41,8 @@
             <div class="grid-item"><p>{{project.category}}</p></div>
             <div class="grid-item"><p>{{project.owner}}</p></div>
             <div class="grid-item-double">
-                <i class="fa-solid fa-ellipsis" (click)="navigateToProjectDetails(i)">
-                <button class="alert">Delete</button></i>
+                <i class="fa-solid fa-ellipsis" (click)="navigateToProjectDetails(i)"></i>
+                <button class="alert" (click)="deleteProject(i)">Delete</button>
             </div>
             
         </div>

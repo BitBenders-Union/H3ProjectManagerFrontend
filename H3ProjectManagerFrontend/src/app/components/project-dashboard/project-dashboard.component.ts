@@ -43,6 +43,16 @@ export class ProjectDashboardComponent implements OnInit {
     this.route.navigate(['/project-details', this.projectList[index].id]);
   }
 
-
+  deleteProject(index: number){
+    this.apiService.delete("Project", this.projectList[index].id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.projectList.splice(index, 1);
+      },
+      error: (error) => {
+        console.error('There was an error in project-dashboard!', error.message);
+      }
+    })
+  }
 
 }
