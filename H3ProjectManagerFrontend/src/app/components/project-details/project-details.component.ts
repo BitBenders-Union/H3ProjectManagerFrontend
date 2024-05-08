@@ -19,6 +19,7 @@ import { User } from '../../models/user';
 })
 export class ProjectDetailsComponent implements OnInit{
 
+
   // !Important
   // hardcoded data, remove after stylinig
 
@@ -128,6 +129,7 @@ export class ProjectDetailsComponent implements OnInit{
     ]
   }
 
+
   owner: User = {
     id: 0,
     username: 'User 1',
@@ -135,11 +137,13 @@ export class ProjectDetailsComponent implements OnInit{
     lastName: 'Last',
   }
 
+
   constructor(
     private routeActive: ActivatedRoute,
     private route: Router,
     private apiService: ApiGenericMethodsService
   ) { }
+
 
   ngOnInit(){
     // get the id from the url
@@ -147,6 +151,7 @@ export class ProjectDetailsComponent implements OnInit{
 
     // this.getProjectDetails(Number(id));
   }
+
 
   getProjectDetails(id: number){
     this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
@@ -164,6 +169,7 @@ export class ProjectDetailsComponent implements OnInit{
 
   }
 
+
   getprojectOwner(){
     this.apiService.getOne<User>('User', this.project.ownerId).subscribe({
       next: (data) => {
@@ -174,4 +180,12 @@ export class ProjectDetailsComponent implements OnInit{
       }
     })
   }
+
+
+  createTask() {
+    this.route.navigate(['task-create']);
+    
+  }
+
+
 }
