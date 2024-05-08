@@ -22,7 +22,7 @@ export class TaskComponent implements OnInit{
   }
 
   showTaskDetails(item : any){    
-    this.sendDataService.SendRecipie(item);
+    this.sendDataService.SendTask(item);
     this.router.navigate(['/task-details']);
   }
 }
