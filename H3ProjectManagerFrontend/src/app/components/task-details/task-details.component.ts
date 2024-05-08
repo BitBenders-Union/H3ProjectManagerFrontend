@@ -35,7 +35,6 @@ export class TaskDetailsComponent implements OnInit {
     { username: 'bobQA', firstname: 'Bob' },
     { username: 'charlieUX', firstname: 'Charlie' },
   ];
-
   //Temp data end
 
   priorityList: Priority[] = []; // List of priorities from the database
@@ -59,7 +58,7 @@ export class TaskDetailsComponent implements OnInit {
     // Get the task details from the project-details component using the data service
     this.dataService.currentMessage.subscribe((item) => {
       this.taskDetails = item as ProjectTaskDetails;
-      console.log(this.taskDetails);
+      console.log(this.taskDetails); // Remember to remove this line
       
     });
 
@@ -75,9 +74,7 @@ export class TaskDetailsComponent implements OnInit {
 
     // Get all the priorities, statuses and categories from the database
     this.apiService.getAllSimple<Priority>('Priority').subscribe((data) => {
-      this.priorityList = data;
-      this.priorityList.forEach((item) => {        
-      });      
+      this.priorityList = data;          
     });
 
     this.apiService.getAllSimple<ProjectTaskStatus>('ProjectTaskStatus').subscribe((data) => {
@@ -94,10 +91,8 @@ export class TaskDetailsComponent implements OnInit {
   // Toggle the visibility of the edit form
   toggleVisibility() {
     this.isEditing = !this.isEditing;
-  
-    console.log(this.taskDetails.projectTaskCategory.name);
-    
 
+    // If the form is visible, populate the fields with the task details - makes it easier to edit / save / validate the form
     this.editForm.patchValue({
       taskName: this.taskDetails.name,
       taskDescription: this.taskDetails.description,
@@ -111,11 +106,11 @@ export class TaskDetailsComponent implements OnInit {
 
   saveButton() {    
     if (this.editForm.valid) { // Check if the form is valid
-      this.taskDetails.name = this.editForm.value.taskName; //Remember to change this.opgaveNavn to the correct value      
-      this.taskDetails.description = this.editForm.value.taskDescription; //Remember to change this.beskrivelse to the correct value
-      this.taskDetails.priority.name = this.editForm.value.taskPriority.name;  //Remember to change this.priotet to the correct value  
-      this.taskDetails.status.name = this.editForm.value.taskStatus.name;    //Remember to change this.status to the correct value
-      this.taskDetails.projectTaskCategory.name = this.editForm.value.taskCategory.name; //Remember to change this.kategori to the correct value  
+      this.taskDetails.name = this.editForm.value.taskName;  
+      this.taskDetails.description = this.editForm.value.taskDescription; 
+      this.taskDetails.priority.name = this.editForm.value.taskPriority.name;
+      this.taskDetails.status.name = this.editForm.value.taskStatus.name; 
+      this.taskDetails.projectTaskCategory.name = this.editForm.value.taskCategory.name;
       
       // Reset the form and hide it
       this.isEditing = false;      
