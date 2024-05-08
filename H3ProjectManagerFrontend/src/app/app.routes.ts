@@ -10,6 +10,8 @@ import { ProjectCreateComponent } from './components/project-create/project-crea
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { TaskComponent } from './components/task/task.component';
 import { authGuard } from './guards/auth.guard';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+
 
 export const routes: Routes = [
   { path: '', component: FrontpageComponent},
@@ -21,6 +23,7 @@ export const routes: Routes = [
   { path: 'project-create', component: ProjectCreateComponent},
   { path: 'project-details/:id', component: ProjectDetailsComponent},
   { path: 'task', component: TaskComponent},
+  { path: 'task-details', component: TaskDetailsComponent},
 
 
 ];

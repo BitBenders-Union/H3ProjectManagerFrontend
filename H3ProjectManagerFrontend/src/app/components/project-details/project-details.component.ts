@@ -56,22 +56,41 @@ export class ProjectDetailsComponent implements OnInit{
       },
       {
         id: 1,
-        name: 'Project not found',
-        description: 'Project not found',
+        name: 'Project 1 not found',
+        description: 'Project 1  description not found',
         projectId: 0,
         priority: {
           id: 0,
-          name: 'Project not found',
+          name: 'Haster',
         },
         status: {
           id: 0,
-          name: 'Project not found',
+          name: 'Opstart',
         },
         projectTaskCategory: {
           id: 0,
-          name: 'Project not found',
+          name: 'Feat add',
         },
-        userDetail: [],
+        userDetail: [
+          {
+            id: 0,
+            username: 'User 1',
+            firstName: 'First',
+            lastName: 'Last',
+          },
+          {
+            id: 1,
+            username: 'bob',
+            firstName: 'bob',
+            lastName: 'bob',
+          },
+          {
+            id: 2,
+            username: 'john',
+            firstName: 'john',
+            lastName: 'john',
+          }          
+        ],
         comments: []
       }
     ],
@@ -96,7 +115,7 @@ export class ProjectDetailsComponent implements OnInit{
     user: [
       {
         id: 0,
-        username: 'User 1',
+        username: 'User 2',
         firstName: 'First',
         lastName: 'Last',
       },
@@ -133,7 +152,7 @@ export class ProjectDetailsComponent implements OnInit{
     this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
       next: (data) => {
         this.project = data;
-        console.log(this.project)
+        //console.log(this.project)
         this.getprojectOwner();
 
       },
