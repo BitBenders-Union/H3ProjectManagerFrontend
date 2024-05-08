@@ -81,3 +81,9 @@ label {
 small {
   color: red;
 }
+
+/* not nthchild last and second las */
+
+.ng-invalid.ng-touched input:not(.ng-untouched):not(.ng-valid) {
+  border: 2px solid red;
+}
