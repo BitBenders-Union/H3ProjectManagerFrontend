@@ -12,8 +12,8 @@ export class ApiGenericMethodsService {
 
   constructor(private http: HttpClient) { }
 
-  getAll<TModel>(endpoint: string, userId: number): Observable<TModel[]>{
-    return this.http.get<TModel[]>(`${this.url}${endpoint}/${userId}`);
+  getAll<TModel>(endpoint: string, userId?: number): Observable<TModel[]>{
+    return this.http.get<TModel[]>(`${this.url}${endpoint}/${userId ? userId : ''}`);
   }
 
   getAllSimple<Tmodel>(endpoint: string): Observable<Tmodel[]>{

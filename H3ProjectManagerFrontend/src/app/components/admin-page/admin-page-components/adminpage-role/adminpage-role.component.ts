@@ -82,6 +82,13 @@ export class AdminpageRoleComponent implements OnInit {
     // ngIF in the html file will then show the edit form if isEditing is equal to the entity,
     // when "save" is clicked, isEditing is set to null and the form is hidden
     this.isEditing = this.isEditing === entity ? null : entity;
+
+    // Set the value of the edit form to the values of the entity
+    this.editForm.setValue({
+      name: entity.name,
+      description: entity.description,
+      isActive: entity.isActive,
+    });
   }
 
   saveButton(entity: Role) {

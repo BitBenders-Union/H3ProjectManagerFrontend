@@ -54,11 +54,29 @@
 .grid-item {
     display: flex;
     align-items: center;
-    /* padding: 20px 0; */
     height: 50px;
 }
 
-.grid-item i{
+.grid-item-double i{
     cursor: pointer;
+
 }
 
+.grid-item-double{
+    height: 50px;
+    width: 150px;
+    margin-left: -5vw;
+    display: flex;
+    align-items: center;
+}
+
+.alert{
+    background-color: red;;
+    margin-left: 20px;
+}
+
+.search-bar-input{
+    height: 35px;
+    font-size: large;
+    width: 20%;
+}

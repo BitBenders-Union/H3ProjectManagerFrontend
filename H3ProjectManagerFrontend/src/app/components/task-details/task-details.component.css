@@ -1,0 +1,125 @@
+
+
+
+.task-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /* border: 5px solid #2A8FFF; */
+    margin: 20px;
+}
+
+.editform{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* border: 5px solid black; */
+    margin: 20px;
+}
+
+.columns-container{    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 150%;
+    /* border: 5px solid green; */
+}
+
+.task-details-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;    
+    /* border: 5px solid blue; */
+    
+}
+
+.task-content-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;    
+    /* border: 5px solid yellow; */
+    margin-left: 20px;
+}
+
+
+.task-edit-column { 
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;    
+    /* border: 5px solid red; */
+    margin: 0px 20px;
+}
+
+.task-user-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.task-user-container button{    
+    margin-left: 10px;
+}
+
+.user-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-container > *{
+    margin-top: 10px;
+
+}
+
+.user-label-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; ;    
+}
+
+.user-button-container{
+    width: 50%;
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+}
+
+.task-button-container
+{    
+    width: 150%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;    
+}
+
+.delete-button{
+    background-color: #f44336;    
+}
+
+textarea{    
+    width: 405px;    
+}
+
+.task-footer{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 5px solid #2A8FFF; */
+}
+
+.task-footer button{
+    margin: 10px 0;
+    margin-right: 10px;
+}

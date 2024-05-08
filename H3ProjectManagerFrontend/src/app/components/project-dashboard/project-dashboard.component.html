@@ -17,9 +17,8 @@
     
     <div class="search-form">
 
-        <form>
-            <input type="search" placeholder="search" class="search-input">
-        </form>
+
+            <input type="text" placeholder="Search"  class="search-bar-input" [(ngModel)]="searchValue" (keyup)="setValue(this.searchValue)">
 
     </div>
 
@@ -34,13 +33,17 @@
     <hr>
     
 
-    <div class="projects" *ngFor="let project of projectList; let i = index">
+    <div class="projects" *ngFor="let project of filteredData; let i = index">
         
         <div class="grid-container">
             <div class="grid-item"><p>{{project.name}}</p></div>
             <div class="grid-item"><p>{{project.category}}</p></div>
             <div class="grid-item"><p>{{project.owner}}</p></div>
-            <div class="grid-item"><i class="fa-solid fa-ellipsis" (click)="navigateToProjectDetails(i)"></i></div>
+            <div class="grid-item-double">
+                <i class="fa-solid fa-ellipsis" (click)="navigateToProjectDetails(i)"></i>
+                <button class="alert" (click)="deleteProject(i)">Delete</button>
+            </div>
+            
         </div>
         <hr>
     
