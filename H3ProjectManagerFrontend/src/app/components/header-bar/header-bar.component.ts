@@ -18,11 +18,14 @@ import { TokenService } from '../../service/token.service';
 })
 export class HeaderBarComponent {
 
-  
 
   constructor(private router: Router, private tokenService: TokenService) {}
 
   ngOnInit(): void {
+    if(this.isLoggedIn())
+      {
+        this.getUsernameFromToken();
+      }
   }
 
   isLoggedIn(): boolean {

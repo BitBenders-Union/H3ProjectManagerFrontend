@@ -75,9 +75,9 @@
                </div>
                <div class="table-container-left-details-right">
                   <p>{{loc.startDate! | date: 'longDate'}} - {{loc.endDate! | date: 'longDate'}}</p>
-                  <p class="status">{{loc.status}}</p>
-                  <p class="category">{{loc.category}}</p>
-                  <p class="priority">{{loc.priority}}</p>
+                  <p class="status">{{loc.status?.name}}</p>
+                  <p class="category">{{loc.category?.name}}</p>
+                  <p class="priority">{{loc.priority?.name}}</p>
                   <p class="client">{{loc.client}}</p>
                   <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
                   <ul *ngFor="let item of loc?.departments">

@@ -157,13 +157,12 @@ export class ProjectDetailsComponent implements OnInit{
     this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
       next:(data) => {
         this.loc = data;
-        console.log(this.loc);
+        console.log(this.loc.status?.name);
       }
     })
   }
 
   getProjectDetails(id: number){
-    debugger;
     this.apiService.getOne<ProjectDetails>('Project/GetForUser', id).subscribe({
       next: (data) => {
         this.project = data;

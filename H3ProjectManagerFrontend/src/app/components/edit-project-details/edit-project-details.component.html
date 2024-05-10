@@ -1,41 +1,33 @@
 <div class="form-container">
-    <form action="" class="create-form" >
+    <form [formGroup]="editForm" class="create-form" (submit)="tempPost()">
         <h1>Edit Project</h1>
         <div class="form-group">
             <label >Navn</label>
             <input type="text" formControlName="name" required placeholder="Projekt Navn">
+
             <label>Start Dato</label>
             <input type="date" required formControlName="startDate">
+
             <label>Slut Dato</label>
             <input type="date" required formControlName="endDate">
-                <label>Status</label>
-                <select formControlName="statusIndex">
-                    <option disabled selected>Vælg en status</option>
-                    <option *ngFor="let item of statusList; let i = index" >{{item.name}} </option>
-                </select>
-                <label>Kategori</label>
-                <select formControlName="categoryIndex">
-                    <option disabled selected>Vælg en kategori</option>
-                    <option *ngFor="let item of categoryList; let i = index" >{{item.name}}</option>
-                </select>
-                <label>Prioritet</label>
-                <select formControlName="priorityIndex">
-                    <option disabled selected>Vægl en prioritet</option>
-                    <option *ngFor="let item of priorityList; let i = index" >{{item.name}}</option>
-                </select>
-                <label>Departments</label>
-                <select formControlName="department">
-                    <option disabled selected>Vægl departments</option>
-                    <option value=""></option>
-                </select>
-                <label>Team members</label>
-                <Select formControlName="memberIndex">
-                    <option disabled selected>Vægl team members</option>
-                    <option value=""></option>
-                </Select>
+
+            <label>Status</label>
+            <ng-multiselect-dropdown formControlName="status" [settings]="dropdownSettings" [data]="statusList"></ng-multiselect-dropdown>
+
+            <label>Kategori</label>
+            <ng-multiselect-dropdown formControlName="category" [settings]="dropdownSettings" [data]="categoryList"></ng-multiselect-dropdown>
+            
+            <label>Prioritet</label>
+            <ng-multiselect-dropdown formControlName="priority" [settings]="dropdownSettings" [data]="priorityList"></ng-multiselect-dropdown>
+            
+            <label>Departments</label>
+            <ng-multiselect-dropdown formControlName="departments" [settings]="departmentDropdownSettings" [data]="departmentList"></ng-multiselect-dropdown>
+            
+            <label>Team members</label>
+            <ng-multiselect-dropdown formControlName="users" [settings]="userDropdownSettings" [data]="userList"></ng-multiselect-dropdown>
         </div>
         <div class="button-group">
-            <button class="submit" type="submit" routerLink="/project-dashboard">Save</button>
+            <button class="submit" type="submit">Save</button>
         </div>
     </form>
 </div>

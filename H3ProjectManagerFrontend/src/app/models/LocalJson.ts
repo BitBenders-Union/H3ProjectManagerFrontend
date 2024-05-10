@@ -1,4 +1,7 @@
 import { Department } from "./Department";
+import { Priority } from "./Priority";
+import { ProjectCategory } from "./ProjectCategory";
+import { ProjectStatus } from "./ProjectStatus";
 import { User } from "./user";
 
 export interface LocalProject{ 
@@ -6,9 +9,9 @@ export interface LocalProject{
     name?: string;
     startDate?: Date;
     endDate?: Date;
-    status?: string;
-    category?: string;
-    priority?: string;
+    status?: ProjectStatus;
+    category?: ProjectCategory;
+    priority?: Priority;
     client?: string;
     projectTasks?: string;
     departments?: Department[];

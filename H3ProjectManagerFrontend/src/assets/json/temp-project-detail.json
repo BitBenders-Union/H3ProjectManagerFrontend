@@ -1,17 +1,26 @@
 {
     "id": 1,
     "name": "fdsfas",
-    "startDate": "2024-05-08T00:00:00",
-    "endDate": "2024-05-09T00:00:00",
-    "status": "High",
-    "category": "Cat",
-    "priority": "AHHHH",
+    "startDate": "2024-05-08",
+    "endDate": "2024-05-09",
+    "status": {
+        "id": 1,
+        "name": "InProgress"
+    },
+    "category": {
+        "id": 1,
+        "name": "WebApp"
+    },
+    "priority": {
+        "id": 2,
+        "name": "Medium"
+    },
     "client": "Client",
     "projectTasks": null,
     "departments": [
         {
            "id": 1,
-           "name": "ThisPartment" 
+           "name": "IT" 
         }
     ],
     "users": [
