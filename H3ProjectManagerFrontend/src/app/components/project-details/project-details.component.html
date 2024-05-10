@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
    <div class="container">
       <div class="title-container">
          <h1 class="title">{{project.name}}</h1>
@@ -42,7 +42,64 @@
             </div>
          </div>
       </div>
-      <button>Edit</button>
+      <div class="bottom-edit-button">
+         <button class="edit-button" (click)="editProjectDetail(project.id)">Edit</button>
+      </div>
+   </div>   
+</div>
+<br>
+<hr>
+<div class="task" *ngFor="let i of project.tasks">
+   <app-task [task]="i"></app-task>
+</div>
+ -->
+<div class="wrapper">
+   <div class="container">
+      <div class="title-container">
+         <h1 class="title">{{loc.name}}</h1>
+      </div>
+      <div class="table-container">
+         <div class="table-container-left">
+            <div class="table-container-left-title">
+               <h2>Details</h2>
+            </div>
+            <div class="table-container-left-details">
+               <div class="table-container-left-details-left">
+                  <p>Timespan:</p>
+                  <p>Status:</p>
+                  <p>Category:</p>
+                  <p>Priority:</p>
+                  <p>Client:</p>
+                  <p>Owner:</p>
+                  <p>Department:</p>
+               </div>
+               <div class="table-container-left-details-right">
+                  <p>{{loc.startDate! | date: 'longDate'}} - {{loc.endDate! | date: 'longDate'}}</p>
+                  <p class="status">{{loc.status?.name}}</p>
+                  <p class="category">{{loc.category?.name}}</p>
+                  <p class="priority">{{loc.priority?.name}}</p>
+                  <p class="client">{{loc.client}}</p>
+                  <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
+                  <ul *ngFor="let item of loc?.departments">
+                     <li>{{item.name}}</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="table-container-right">
+            <div class="table-container-right-title">
+               <h2>Team Members</h2>
+            </div>
+            <div class="table-container-right-details">
+               <ul *ngFor="let user of loc?.users">
+                  <li>{{user.username}}</li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="bottom-edit-button">
+         <button class="edit-button" (click)="editProjectDetail(loc.id!)">Edit</button>
+      </div>
    </div>   
 </div>
 <br>

@@ -18,7 +18,7 @@ import { forkJoin, map } from 'rxjs';
   templateUrl: './user-profil.component.html',
   styleUrls: ['./user-profil.component.css']
 })
-export class UserProfilComponent implements OnInit, AfterViewInit {
+export class UserProfilComponent implements OnInit {
   departments: Department[] = [];
   user?: UserWithDepartment;
   detailsForm: FormGroup;
@@ -31,9 +31,6 @@ export class UserProfilComponent implements OnInit, AfterViewInit {
       lastName: ['', Validators.required],
       departmentindex: [null, Validators.required], // Initialize with null
     });
-  }
-
-  ngAfterViewInit(): void {
   }
 
   ngOnInit() {

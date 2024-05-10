@@ -1,0 +1,33 @@
+<div class="form-container">
+    <form [formGroup]="editForm" class="create-form" (submit)="tempPost()">
+        <h1>Edit Project</h1>
+        <div class="form-group">
+            <label >Navn</label>
+            <input type="text" formControlName="name" required placeholder="Projekt Navn">
+
+            <label>Start Dato</label>
+            <input type="date" required formControlName="startDate">
+
+            <label>Slut Dato</label>
+            <input type="date" required formControlName="endDate">
+
+            <label>Status</label>
+            <ng-multiselect-dropdown formControlName="status" [settings]="dropdownSettings" [data]="statusList"></ng-multiselect-dropdown>
+
+            <label>Kategori</label>
+            <ng-multiselect-dropdown formControlName="category" [settings]="dropdownSettings" [data]="categoryList"></ng-multiselect-dropdown>
+            
+            <label>Prioritet</label>
+            <ng-multiselect-dropdown formControlName="priority" [settings]="dropdownSettings" [data]="priorityList"></ng-multiselect-dropdown>
+            
+            <label>Departments</label>
+            <ng-multiselect-dropdown formControlName="departments" [settings]="departmentDropdownSettings" [data]="departmentList"></ng-multiselect-dropdown>
+            
+            <label>Team members</label>
+            <ng-multiselect-dropdown formControlName="users" [settings]="userDropdownSettings" [data]="userList"></ng-multiselect-dropdown>
+        </div>
+        <div class="button-group">
+            <button class="submit" type="submit">Save</button>
+        </div>
+    </form>
+</div>

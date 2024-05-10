@@ -114,8 +114,7 @@ export class ProjectCreateComponent implements OnInit {
       department: [],
       users: [this.token.getUserFromToken()!],
       owner: this.token.getUsernameFromToken(),
-    };
-
+    };    
     console.log(this.projectModel);
   }
 }
