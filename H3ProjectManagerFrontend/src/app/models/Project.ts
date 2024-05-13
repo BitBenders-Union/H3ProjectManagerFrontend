@@ -49,5 +49,5 @@ export interface ProjectDetails{
     client: Client;
     department: Department[];
     user: User[];
-    ownerId: number;
+    owner: string;
 }

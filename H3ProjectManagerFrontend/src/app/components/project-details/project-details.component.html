@@ -56,7 +56,7 @@
 <div class="wrapper">
    <div class="container">
       <div class="title-container">
-         <h1 class="title">{{loc.name}}</h1>
+         <h1 class="title">{{loc?.name}}</h1>
       </div>
       <div class="table-container">
          <div class="table-container-left">
@@ -69,18 +69,18 @@
                   <p>Status:</p>
                   <p>Category:</p>
                   <p>Priority:</p>
-                  <p>Client:</p>
                   <p>Owner:</p>
+                  <p>Client:</p>
                   <p>Department:</p>
                </div>
                <div class="table-container-left-details-right">
-                  <p>{{loc.startDate! | date: 'longDate'}} - {{loc.endDate! | date: 'longDate'}}</p>
-                  <p class="status">{{loc.status?.name}}</p>
-                  <p class="category">{{loc.category?.name}}</p>
-                  <p class="priority">{{loc.priority?.name}}</p>
-                  <p class="client">{{loc.client}}</p>
-                  <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
-                  <ul *ngFor="let item of loc?.departments">
+                  <p>{{loc?.startDate! | date: 'longDate'}} - {{loc?.endDate! | date: 'longDate'}}</p>
+                  <p class="status">{{loc?.status?.name}}</p>
+                  <p class="category">{{loc?.category?.name}}</p>
+                  <p class="priority">{{loc?.priority?.name}}</p>
+                  <p class="client">{{loc?.client}}</p>
+                  <p class="owner">{{loc?.owner}}</p>
+                  <ul *ngFor="let item of loc?.department">
                      <li>{{item.name}}</li>
                   </ul>
                </div>
@@ -91,14 +91,14 @@
                <h2>Team Members</h2>
             </div>
             <div class="table-container-right-details">
-               <ul *ngFor="let user of loc?.users">
+               <ul *ngFor="let user of loc?.user">
                   <li>{{user.username}}</li>
                </ul>
             </div>
          </div>
       </div>
       <div class="bottom-edit-button">
-         <button class="edit-button" (click)="editProjectDetail(loc.id!)">Edit</button>
+         <button class="edit-button" (click)="editProjectDetail(loc?.id!)">Edit</button>
       </div>
    </div>   
 </div>

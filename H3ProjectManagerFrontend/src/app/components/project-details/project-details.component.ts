@@ -27,7 +27,7 @@ export class ProjectDetailsComponent implements OnInit{
   project: ProjectDetails = {
     id: 0,
     name: 'Project - Title',
-    ownerId: 0,
+    owner: 'none',
     startDate: new Date(),
     endDate: new Date(),
     status: {
@@ -144,30 +144,39 @@ export class ProjectDetailsComponent implements OnInit{
     private http: HttpClient
   ) { }
 
-  loc: LocalProject = {}
+  loc?: ProjectDetails
+  id: number = 0;
 
   ngOnInit(){
+
+    this.routeActive.paramMap.subscribe({
+      next: (data) => {
+        this.id = Number(data.get('id'));
+        console.log(this.id);
+        this.getProjectDetails(this.id);
+      }
+
+    })
     // get the id from the url
-    let id = this.routeActive.snapshot.paramMap.get('id');
-    this.tempJsonProjectDetail();
-    // this.getProjectDetails(Number(id));
+    // this.id = Number(this.routeActive.snapshot.paramMap.get('id'));
+    // this.tempJsonProjectDetail();
   }
 
-  tempJsonProjectDetail(){
-    this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
-      next:(data) => {
-        this.loc = data;
-        console.log(this.loc.status?.name);
-      }
-    })
-  }
+  // tempJsonProjectDetail(){
+  //   this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
+  //     next:(data) => {
+  //       this.loc = data;
+  //       console.log(this.loc.status?.name);
+  //     }
+  //   })
+  // }
 
   getProjectDetails(id: number){
-    this.apiService.getOne<ProjectDetails>('Project/GetForUser', id).subscribe({
+    this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
       next: (data) => {
-        this.project = data;
+        this.loc = data;
         console.log(this.project)
-        this.getprojectOwner();
+        // this.getprojectOwner();
 
       },
       error: (error: Error) => {
@@ -178,18 +187,19 @@ export class ProjectDetailsComponent implements OnInit{
 
   }
 
-  getprojectOwner(){
-    this.apiService.getOne<User>('User', this.project.ownerId).subscribe({
-      next: (data) => {
-        this.owner = data;
-      },
-      error: (error: Error) => {
-        console.log(error.message);
-      }
-    })
-  }
+  //We don't store owner name as string in DB no point of getting it from API
+  // getprojectOwner(){
+  //   this.apiService.getOne<User>('User', this.project.ownerId).subscribe({
+  //     next: (data) => {
+  //       this.owner = data;
+  //     },
+  //     error: (error: Error) => {
+  //       console.log(error.message);
+  //     }
+  //   })
+  // }
 
   editProjectDetail(id: number) {
-    this.route.navigate(['edit-project-detail', id])
+    this.route.navigate(['edit-project-detail', this.id])
   }
 }
