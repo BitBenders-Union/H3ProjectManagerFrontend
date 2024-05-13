@@ -17,7 +17,7 @@ import { ApiGenericMethodsService } from '../../service/api-generic-methods.serv
 })
 export class TaskComponent implements OnInit{
   @Input({required: true}) task!: ProjectTaskDetails;
-z
+
 
 
   constructor(
