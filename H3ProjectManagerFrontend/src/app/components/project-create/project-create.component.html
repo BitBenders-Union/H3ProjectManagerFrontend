@@ -1,7 +1,4 @@
-
-
 <div class="form-container">
-
     <form action="" class="create-form" [formGroup]="projectForm" (ngSubmit)="create()">
         <h1>Opret Project</h1>
         <div class="form-group">
@@ -13,8 +10,8 @@
             <input type="date" required formControlName="endDate">
                 <label>Status</label>
                 <select formControlName="statusIndex">
-                        <option [ngValue]="" disabled selected>Vælg en status</option>
-                        <option *ngFor="let item of statusList; let i = index" [ngValue]="i" >{{item.name}} </option>
+                    <option [ngValue]="" disabled selected>Vælg en status</option>
+                    <option *ngFor="let item of statusList; let i = index" [ngValue]="i" >{{item.name}} </option>
                 </select>
                 <label>Kategori</label>
                 <select formControlName="categoryIndex">

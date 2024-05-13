@@ -5,6 +5,8 @@ import { ProjectDetails } from '../../models/Project';
 import { CommonModule, NgFor } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { User } from '../../models/user';
+import { HttpClient } from '@angular/common/http';
+import { LocalProject } from '../../models/LocalJson';
 
 @Component({
   selector: 'app-project-details',
@@ -141,23 +143,33 @@ export class ProjectDetailsComponent implements OnInit{
   constructor(
     private routeActive: ActivatedRoute,
     private route: Router,
-    private apiService: ApiGenericMethodsService
+    private apiService: ApiGenericMethodsService,
+    private http: HttpClient
   ) { }
 
+  loc: LocalProject = {}
 
   ngOnInit(){
     // get the id from the url
     let id = this.routeActive.snapshot.paramMap.get('id');
-
+    this.tempJsonProjectDetail();
     // this.getProjectDetails(Number(id));
   }
 
+  tempJsonProjectDetail(){
+    this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
+      next:(data) => {
+        this.loc = data;
+        console.log(this.loc.status?.name);
+      }
+    })
+  }
 
   getProjectDetails(id: number){
-    this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
+    this.apiService.getOne<ProjectDetails>('Project/GetForUser', id).subscribe({
       next: (data) => {
         this.project = data;
-        //console.log(this.project)
+        console.log(this.project)
         this.getprojectOwner();
 
       },
@@ -188,4 +200,7 @@ export class ProjectDetailsComponent implements OnInit{
   }
 
 
+  editProjectDetail(id: number) {
+    this.route.navigate(['edit-project-detail', id])
+  }
 }
