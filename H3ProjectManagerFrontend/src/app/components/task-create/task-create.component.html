@@ -1,8 +1,43 @@
 
 
 <div class="form-container">
-    <h1>Create Task</h1>
+    <div class="title">
+        <h1>Create Task</h1>
+    </div>
+    <form [formGroup]="taskForm" (ngSubmit)="create()">
 
+        <div class="form-group">
+            <label >Name</label>
+            <input type="text" formControlName="name" required placeholder="Task Name">
+            <label>Description</label>
+            <input type="text" formControlName="description" required placeholder="Task Description">
+            <label>Status</label>
+            <select formControlName="statusIndex">
+                <option [ngValue]="" disabled selected>Select a status</option>
+                <option *ngFor="let item of statusList; let i = index" [ngValue]="i" >{{item.name}} </option>
+            </select>
+            <label>Category</label>
+            <select formControlName="categoryIndex">
+                <option [ngValue]="" disabled selected>Select a category</option>
+                <option *ngFor="let item of categoryList; let i = index" [ngValue]="i">{{item.name}}</option>
+            </select>
+            <label>Priority</label>
+            <select formControlName="priorityIndex">
+                <option [ngValue]="" disabled selected>Select a priority</option>
+                <option *ngFor="let item of priorityList; let i = index" [ngValue]="i">{{item.name}}</option>
+            </select>
+            <label>Users</label>
+            <!-- multiselect box of userList -->
+            <select multiple formControlName="users">
+                <option *ngFor="let user of userList" [value]="user.id">{{user.username}}</option>
+              </select>
+        </div>
+        <div class="button-group">
+            <button class="cancel" type="reset" routerLink="/task-dashboard">Cancel</button>
+            <button class="submit" type="submit">Submit</button>
+        </div>
+    
+    </form>
     
 
 </div>
