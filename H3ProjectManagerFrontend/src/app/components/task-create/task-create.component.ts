@@ -21,12 +21,10 @@ import { User } from '../../models/user';
   styleUrl: './task-create.component.css'
 })
 export class TaskCreateComponent {
-create() {
-throw new Error('Method not implemented.');
-}
-
+  
 
   newTask?: ProjectTaskDetails;
+
 
   taskForm: FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -35,9 +33,7 @@ throw new Error('Method not implemented.');
       Validators.maxLength(50),
     ]),
     description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(50),
+      Validators.required
     ]),
     projectId: new FormControl('', Validators.required),
     priority: new FormControl('', Validators.required),
@@ -54,12 +50,15 @@ throw new Error('Method not implemented.');
   priorityList: Priority[] = [];
   userList: User[] = [];
 
+
   constructor(private apiService: ApiGenericMethodsService) { }
+
 
   ngOnInit(){
     // get statuslist
     // get categorylist
     // get prioritylist
+    // get userlist
 
     this.apiService.getAll<ProjectTaskStatus>('ProjectTaskStatus').subscribe({
       next: (data) => {
@@ -101,5 +100,18 @@ throw new Error('Method not implemented.');
 
 
   }
+
+
+  cancel() {
+    throw new Error('Method not implemented.');
+
+  }
+
+
+  create() {
+    throw new Error('Method not implemented.');
+
+  }
+
 
 }
