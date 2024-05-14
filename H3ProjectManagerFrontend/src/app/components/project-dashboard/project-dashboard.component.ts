@@ -65,7 +65,9 @@ export class ProjectDashboardComponent implements OnInit  {
 
 
   navigateToProjectDetails(index: number){
-    this.route.navigate(['/project-details', this.projectList[index].id]);
+    let id: number = this.projectList[index].id;
+    this.route.navigate(['/project-details', id]);
+    
   }
 
 
