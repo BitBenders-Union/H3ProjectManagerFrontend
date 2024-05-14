@@ -89,6 +89,7 @@ export class EditProjectDetailsComponent implements OnInit{
     
   }
 
+
   patchData(){
     this.editForm.patchValue({
       name: this.loc?.name,
