@@ -1,12 +1,14 @@
+import { ApiServiceService } from './../../service/api-service.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectTask, ProjectTaskDetails } from '../../models/ProjectTask';
 import { DataTransferServiceService } from '../../service/DataTransferService.service';
 import { RouterLink, Router } from '@angular/router';
+import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [    
+  imports: [
     RouterLink
 
   ],
@@ -16,12 +18,19 @@ import { RouterLink, Router } from '@angular/router';
 export class TaskComponent implements OnInit{
   @Input({required: true}) task!: ProjectTaskDetails;
 
-  constructor(private sendDataService : DataTransferServiceService, private router : Router) { }
+
+
+  constructor(
+    private sendDataService : DataTransferServiceService,
+    private router : Router,
+  ) { }
+
+
 
   ngOnInit(){
   }
 
-  showTaskDetails(item : any){    
+  showTaskDetails(item : any){
     this.sendDataService.SendTask(item);
     this.router.navigate(['/task-details']);
   }
