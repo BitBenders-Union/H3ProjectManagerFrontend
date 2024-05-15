@@ -16,35 +16,39 @@
         <div class="task-item">
             <label>Status</label>
             <select formControlName="status">
-                <option [ngValue]="" disabled selected>Select a Status</option>
-                <option *ngFor="let item of statusList; let i = index" [ngValue]="i">{{item.name}}</option>
+                <option [defaultSelected]=true disabled>{{sDefault}}</option>
+                <option *ngFor="let item of statusList;" [ngValue]="item">{{item.name}}</option>
             </select>
         </div>
         <div class="task-item">
             <label>Priority</label>
                 <select formControlName="priority">
-                    <option [ngValue]="" disabled selected>Select a Priority</option>
-                    <option *ngFor="let item of priorityList; let i = index" [ngValue]="i">{{item.name}}</option>
+                    <option [defaultSelected]=true disabled>{{pDefault}}</option>
+                    <option *ngFor="let item of priorityList; " [ngValue]="item">{{item.name}}</option>
                 </select>
         </div>
         <div class="task-item">
             <label>Category</label>
             <select formControlName="projectTaskCategory">
-                <option [ngValue]="" disabled selected>Select a Category</option>
-                <option *ngFor="let item of categoryList; let i = index" [ngValue]="i">{{item.name}}</option>
+                <option [defaultSelected]=true disabled>{{cDefault}}</option>
+                <option *ngFor="let item of categoryList;" [ngValue]="item">{{item.name}}</option>
             </select>
         </div>
         <div class="task-item">
             <label>Users</label>
-            <select formArrayName="users" multiple>
-                <option [ngValue]="" disabled selected>Select a User</option>
-                <option *ngFor="let item of userList; let i = index" [ngValue]="i">{{item.username}}</option>
-            </select>
+            <ng-multiselect-dropdown
+                [placeholder]="'Select Users'"
+                [data]="userList"
+                [settings]="dropdownSettings"
+                formControlName="projectTaskUserDetail"
+            >
+
+            </ng-multiselect-dropdown>
         </div>
 
         <div class="button-group">
-            <button type="submit" class="submit-btn">Create</button>
             <button type="reset" class="cancel-btn" (click)="cancel()">Cancel</button>
+            <button type="submit" class="submit-btn">Create</button>
         </div>
     
     </form>

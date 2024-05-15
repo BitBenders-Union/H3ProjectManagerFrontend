@@ -54,7 +54,7 @@ export class ProjectDetailsComponent implements OnInit{
           id: 0,
           name: 'Project not found',
         },
-        userDetail: [],
+        projectTaskUserDetail: [],
         comments: []
       },
       {
@@ -74,7 +74,7 @@ export class ProjectDetailsComponent implements OnInit{
           id: 0,
           name: 'Feat add',
         },
-        userDetail: [
+        projectTaskUserDetail: [
           {
             id: 0,
             username: 'User 1',
@@ -163,7 +163,10 @@ export class ProjectDetailsComponent implements OnInit{
     // get the id from the url
     // this.id = Number(this.routeActive.snapshot.paramMap.get('id'));
     // this.tempJsonProjectDetail();
+
+
   }
+
 
   // tempJsonProjectDetail(){
   //   this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
@@ -174,10 +177,13 @@ export class ProjectDetailsComponent implements OnInit{
   //   })
   // }
 
+
   getProjectDetails(id: number){
     this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
       next: (data) => {
         this.loc = data;
+        console.log("project is next:");
+        this.project = data;
         console.log(this.project)
         // this.getprojectOwner();
 
@@ -189,6 +195,7 @@ export class ProjectDetailsComponent implements OnInit{
     })
 
   }
+  
 
   //We don't store owner name as string in DB no point of getting it from API
   // getprojectOwner(){
@@ -204,7 +211,7 @@ export class ProjectDetailsComponent implements OnInit{
 
 
   createTask() {
-    this.route.navigate(['task-create']);
+    this.route.navigate(['task-create', this.id]);
     
   }
 
@@ -212,4 +219,6 @@ export class ProjectDetailsComponent implements OnInit{
   editProjectDetail(id: number) {
     this.route.navigate(['edit-project-detail', this.id])
   }
+
+
 }

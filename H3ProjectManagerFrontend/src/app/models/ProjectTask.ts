@@ -18,7 +18,7 @@ export interface ProjectTaskDetails{
     priority: Priority;
     status: ProjectTaskStatus;
     projectTaskCategory: ProjectTaskCategory;
-    userDetail?: User[];
+    projectTaskUserDetail?: User[];
     comments?: Comment[];
     
 }

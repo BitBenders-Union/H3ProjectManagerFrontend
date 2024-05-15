@@ -37,6 +37,8 @@ export interface ProjectCreate{
 
 }
 
+// why do we have 2 identical interfaces?
+
 export interface ProjectDetails{
     id: number;
     name: string;

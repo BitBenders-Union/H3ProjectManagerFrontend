@@ -12,7 +12,7 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    max-width: 500px;
+    width: 500px;
     padding: 10px;
   }
 
@@ -44,15 +44,18 @@
 
   .button-group {
     display: flex;
+    width: 100%;
+    padding: 0 10px;
+    margin: 10px;
     justify-content: space-between;
   
   }
   
-  .cancel{
+  .cancel-btn{
     background-color: rgb(255, 0, 0);
   }
   
-  .cancel:hover{
+  .cancel-btn:hover{
     background-color: #b10000;
   }
   

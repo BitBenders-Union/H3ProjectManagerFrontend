@@ -25,8 +25,8 @@ export const routes: Routes = [
   { path: 'project-details/:id', component: ProjectDetailsComponent},
   { path: 'task', component: TaskComponent},
   { path: 'task-details', component: TaskDetailsComponent},
-  { path: 'task-create', component: TaskCreateComponent},
-  {path: 'edit-project-detail/:id', component: EditProjectDetailsComponent}
+  { path: 'task-create/:id', component: TaskCreateComponent},
+  { path: 'edit-project-detail/:id', component: EditProjectDetailsComponent}
 
 
 ];
