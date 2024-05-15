@@ -1,7 +1,7 @@
-<!-- <div class="wrapper">
+<div class="wrapper">
    <div class="container">
       <div class="title-container">
-         <h1 class="title">{{project.name}}</h1>
+         <h1 class="title">{{project?.name}}</h1>
       </div>
       <div class="table-container">
          <div class="table-container-left">
@@ -16,18 +16,18 @@
                   <p>Priority:</p>
                   <p>Client:</p>
                   <p>Owner:</p>
-                  <p>Department:</p>
+                  <!-- <p>Department:</p> -->
                </div>
                <div class="table-container-left-details-right">
-                  <p>{{project.startDate.toDateString()}} - {{project.endDate.toDateString()}}</p>
-                  <p class="status">{{project.status.name}}</p>
-                  <p class="category">{{project.category.name}}</p>
-                  <p class="priority">{{project.priority.name}}</p>
-                  <p class="client">{{project.client.name}}</p>
+                  <p>{{project?.startDate}} - {{project?.endDate}}</p>
+                  <p class="status">{{project?.status?.name}}</p>
+                  <p class="category">{{project?.category?.name}}</p>
+                  <p class="priority">{{project?.priority?.name}}</p>
+                  <!-- <p class="client">{{project.client.name}}</p> -->
                   <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
-                  <ul *ngFor="let item of project.department">
+                  <!-- <ul *ngFor="let item of project?.department">
                      <li>{{item.name}}</li>
-                  </ul>
+                  </ul> -->
                </div>
             </div>
          </div>
@@ -36,24 +36,25 @@
                <h2>Team Members</h2>
             </div>
             <div class="table-container-right-details">
-               <ul *ngFor="let user of project.user">
+               <ul *ngFor="let user of project?.users">
                   <li>{{user.username}}</li>
                </ul>
             </div>
          </div>
       </div>
       <div class="bottom-edit-button">
-         <button class="edit-button" (click)="editProjectDetail(project.id)">Edit</button>
+         <button class="edit-button" (click)="editProjectDetail(project!.id)">Edit</button>
       </div>
    </div>   
 </div>
 <br>
 <hr>
-<div class="task" *ngFor="let i of project.tasks">
-   <app-task [task]="i"></app-task>
+
+<div class="task" *ngFor="let projectTask of project?.projectTasks">
+   <app-task [task]="projectTask"></app-task>
 </div>
- -->
-<div class="wrapper">
+
+<!-- <div class="wrapper">
    <div class="container">
       <div class="title-container">
          <h1 class="title">{{loc?.name}}</h1>
@@ -91,14 +92,14 @@
                <h2>Team Members</h2>
             </div>
             <div class="table-container-right-details">
-               <ul *ngFor="let user of loc?.user">
+               <ul *ngFor="let user of project.user">
                   <li>{{user.username}}</li>
                </ul>
             </div>
          </div>
       </div>
       <div class="bottom-edit-button">
-         <button class="edit-button" (click)="editProjectDetail(loc?.id!)">Edit</button>
+         <button class="edit-button" (click)="editProjectDetail(project.id)">Edit</button>
       </div>
    </div>   
 </div>
@@ -112,5 +113,5 @@
    <div class="plus-icon" (click)="createTask()">
       <i class="fa fa-plus fa-2x" aria-hidden="true"></i><h3>Tilføj Task</h3>
    </div>
-</div>
+</div> -->
 

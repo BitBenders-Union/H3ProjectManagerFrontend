@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
-import { ProjectDetails } from '../../models/Project';
+import { ProjectCreate, ProjectDetails } from '../../models/Project';
 import { CommonModule, NgFor } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { User } from '../../models/user';
@@ -25,111 +25,113 @@ export class ProjectDetailsComponent implements OnInit{
   // !Important
   // hardcoded data, remove after stylinig
 
-  project: ProjectDetails = {
-    id: 0,
-    name: 'Project - Title',
-    owner: 'none',
-    startDate: new Date(),
-    endDate: new Date(),
-    status: {
-      id: 0,
-      name: 'Status - Name',
+  project? : ProjectCreate;
+
+  // project: ProjectDetails = {
+  //   id: 0,
+  //   name: 'Project - Title',
+  //   owner: 'none',
+  //   startDate: new Date(),
+  //   endDate: new Date(),
+  //   status: {
+  //     id: 0,
+  //     name: 'Status - Name',
     
-    },
-    tasks: [
-      {
-        id: 0,
-        name: 'Project not found',
-        description: 'Project not found',
-        projectId: 0,
-        priority: {
-          id: 0,
-          name: 'Project not found',
-        },
-        status: {
-          id: 0,
-          name: 'Project not found',
-        },
-        projectTaskCategory: {
-          id: 0,
-          name: 'Project not found',
-        },
-        projectTaskUserDetail: [],
-        comments: []
-      },
-      {
-        id: 1,
-        name: 'Project 1 not found',
-        description: 'Project 1  description not found',
-        projectId: 0,
-        priority: {
-          id: 0,
-          name: 'Haster',
-        },
-        status: {
-          id: 0,
-          name: 'Opstart',
-        },
-        projectTaskCategory: {
-          id: 0,
-          name: 'Feat add',
-        },
-        projectTaskUserDetail: [
-          {
-            id: 0,
-            username: 'User 1',
-            firstName: 'First',
-            lastName: 'Last',
-          },
-          {
-            id: 1,
-            username: 'bob',
-            firstName: 'bob',
-            lastName: 'bob',
-          },
-          {
-            id: 2,
-            username: 'john',
-            firstName: 'john',
-            lastName: 'john',
-          }          
-        ],
-        comments: []
-      }
-    ],
-    category: {
-      id: 0,
-      name: 'Category - Name',
-    },
-    priority: {
-      id: 0,
-      name: 'Priority - Name',
-    },
-    client: {
-      id: 0,
-      name: 'Client - Name',
-    },
-    department: [
-      {
-        id: 0,
-        name: 'Department - Name',
-      }
-    ],
-    user: [
-      {
-        id: 0,
-        username: 'User 2',
-        firstName: 'First',
-        lastName: 'Last',
-      },
-      {
-        id: 1,
-        username: 'bob',
-        firstName: 'bob',
-        lastName: 'bob',
-      }
-    ]
-  }
+  //   },
+  //   tasks: [
+  //     {
+  //       id: 0,
+  //       name: 'Project not found',
+  //       description: 'Project not found',
+  //       projectId: 0,
+  //       priority: {
+  //         id: 0,
+  //         name: 'Project not found',
+  //       },
+  //       status: {
+  //         id: 0,
+  //         name: 'Project not found',
+  //       },
+  //       projectTaskCategory: {
+  //         id: 0,
+  //         name: 'Project not found',
+  //       },
+  //       projectTaskUserDetail: [],
+  //       comments: []
+  //     },
+  //     {
+  //       id: 1,
+  //       name: 'Project 1 not found',
+  //       description: 'Project 1  description not found',
+  //       projectId: 0,
+  //       priority: {
+  //         id: 0,
+  //         name: 'Haster',
+  //       },
+  //       status: {
+  //         id: 0,
+  //         name: 'Opstart',
+  //       },
+  //       projectTaskCategory: {
+  //         id: 0,
+  //         name: 'Feat add',
+  //       },
+  //       projectTaskUserDetail: [
+  //         {
+  //           id: 0,
+  //           username: 'User 1',
+  //           firstName: 'First',
+  //           lastName: 'Last',
+  //         },
+  //         {
+  //           id: 1,
+  //           username: 'bob',
+  //           firstName: 'bob',
+  //           lastName: 'bob',
+  //         },
+  //         {
+  //           id: 2,
+  //           username: 'john',
+  //           firstName: 'john',
+  //           lastName: 'john',
+  //         }          
+  //       ],
+  //       comments: []
+  //     }
+  //   ],
+  //   category: {
+  //     id: 0,
+  //     name: 'Category - Name',
+  //   },
+  //   priority: {
+  //     id: 0,
+  //     name: 'Priority - Name',
+  //   },
+  //   client: {
+  //     id: 0,
+  //     name: 'Client - Name',
+  //   },
+  //   department: [
+  //     {
+  //       id: 0,
+  //       name: 'Department - Name',
+  //     }
+  //   ],
+  //   user: [
+  //     {
+  //       id: 0,
+  //       username: 'User 2',
+  //       firstName: 'First',
+  //       lastName: 'Last',
+  //     },
+  //     {
+  //       id: 1,
+  //       username: 'bob',
+  //       firstName: 'bob',
+  //       lastName: 'bob',
+  //     }
+  //   ]
+  // }
 
 
   owner: User = {
@@ -147,15 +149,15 @@ export class ProjectDetailsComponent implements OnInit{
     private http: HttpClient
   ) { }
 
-  loc?: ProjectDetails
+  // loc?: ProjectDetails
   id: number = 0;
 
   ngOnInit(){
 
     this.routeActive.paramMap.subscribe({
       next: (data) => {
+        // console.log(this.id);
         this.id = Number(data.get('id'));
-        console.log(this.id);
         this.getProjectDetails(this.id);
       }
 
@@ -181,11 +183,12 @@ export class ProjectDetailsComponent implements OnInit{
   getProjectDetails(id: number){
     this.apiService.getOne<ProjectDetails>('Project', id).subscribe({
       next: (data) => {
-        this.loc = data;
-        console.log("project is next:");
-        this.project = data;
-        console.log(this.project)
+        // this.loc = data;
         // this.getprojectOwner();
+        
+        // console.log(data)
+        this.project = data;
+
 
       },
       error: (error: Error) => {

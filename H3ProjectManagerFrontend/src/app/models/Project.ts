@@ -32,7 +32,7 @@ export interface ProjectCreate{
     client?: Client;
     projectTasks?: ProjectTaskDetails[];
     department?: Department[];
-    users: User[];
+    users?: User[];
     owner: string;
 
 }

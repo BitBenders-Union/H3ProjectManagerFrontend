@@ -23,11 +23,13 @@ export class TaskComponent implements OnInit{
   constructor(
     private sendDataService : DataTransferServiceService,
     private router : Router,
-  ) { }
+  ){  }
 
 
 
   ngOnInit(){
+    
+    
   }
 
   showTaskDetails(item : any){
