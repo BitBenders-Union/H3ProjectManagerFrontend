@@ -50,12 +50,19 @@
 <br>
 <hr>
 
-<div class="task" *ngFor="let projectTask of project?.projectTasks">
-   <app-task [task]="projectTask"></app-task>
+
+
+
+<div class="task-section">
+
+   <div class="task" *ngFor="let projectTask of project?.projectTasks">
+      <app-task [task]="projectTask"></app-task>
+   </div>
+   <div class="plus-icon" (click)="createTask()">
+      <i class="fa fa-plus fa-2x" aria-hidden="true"></i><h3>Tilføj Task</h3>
+   </div>
 </div>
-<div class="plus-icon" (click)="createTask()">
-   <i class="fa fa-plus fa-2x" aria-hidden="true"></i><h3>Tilføj Task</h3>
-</div>
+
 
 <!-- <div class="wrapper">
    <div class="container">
