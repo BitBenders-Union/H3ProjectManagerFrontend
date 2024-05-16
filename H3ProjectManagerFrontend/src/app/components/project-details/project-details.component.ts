@@ -33,7 +33,7 @@ export class ProjectDetailsComponent implements OnInit{
     status: {
       id: 0,
       name: 'Status - Name',
-    
+
     },
     tasks: [
       {
@@ -58,8 +58,8 @@ export class ProjectDetailsComponent implements OnInit{
       },
       {
         id: 1,
-        name: 'Project 1 not found',
-        description: 'Project 1  description not found',
+        name: 'Project 1 ',
+        description: 'Project 1  description ',
         projectId: 0,
         priority: {
           id: 0,
@@ -91,7 +91,7 @@ export class ProjectDetailsComponent implements OnInit{
             username: 'john',
             firstName: 'john',
             lastName: 'john',
-          }          
+          }
         ],
         comments: []
       }
@@ -172,7 +172,7 @@ export class ProjectDetailsComponent implements OnInit{
       },
       error: (error: Error) => {
         console.log(error.message);
-        
+
       }
     })
 
