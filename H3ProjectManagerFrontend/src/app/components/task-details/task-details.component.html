@@ -73,7 +73,7 @@
             <div class="task-user-container" *ngIf="isEditing">
                 <h4>Users to add:</h4>
                 <br>
-                <div class="user-container" *ngFor="let user of listOfUsers">
+                <div class="user-container" *ngFor="let user of userNotInProject">
                     <div class="user-label-container">
                         <label>{{user.username}}</label>
                     </div>
