@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProjectTaskDetails } from '../../models/ProjectTask';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProjectTaskStatus } from '../../models/ProjectTaskStatus';
 import { ProjectTaskCategory } from '../../models/ProjectTaskCategory';
 import { Priority } from '../../models/Priority';
@@ -70,7 +70,7 @@ export class TaskCreateComponent {
   // onlySelf: true is used to prevent the form from being marked as dirty
   // when the default value is set
 
-  constructor(private apiService: ApiGenericMethodsService, private routeActive: ActivatedRoute){
+  constructor(private apiService: ApiGenericMethodsService, private routeActive: ActivatedRoute, private router: Router){
     this.taskForm.controls['priority'].setValue(this.pDefault, {onlySelf: true});
     this.taskForm.controls['status'].setValue(this.sDefault, {onlySelf: true});
     this.taskForm.controls['projectTaskCategory'].setValue(this.cDefault, {onlySelf: true});
@@ -134,7 +134,8 @@ export class TaskCreateComponent {
 
 
   cancel() {
-    throw new Error('Method not implemented.');
+    // redirect to project details
+    this.router.navigate(['/project-details', this.taskForm.controls['projectId'].value]);
 
   }
 
@@ -152,6 +153,17 @@ export class TaskCreateComponent {
     newTask.comments = [];
 
     console.log(newTask);
+
+
+    this.apiService.post<any, ProjectTaskDetails>('ProjectTask', newTask).subscribe({
+      next: () => {
+        this.router.navigate(['/project-details', this.taskForm.controls['projectId'].value]);
+
+      },
+      error: (error) => {
+        console.log(error.message);
+      }
+    });
 
   }
 

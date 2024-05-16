@@ -89,6 +89,7 @@ export class EditProjectDetailsComponent implements OnInit{
     
   }
 
+
   patchData(){
     this.editForm.patchValue({
       name: this.loc?.name,
@@ -100,6 +101,12 @@ export class EditProjectDetailsComponent implements OnInit{
       departments: this.loc?.department,
       users: this.loc?.user
     });
+  }
+
+  //Ng-Multi-Select-dropdown returns an array even if it's single select. This method converts the array
+  //to a single object
+  convertToSingleObject(slectedArray: any[]): any{
+    return slectedArray.length > 0 ? slectedArray[0] : null;
   }
 
   getProjectDetails(id: number){
@@ -117,14 +124,25 @@ export class EditProjectDetailsComponent implements OnInit{
   }
 
   submit(){
+    const statusObject = this.convertToSingleObject(this.editForm.value.status);
+    const categoryObject = this.convertToSingleObject(this.editForm.value.category);
+    const priorityObject = this.convertToSingleObject(this.editForm.value.priority);
+
+    this.editForm.patchValue({
+      status: statusObject,
+      category: categoryObject,
+      priority: priorityObject
+    });
+
     this.sendProject = this.editForm.value;
+    this.sendProject!.owner = this.loc!.owner;
     console.log(this.sendProject);
-    this.api.update('Project', this.sendProject!).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.route.navigate(['/proproject-details', this.id]);
-      }
-    })
+    // this.api.update('Project', this.sendProject!).subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //     this.route.navigate(['/proproject-details', this.id]);
+    //   }
+    // })
   }
 
   getDepartments(){
