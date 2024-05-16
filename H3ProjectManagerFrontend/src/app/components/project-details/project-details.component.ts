@@ -186,8 +186,10 @@ export class ProjectDetailsComponent implements OnInit{
         // this.loc = data;
         // this.getprojectOwner();
         
-        // console.log(data)
+        console.log(data)
         this.project = data;
+        this.project.startDate = new Date(data.startDate);
+        this.project.endDate = new Date(data.endDate);
 
 
       },

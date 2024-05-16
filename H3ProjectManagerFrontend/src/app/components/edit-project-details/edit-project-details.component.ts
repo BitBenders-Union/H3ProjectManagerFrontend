@@ -4,7 +4,7 @@ import {NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 import { LocalProject } from '../../models/LocalJson';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
-import { Project, ProjectDetails } from '../../models/Project';
+import { Project, ProjectCreate, ProjectDetails } from '../../models/Project';
 import { Department } from '../../models/Department';
 import { single } from 'rxjs';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
@@ -31,9 +31,9 @@ export class EditProjectDetailsComponent implements OnInit{
   priorityList: Priority[] = [];
   categoryList: ProjectCategory[] = [];
   statusList: ProjectStatus[] = [];
-  sendProject?: ProjectDetails;
+  sendProject?: ProjectCreate;
 
-  loc?: ProjectDetails;
+  loc?: ProjectCreate;
   departmentDropdownSettings: any = {};
   userDropdownSettings: any = {};
   dropdownSettings: any = {};
@@ -99,7 +99,7 @@ export class EditProjectDetailsComponent implements OnInit{
       category: [this.loc?.category],
       priority: [this.loc?.priority],
       departments: this.loc?.department,
-      users: this.loc?.user
+      users: this.loc?.users
     });
   }
 
@@ -136,13 +136,27 @@ export class EditProjectDetailsComponent implements OnInit{
 
     this.sendProject = this.editForm.value;
     this.sendProject!.owner = this.loc!.owner;
+
+    // userList
+    // sendProject.users
+
+    let temp : any[] = [];
+    this.sendProject?.users?.forEach((element: any) => {
+      temp.push(this.userList.find((user) => user.id === element.id));
+    });
+
+    this.sendProject!.users = temp;
+
     console.log(this.sendProject);
+
     // this.api.update('Project', this.sendProject!).subscribe({
     //   next: (data) => {
     //     console.log(data);
     //     this.route.navigate(['/proproject-details', this.id]);
     //   }
     // })
+
+    
   }
 
   getDepartments(){

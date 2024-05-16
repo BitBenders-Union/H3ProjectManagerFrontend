@@ -14,17 +14,20 @@
                   <p>Status:</p>
                   <p>Category:</p>
                   <p>Priority:</p>
-                  <p>Client:</p>
+                  <div *ngIf="project?.client">
+                     <p>Client:</p>
+                  </div>
                   <p>Owner:</p>
                   <!-- <p>Department:</p> -->
                </div>
                <div class="table-container-left-details-right">
-                  <p>{{project?.startDate}} - {{project?.endDate}}</p>
+                  <p>{{project?.startDate?.toDateString()}} - {{project?.endDate?.toDateString()}}</p>
                   <p class="status">{{project?.status?.name}}</p>
                   <p class="category">{{project?.category?.name}}</p>
                   <p class="priority">{{project?.priority?.name}}</p>
-                  <!-- <p class="client">{{project.client.name}}</p> -->
-                  <p class="owner">{{owner.firstName}} {{owner.lastName}}</p>
+                  <p class="client">{{project?.client?.name}}</p>
+                  <!-- <p class="owner">{{owner.firstName}} {{owner.lastName}}</p> -->
+                  <p class="owner">{{project?.owner}}</p>
                   <!-- <ul *ngFor="let item of project?.department">
                      <li>{{item.name}}</li>
                   </ul> -->
