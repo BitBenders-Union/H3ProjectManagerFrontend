@@ -32,10 +32,12 @@ export interface ProjectCreate{
     client?: Client;
     projectTasks?: ProjectTaskDetails[];
     department?: Department[];
-    users: User[];
+    users?: User[];
     owner: string;
 
 }
+
+// why do we have 2 identical interfaces?
 
 export interface ProjectDetails{
     id: number;
@@ -49,5 +51,5 @@ export interface ProjectDetails{
     client: Client;
     department: Department[];
     user: User[];
-    ownerId: number;
+    owner: string;
 }

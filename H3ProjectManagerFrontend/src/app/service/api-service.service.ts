@@ -31,5 +31,9 @@ export class ApiServiceService<TModel, TInsert> {
   create(endpoint: string, model: TInsert): Observable<TModel>{
     return this.http.post<TModel>(this.url + endpoint, model);
   }
+
+  update(endpoint: string, model: TInsert): Observable<TModel>{
+    return this.http.put<TModel>(this.url + endpoint, model);
+  }
 }
 

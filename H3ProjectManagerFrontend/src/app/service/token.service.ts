@@ -13,6 +13,7 @@ import { User } from '../models/user';
 export class TokenService {
 
   url: string = environment.apiUrl;
+  jwtHelper = new JwtHelperService();
   private userPayLoad: any;
   constructor(private router: Router, private http: HttpClient) {
     this.userPayLoad = this.decodeToken();
@@ -30,21 +31,16 @@ export class TokenService {
 
   getAccessToken(): string | null {
     const token = localStorage.getItem("AccessToken");
-    if (token) {
-      return token;
-    } else {
-      return null; // Or handle the missing token case (e.g., redirect to login)
-    }
+    return token ? token : null;
   }
-  getRefreshToken(){
-    return localStorage.getItem("RefreshToken");
+  getRefreshToken(): string | null {
+    const token = localStorage.getItem("RefreshToken");
+    return token ? token : null;
   }
 
   decodeToken(){
     const token = this.getAccessToken()!;
-    const jwtHelper = new JwtHelperService()
-
-    return jwtHelper.decodeToken(token);
+    return this.jwtHelper.decodeToken(token);
   }
 
   signOut(){

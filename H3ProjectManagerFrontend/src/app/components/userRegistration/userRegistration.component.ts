@@ -30,6 +30,7 @@ export class UserRegistrationComponent {
   userModel?: UserDetail;
   user?: User
 
+
   registerForm: FormGroup = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -37,6 +38,9 @@ export class UserRegistrationComponent {
       password: new FormControl('',[Validators.required]),
       genPassword: new FormControl('', [Validators.required])
     },
+    {
+      validators: compareValidator('password', 'genPassword')
+    }
   );
 
   firstNameForm = this.registerForm.get('firstName');

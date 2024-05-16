@@ -41,7 +41,7 @@ export class TaskDetailsComponent implements OnInit {
   statusList: ProjectTaskStatus[] = []; // List of statuses from the database
   categoryList: ProjectTaskCategory[] = []; // List of categories from the database
 
-  taskDetails: any; // Task details which if passed from project-details component
+  taskDetails!: ProjectTaskDetails; // Task details which if passed from project-details component
 
   editForm!: FormGroup; // Form group for the edit fields
 

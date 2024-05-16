@@ -3,6 +3,7 @@ import { UserDetail } from './UserDetail';
 import { ProjectTaskStatus } from './ProjectTaskStatus';
 import { Priority } from './Priority';
 import { ProjectTaskCategory } from './ProjectTaskCategory';
+import { User } from './user';
 export class ProjectTask {
     public id? : number = 0;
     public name? : string = '';
@@ -10,14 +11,14 @@ export class ProjectTask {
 }
 
 export interface ProjectTaskDetails{
-    id: number;
+    id?: number;
     name: string;
     description: string;
     projectId: number;
     priority: Priority;
     status: ProjectTaskStatus;
     projectTaskCategory: ProjectTaskCategory;
-    userDetail: UserDetail[];
-    comments: Comment[];
+    projectTaskUserDetail?: User[];
+    comments?: Comment[];
     
 }

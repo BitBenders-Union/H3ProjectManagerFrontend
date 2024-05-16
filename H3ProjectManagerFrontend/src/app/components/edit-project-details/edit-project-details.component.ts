@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 import { LocalProject } from '../../models/LocalJson';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
-import { Project } from '../../models/Project';
+import { Project, ProjectDetails } from '../../models/Project';
 import { Department } from '../../models/Department';
 import { single } from 'rxjs';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
@@ -13,6 +13,7 @@ import { trigger } from '@angular/animations';
 import { Priority } from '../../models/Priority';
 import { ProjectCategory } from '../../models/ProjectCategory';
 import { ProjectStatus } from '../../models/ProjectStatus';
+import { ApiServiceService } from '../../service/api-service.service';
 
 
 @Component({
@@ -24,15 +25,15 @@ import { ProjectStatus } from '../../models/ProjectStatus';
 })
 export class EditProjectDetailsComponent implements OnInit{
   
-  constructor(private routeActive: ActivatedRoute, private http: HttpClient, private service: ApiGenericMethodsService) {}
+  constructor(private routeActive: ActivatedRoute, private route: Router, private http: HttpClient, private service: ApiGenericMethodsService, private api: ApiServiceService<ProjectDetails, ProjectDetails>) {}
   departmentList: Department[] = [];
   userList: User[] = [];
   priorityList: Priority[] = [];
   categoryList: ProjectCategory[] = [];
   statusList: ProjectStatus[] = [];
-  sendProject: Project = {};
+  sendProject?: ProjectDetails;
 
-  loc: LocalProject = {}
+  loc?: ProjectDetails;
   departmentDropdownSettings: any = {};
   userDropdownSettings: any = {};
   dropdownSettings: any = {};
@@ -53,10 +54,16 @@ export class EditProjectDetailsComponent implements OnInit{
 
   });
 
+  id: number = 0;
+
 
   ngOnInit(){
-    let id = this.routeActive.snapshot.paramMap.get('id');
-    this.tempJsonProjectDetail();
+    this.routeActive.paramMap.subscribe({
+      next: (params) => {
+        this.id = Number(params.get('id'));
+        this.getProjectDetails(this.id);
+      }
+    });
     this.getDepartments();
     this.getUsers();
     this.getPriorities();
@@ -77,20 +84,47 @@ export class EditProjectDetailsComponent implements OnInit{
       idField: 'id',
       textField: 'name',
     }
-    // this.patchData();
+    this.patchData();
+  
+    
   }
 
   patchData(){
     this.editForm.patchValue({
-      name: this.loc.name,
-      startDate: new Date(this.loc.startDate!),
-      endDate: new Date(this.loc.endDate!),
-      status: [this.loc.status],
-      category: [this.loc.category],
-      priority: [this.loc.priority],
-      departments: this.loc.departments,
-      users: this.loc.users
+      name: this.loc?.name,
+      startDate: new Date(this.loc?.startDate!),
+      endDate: new Date(this.loc?.endDate!),
+      status: [this.loc?.status],
+      category: [this.loc?.category],
+      priority: [this.loc?.priority],
+      departments: this.loc?.department,
+      users: this.loc?.user
     });
+  }
+
+  getProjectDetails(id: number){
+    this.service.getOne<ProjectDetails>('Project', id).subscribe({
+      next: (data) => {
+        this.loc = data;
+        console.log(this.loc);
+        // this.getprojectOwner();
+      },
+      error: (error: Error) => {
+        console.log(error.message);
+        
+      }
+    })
+  }
+
+  submit(){
+    this.sendProject = this.editForm.value;
+    console.log(this.sendProject);
+    this.api.update('Project', this.sendProject!).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.route.navigate(['/proproject-details', this.id]);
+      }
+    })
   }
 
   getDepartments(){
@@ -155,20 +189,20 @@ export class EditProjectDetailsComponent implements OnInit{
   // All the json data this is test data
   //------------------------------------------------------
 
-  tempJsonProjectDetail(){
-    this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
-      next:(data) => {
-        this.loc = data;
-        // console.log(this.loc);
-      }
-    })
-  }
+  // tempJsonProjectDetail(){
+  //   this.http.get<LocalProject>("./assets/json/temp-project-detail.json").subscribe({
+  //     next:(data) => {
+  //       this.loc = data;
+  //       // console.log(this.loc);
+  //     }
+  //   })
+  // }
 
-  tempPost(){
-    this.sendProject = this.editForm.value;
-    console.log(this.sendProject);
-    this.http.put<LocalProject>("./assets/json/temp-project-detail.json", this.sendProject);    
-  }
+  // tempPost(){
+  //   this.sendProject = this.editForm.value;
+  //   console.log(this.sendProject);
+  //   this.http.put<LocalProject>("./assets/json/temp-project-detail.json", this.sendProject);    
+  // }
   //---------------------------------------------------------------
   
 }

@@ -11,6 +11,7 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
 import { TaskComponent } from './components/task/task.component';
 import { authGuard } from './guards/auth.guard';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { TaskCreateComponent } from './components/task-create/task-create.component';
 import { EditProjectDetailsComponent } from './components/edit-project-details/edit-project-details.component';
 
 export const routes: Routes = [
@@ -24,7 +25,8 @@ export const routes: Routes = [
   { path: 'project-details/:id', component: ProjectDetailsComponent},
   { path: 'task', component: TaskComponent},
   { path: 'task-details', component: TaskDetailsComponent},
-  {path: 'edit-project-detail/:id', component: EditProjectDetailsComponent}
+  { path: 'task-create/:id', component: TaskCreateComponent},
+  { path: 'edit-project-detail/:id', component: EditProjectDetailsComponent}
 
 
 ];
