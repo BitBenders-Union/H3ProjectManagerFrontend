@@ -25,7 +25,7 @@ import { ApiServiceService } from '../../service/api-service.service';
 })
 export class EditProjectDetailsComponent implements OnInit{
   
-  constructor(private routeActive: ActivatedRoute, private route: Router, private http: HttpClient, private service: ApiGenericMethodsService, private api: ApiServiceService<ProjectDetails, ProjectDetails>) {}
+  constructor(private routeActive: ActivatedRoute, private route: Router, private http: HttpClient, private service: ApiGenericMethodsService, private api: ApiServiceService<ProjectCreate, ProjectCreate>) {}
   departmentList: Department[] = [];
   userList: User[] = [];
   priorityList: Priority[] = [];
@@ -110,7 +110,7 @@ export class EditProjectDetailsComponent implements OnInit{
   }
 
   getProjectDetails(id: number){
-    this.service.getOne<ProjectDetails>('Project', id).subscribe({
+    this.service.getOne<ProjectCreate>('Project', id).subscribe({
       next: (data) => {
         this.loc = data;
         console.log(this.loc);
@@ -146,15 +146,16 @@ export class EditProjectDetailsComponent implements OnInit{
     });
 
     this.sendProject!.users = temp;
+    this.sendProject!.id = this.id;
 
     console.log(this.sendProject);
 
-    // this.api.update('Project', this.sendProject!).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.route.navigate(['/proproject-details', this.id]);
-    //   }
-    // })
+    this.api.update('Project', this.sendProject!).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.route.navigate(['/project-details', this.id]);
+      }
+    })
 
     
   }
