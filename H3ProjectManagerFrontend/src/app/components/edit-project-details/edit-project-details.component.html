@@ -4,27 +4,37 @@
         <div class="form-group">
             <label >Navn</label>
             <input type="text" formControlName="name" required placeholder="Projekt Navn">
+            <small *ngIf="nameForm?.invalid && nameForm?.touched">Name Required</small>
 
             <label>Start Dato</label>
             <input type="date" required formControlName="startDate">
+            <small *ngIf="startDateForm?.invalid && startDateForm?.touched">Name Required</small>
 
             <label>Slut Dato</label>
             <input type="date" required formControlName="endDate">
+            <small *ngIf="endDateForm?.invalid && startDateForm?.touched">Name Required</small>
+
 
             <label>Status</label>
             <ng-multiselect-dropdown formControlName="status" [settings]="dropdownSettings" [data]="statusList"></ng-multiselect-dropdown>
+            <small *ngIf="statusForm?.invalid && statusForm?.touched">Name Required</small>
+
 
             <label>Kategori</label>
             <ng-multiselect-dropdown formControlName="category" [settings]="dropdownSettings" [data]="categoryList" ></ng-multiselect-dropdown>
-            
+            <small *ngIf="categoryForm?.invalid && categoryForm?.touched"></small>
+
             <label>Prioritet</label>
             <ng-multiselect-dropdown formControlName="priority" [settings]="dropdownSettings" [data]="priorityList"></ng-multiselect-dropdown>
-            
+            <small *ngIf="priorityForm?.invalid && priorityForm?.touched"></small>
+
             <label>Departments</label>
             <ng-multiselect-dropdown formControlName="departments" [settings]="departmentDropdownSettings" [data]="departmentList"></ng-multiselect-dropdown>
-            
+            <small *ngIf="departmentForm?.invalid && departmentForm?.touched"></small>
+
             <label>Team members</label>
             <ng-multiselect-dropdown formControlName="users" [settings]="userDropdownSettings" [data]="userList"></ng-multiselect-dropdown>
+            <small *ngIf="usersForm?.invalid && usersForm?.touched"></small>
         </div>
         <div class="button-group">
             <button class="submit" type="submit">Save</button>
