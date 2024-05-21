@@ -125,9 +125,17 @@ export class TaskDetailsComponent implements OnInit {
       this.taskDetails.status.name = this.editForm.value.taskStatus.name;
       this.taskDetails.projectTaskCategory.name = this.editForm.value.taskCategory.name;
 
-      // Reset the form and hide it
-      this.isEditing = false;
+      this.taskDetails.projectTaskUserDetail?.forEach((user) => {
+        console.log(user);
+      }
+      );
 
+       //pdate(endpoint: string, model: TInsert): Observable<TModel>{
+        this.apiService.update('ProjectTask', this.taskDetails).subscribe((data) => {
+          console.log(data);
+        });
+
+      this.isEditing = false;   
 
     }
   }
@@ -137,6 +145,7 @@ export class TaskDetailsComponent implements OnInit {
   addUser(user: any) {
     this.taskDetails.projectTaskUserDetail?.push(user);
     this.userNotInProject.splice(this.userNotInProject.indexOf(user), 1);
+  
   }
 
   // we need to redo this function to work with junction tables
