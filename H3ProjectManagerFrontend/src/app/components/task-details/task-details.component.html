@@ -36,17 +36,17 @@
                     <br>
                     <textarea type="text" formControlName="taskDescription"> </textarea>
                     <br>
-                    <select formControlName="taskStatus">
-                        <option *ngFor="let status of statusList" [ngValue]="status">
-                            {{ status.name }}
-                        </option>
-                    </select>
-                    <br>
                     <select formControlName="taskPriority">
                         <option *ngFor="let priotet of priorityList" [ngValue]="priotet">
                             {{ priotet.name }}
                         </option>
-                    </select>
+                    </select>                    
+                    <br>
+                    <select formControlName="taskStatus">
+                        <option *ngFor="let status of statusList" [ngValue]="status">
+                            {{ status.name }}
+                        </option>
+                    </select>                   
                     <br>
                     <select formControlName="taskCategory">
                         <option *ngFor="let category of categoryList" [ngValue]="category">
