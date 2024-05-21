@@ -115,6 +115,10 @@ export class TaskDetailsComponent implements OnInit {
     });
   };
 
+  OnePageBack() {
+    window.history.back();
+  }
+
 
 
   saveButton() {

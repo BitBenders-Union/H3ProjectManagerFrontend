@@ -1,6 +1,7 @@
 
 
     <div class="task-header">
+        <button (click)="OnePageBack()">Back to project</button>
         <button *ngIf="!isEditing" (click)="toggleVisibility()">Edit</button>
     </div>
     <div class="task-container">
