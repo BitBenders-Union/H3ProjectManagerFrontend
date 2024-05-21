@@ -1,5 +1,0 @@
-- Skal lave en back button den på en eller anden måde rammer tilbage til project details siden, men på det rigtige project.
-- html skal rette til mht users, det ligner lort
-
-- Der mangler en save task til database function
-- Add og remove users skal laves med hensyn til database
