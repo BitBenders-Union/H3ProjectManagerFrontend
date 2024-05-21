@@ -31,7 +31,7 @@ export interface ProjectCreate{
     priority: Priority;
     client?: Client;
     projectTasks?: ProjectTaskDetails[];
-    department?: Department[];
+    departments?: Department[];
     users?: User[];
     owner: string;
 

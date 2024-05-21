@@ -4,7 +4,7 @@ import {NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 import { LocalProject } from '../../models/LocalJson';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
-import { Project, ProjectDetails } from '../../models/Project';
+import { Project, ProjectCreate, ProjectDetails } from '../../models/Project';
 import { Department } from '../../models/Department';
 import { single } from 'rxjs';
 import { ApiGenericMethodsService } from '../../service/api-generic-methods.service';
@@ -14,26 +14,27 @@ import { Priority } from '../../models/Priority';
 import { ProjectCategory } from '../../models/ProjectCategory';
 import { ProjectStatus } from '../../models/ProjectStatus';
 import { ApiServiceService } from '../../service/api-service.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-edit-project-details',
   standalone: true,
-  imports: [NgMultiSelectDropDownModule, ReactiveFormsModule, RouterLink],
+  imports: [NgMultiSelectDropDownModule, ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './edit-project-details.component.html',
   styleUrl: './edit-project-details.component.css'
 })
 export class EditProjectDetailsComponent implements OnInit{
   
-  constructor(private routeActive: ActivatedRoute, private route: Router, private http: HttpClient, private service: ApiGenericMethodsService, private api: ApiServiceService<ProjectDetails, ProjectDetails>) {}
+  constructor(private routeActive: ActivatedRoute, private route: Router, private http: HttpClient, private service: ApiGenericMethodsService, private api: ApiServiceService<ProjectCreate, ProjectCreate>) {}
   departmentList: Department[] = [];
   userList: User[] = [];
   priorityList: Priority[] = [];
   categoryList: ProjectCategory[] = [];
   statusList: ProjectStatus[] = [];
-  sendProject?: ProjectDetails;
+  sendProject?: ProjectCreate;
 
-  loc?: ProjectDetails;
+  loc?: ProjectCreate;
   departmentDropdownSettings: any = {};
   userDropdownSettings: any = {};
   dropdownSettings: any = {};
@@ -51,10 +52,19 @@ export class EditProjectDetailsComponent implements OnInit{
     priority: new FormControl('', [Validators.required,]),
     departments: new FormControl([], [Validators.required,]),
     users: new FormControl([], [Validators.required,])
-
   });
 
   id: number = 0;
+
+  //Only called in html for validation purpose. Too lazy to type .get twice for each one
+  nameForm = this.editForm.get('name');
+  startDateForm = this.editForm.get('startDate');
+  endDateForm = this.editForm.get('endDate');
+  statusForm = this.editForm.get('status');
+  categoryForm = this.editForm.get('category');
+  priorityForm = this.editForm.get('priority');
+  departmentForm = this.editForm.get('departments');
+  usersForm = this.editForm.get('users');
 
 
   ngOnInit(){
@@ -98,8 +108,8 @@ export class EditProjectDetailsComponent implements OnInit{
       status: [this.loc?.status],
       category: [this.loc?.category],
       priority: [this.loc?.priority],
-      departments: this.loc?.department,
-      users: this.loc?.user
+      departments: this.loc?.departments,
+      users: this.loc?.users
     });
   }
 
@@ -110,7 +120,7 @@ export class EditProjectDetailsComponent implements OnInit{
   }
 
   getProjectDetails(id: number){
-    this.service.getOne<ProjectDetails>('Project', id).subscribe({
+    this.service.getOne<ProjectCreate>('Project', id).subscribe({
       next: (data) => {
         this.loc = data;
         console.log(this.loc);
@@ -136,13 +146,28 @@ export class EditProjectDetailsComponent implements OnInit{
 
     this.sendProject = this.editForm.value;
     this.sendProject!.owner = this.loc!.owner;
+
+    // userList
+    // sendProject.users
+
+    let temp : any[] = [];
+    this.sendProject?.users?.forEach((element: any) => {
+      temp.push(this.userList.find((user) => user.id === element.id));
+    });
+
+    this.sendProject!.users = temp;
+    this.sendProject!.id = this.id;
+
     console.log(this.sendProject);
-    // this.api.update('Project', this.sendProject!).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.route.navigate(['/proproject-details', this.id]);
-    //   }
-    // })
+
+    this.api.update('Project', this.sendProject!).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.route.navigate(['/project-details', this.id]);
+      }
+    })
+
+    
   }
 
   getDepartments(){

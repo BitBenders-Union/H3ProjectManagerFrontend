@@ -15,13 +15,21 @@ export class TokenService {
   url: string = environment.apiUrl;
   jwtHelper = new JwtHelperService();
   private userPayLoad: any;
+  private acessTokenSubject = new Subject<string>();
   constructor(private router: Router, private http: HttpClient) {
     this.userPayLoad = this.decodeToken();
+    this.acessTokenSubject.subscribe(({
+      next: () => {
+        this.userPayLoad = this.decodeToken();
+      }
+    }))
    }
+   
 
   storeAccessToken(accessToken: string)
   {
     localStorage.setItem("AccessToken", accessToken);
+    this.acessTokenSubject.next(accessToken);
   }
 
   storeRefreshToken(refreshToken: string)
