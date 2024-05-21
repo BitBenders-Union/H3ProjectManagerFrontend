@@ -14,12 +14,13 @@ import { Priority } from '../../models/Priority';
 import { ProjectCategory } from '../../models/ProjectCategory';
 import { ProjectStatus } from '../../models/ProjectStatus';
 import { ApiServiceService } from '../../service/api-service.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-edit-project-details',
   standalone: true,
-  imports: [NgMultiSelectDropDownModule, ReactiveFormsModule, RouterLink],
+  imports: [NgMultiSelectDropDownModule, ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './edit-project-details.component.html',
   styleUrl: './edit-project-details.component.css'
 })
@@ -51,10 +52,19 @@ export class EditProjectDetailsComponent implements OnInit{
     priority: new FormControl('', [Validators.required,]),
     departments: new FormControl([], [Validators.required,]),
     users: new FormControl([], [Validators.required,])
-
   });
 
   id: number = 0;
+
+  //Only called in html for validation purpose. Too lazy to type .get twice for each one
+  nameForm = this.editForm.get('name');
+  startDateForm = this.editForm.get('startDate');
+  endDateForm = this.editForm.get('endDate');
+  statusForm = this.editForm.get('status');
+  categoryForm = this.editForm.get('category');
+  priorityForm = this.editForm.get('priority');
+  departmentForm = this.editForm.get('departments');
+  usersForm = this.editForm.get('users');
 
 
   ngOnInit(){
