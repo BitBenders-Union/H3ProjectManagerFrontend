@@ -98,7 +98,7 @@ export class EditProjectDetailsComponent implements OnInit{
       status: [this.loc?.status],
       category: [this.loc?.category],
       priority: [this.loc?.priority],
-      departments: this.loc?.department,
+      departments: this.loc?.departments,
       users: this.loc?.users
     });
   }

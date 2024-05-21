@@ -111,7 +111,7 @@ export class ProjectCreateComponent implements OnInit {
       priority: this.priorityList[this.projectForm.get('priorityIndex')?.value],
       client: undefined,
       projectTasks: [],
-      department: [],
+      departments: [],
       users: [this.token.getUserFromToken()!],
       owner: this.token.getUsernameFromToken(),
     };    

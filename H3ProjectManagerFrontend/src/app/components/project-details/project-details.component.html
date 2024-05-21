@@ -18,7 +18,9 @@
                      <p>Client:</p>
                   </div>
                   <p>Owner:</p>
-                  <!-- <p>Department:</p> -->
+                  <!-- <div *ngIf="project?.department != null"> -->
+                     <p>Department:</p>
+                  <!-- </div> -->
                </div>
                <div class="table-container-left-details-right">
                   <p>{{project?.startDate?.toDateString()}} - {{project?.endDate?.toDateString()}}</p>
@@ -28,9 +30,11 @@
                   <p class="client">{{project?.client?.name}}</p>
                   <!-- <p class="owner">{{owner.firstName}} {{owner.lastName}}</p> -->
                   <p class="owner">{{project?.owner}}</p>
-                  <!-- <ul *ngFor="let item of project?.department">
-                     <li>{{item.name}}</li>
-                  </ul> -->
+                  <!-- <div *ngIf="project?.department"> -->
+                     <ul *ngFor="let item of project?.departments">
+                        <li>{{item.name}}</li>
+                     </ul>
+                  <!-- </div> -->
                </div>
             </div>
          </div>
