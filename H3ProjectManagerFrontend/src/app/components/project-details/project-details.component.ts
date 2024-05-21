@@ -135,14 +135,14 @@ export class ProjectDetailsComponent implements OnInit{
   // }
 
 
+  // owner: User = {
+  //   id: 0,
+  //   username: 'User 1',
+  //   firstName: 'First',
+  //   lastName: 'Last',
+  // }
 
-  owner: User = {
-    id: 0,
-    username: 'User 1',
-    firstName: 'First',
-    lastName: 'Last',
-  }
-
+  owner: User = {};
 
   constructor(
     private routeActive: ActivatedRoute,
