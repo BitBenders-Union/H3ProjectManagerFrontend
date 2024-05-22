@@ -1,0 +1,82 @@
+
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+}
+
+/* center */
+.midtContainer {
+  display: flex;  
+}
+
+.content-right {
+  width: 40%;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.content-right img {
+  max-width: 100%;
+  height: auto;
+}
+
+.content-left {
+  width: 60%;
+  padding: 20px;
+
+}
+
+.content-left h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.content-left p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.benefits {
+  list-style: none;
+  padding: 0;
+}
+
+.benefits li {
+  margin-bottom: 10px;
+
+}
+
+.benefits li::before {
+  content: "✔ ";
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Catch Phrase */
+.catch-phrase {
+  text-align: center;
+  margin-top: 10%;
+
+}
+
+.catch-phrase p {
+  font-size: 4rem;
+  font-weight: bold;
+  font-family:cursive;
+}
+

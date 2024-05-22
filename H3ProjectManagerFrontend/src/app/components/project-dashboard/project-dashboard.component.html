@@ -1,0 +1,58 @@
+<div class="wrapper">
+
+    <div class="overview">
+
+        <div class="title">
+
+            <h1>Projects</h1>
+        </div>
+
+        <div class="create">
+
+            <button routerLink="/project-create">Create Project</button>
+
+        </div>
+
+    </div>
+    
+    <div class="search-form">
+
+
+            <input type="text" placeholder="Search"  class="search-bar-input" [(ngModel)]="searchValue" (keyup)="setValue(this.searchValue)">
+
+    </div>
+
+
+
+    <div class="grid-container">
+        <div class="grid-item"><h2>Title</h2></div>
+        <div class="grid-item"><h2>Category</h2></div>
+        <div class="grid-item"><h2>Owner</h2></div>
+        <div class="grid-item"> </div>
+    </div>
+    <hr>
+    
+
+    <div class="projects" *ngFor="let project of filteredData; let i = index">
+        
+        <div class="grid-container">
+            <div class="grid-item"><p>{{project.name}}</p></div>
+            <div class="grid-item"><p>{{project.category}}</p></div>
+            <div class="grid-item"><p>{{project.owner}}</p></div>
+            <div class="grid-item-double">
+                <i class="fa-solid fa-ellipsis" (click)="navigateToProjectDetails(i)"></i>
+                <button class="alert" (click)="deleteProject(i)">Delete</button>
+            </div>
+            
+        </div>
+        <hr>
+    
+    </div>
+
+
+
+
+
+
+
+</div>

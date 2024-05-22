@@ -1,0 +1,59 @@
+
+
+<div class="form-container">
+    <div class="title">
+        <h1>Create Task</h1>
+    </div>
+    <form [formGroup]="taskForm" (ngSubmit)="create()" class="task-form">
+        <div class="task-item">
+            <label>Name</label>
+            <input type="text" formControlName="name" required placeholder="Task Name">
+        </div>
+        <div class="task-item">
+            <label>Description</label>
+            <input type="text" formControlName="description" required placeholder="Description"> 
+        </div>
+        <div class="task-item">
+            <label>Status</label>
+            <select formControlName="status">
+                <option [defaultSelected]=true disabled>{{sDefault}}</option>
+                <option *ngFor="let item of statusList;" [ngValue]="item">{{item.name}}</option>
+            </select>
+        </div>
+        <div class="task-item">
+            <label>Priority</label>
+                <select formControlName="priority">
+                    <option [defaultSelected]=true disabled>{{pDefault}}</option>
+                    <option *ngFor="let item of priorityList; " [ngValue]="item">{{item.name}}</option>
+                </select>
+        </div>
+        <div class="task-item">
+            <label>Category</label>
+            <select formControlName="projectTaskCategory">
+                <option [defaultSelected]=true disabled>{{cDefault}}</option>
+                <option *ngFor="let item of categoryList;" [ngValue]="item">{{item.name}}</option>
+            </select>
+        </div>
+        <div class="task-item">
+            <label>Users</label>
+            <ng-multiselect-dropdown
+                [placeholder]="'Select Users'"
+                [data]="userList"
+                [settings]="dropdownSettings"
+                formControlName="projectTaskUserDetail"
+            >
+
+            </ng-multiselect-dropdown>
+        </div>
+
+        <div class="button-group">
+            <button type="reset" class="cancel-btn" (click)="cancel()">Cancel</button>
+            <button type="submit" class="submit-btn">Create</button>
+        </div>
+    
+    </form>
+
+
+    
+
+</div>

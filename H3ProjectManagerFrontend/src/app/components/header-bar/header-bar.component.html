@@ -1,0 +1,20 @@
+
+    <header>
+        <div class="container">
+            <div class="nav-bar">
+                <h1 class="logo" routerLink="/">PM Tools</h1>
+                <nav *ngIf="!isLoggedIn()">
+                    <ul>
+                        <li><a routerLink="/login">Login</a></li>
+                        <li><a routerLink="/register">Opret bruger</a></li>
+                    </ul>
+                </nav>
+                <nav *ngIf="isLoggedIn()"> <ul>
+                    <li><a routerLink="/user-profile">Hello, {{ getUsernameFromToken() }}</a></li>
+                    <li><a routerLink="/project-dashboard">Projekter</a></li>
+                    <li><a (click)="signOut()">Log Ud</a></li>
+                  </ul>
+                </nav>
+            </div>
+        </div>
+</header>

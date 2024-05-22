@@ -1,0 +1,30 @@
+<div id="card">
+  <div id="card-content">
+    <div id="card-title">
+      <h2>REGISTER</h2>
+      <div class="underline-title"></div>
+    </div>
+    <form class="login-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <label style="padding-top:13px">Fornavn</label>
+      <input class="form-content" type="text" id="firstName" formControlName="firstName" placeholder="Fornavn">
+      <div class="form-border"></div>
+      <label style="padding-top:22px">Efternavn</label>
+      <input class="form-content" type="text" id="lastname" formControlName="lastName" placeholder="Efternavn">
+      <div class="form-border"></div>
+      <label style="padding-top:22px">Brugernavn</label>
+      <input class="form-content" type="text" id="username" formControlName="username" placeholder="Brugernavn" autocomplete="off" />
+      <div class="form-border"></div>
+      <small *ngIf="">Username required</small>
+      <label style="padding-top:22px">Password</label>
+      <input class="form-content" type="password" id="password" formControlName="password" placeholder="Password" />
+      <div class="form-border"></div>
+      <label style="padding-top:22px">Gen-Password</label>
+      <small *ngIf="!passwordForm?.valid">Password required</small>
+      <input class="form-content" type="password" id="genPassword" formControlName="genPassword" placeholder="Gen-Password" />
+      <div class="form-border"></div>
+      <small *ngIf="!genPasswordForm?.valid">Password required</small>
+      <button id="submit-btn" type="submit">Opret Konto</button>
+      <a href="/login" id="signup">Har du en konto?</a>
+    </form>
+  </div>
+</div>

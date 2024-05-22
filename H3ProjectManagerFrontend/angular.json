@@ -25,14 +25,10 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -96,5 +92,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "7bb45f16-6d22-41fc-b367-8321971b3243"
   }
 }

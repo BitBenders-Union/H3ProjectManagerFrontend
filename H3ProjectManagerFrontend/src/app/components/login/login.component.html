@@ -1,0 +1,24 @@
+<div id="card">
+    <div id="card-content">
+      <div id="card-title">
+        <h2>LOGIN</h2>
+        <div class="underline-title"></div>
+      </div>
+      <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <label style="padding-top:13px">
+            Brugernavn
+          </label>
+        <input class="form-content" type="text" id="username" formControlName="username" placeholder="Brugernavn" autocomplete="off" />
+        <div class="form-border"></div>
+        <small *ngIf="usernameForm?.invalid && usernameForm?.touched">Username required</small>
+        <label style="padding-top:22px">Password
+          </label>
+        <input class="form-content" type="password" id="password" formControlName="password" placeholder="password" />
+        <div class="form-border"></div>
+        <small *ngIf="passwordForm?.invalid && passwordForm?.touched">Password required</small>
+
+        <button id="submit-btn" type="submit" [disabled]="!loginForm.valid">LOG IND</button>
+        <a routerLink="/register" id="signup">Har du ikke en konto?</a>
+      </form>
+    </div>
+  </div>

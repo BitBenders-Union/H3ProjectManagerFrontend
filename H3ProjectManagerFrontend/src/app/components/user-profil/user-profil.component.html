@@ -1,0 +1,34 @@
+<div class="wrapper">
+
+  <div class="userInfoWrapper">
+    <div class="userInfo">
+
+      <div class="userLabel">
+        <label>Brugernavn: </label>
+        <label>Fornavn: </label>
+        <label>Efternavn: </label>
+        <label>Afdeling: </label>
+        <label>Oprettet: </label>
+      </div>
+        <form class="userInput" [formGroup]="detailsForm!" (ngSubmit)="editProfil()">
+
+          <input type="text" placeholder="{{user?.username}}" disabled>
+          <input type="text" placeholder="firstName" formControlName="firstName">
+          <input type="text" placeholder="Lastname" formControlName="lastName">
+
+          <select formControlName="departmentindex" >
+            <option [ngValue]="null" disabled>Vælg en afdeling</option>
+            <option *ngFor="let department of departments; let i = index" [ngValue]="i">{{department.name}}</option>
+          </select>
+          
+
+          <input type="text" placeholder="{{user?.createdDate}}" disabled>
+          <div class="saveButton">
+            <button class="saveUserButton" >Gem</button>
+          </div>
+        </form>
+    </div>
+
+
+  </div>
+</div>

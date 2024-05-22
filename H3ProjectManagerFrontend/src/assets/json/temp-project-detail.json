@@ -1,0 +1,33 @@
+{
+    "id": 1,
+    "name": "fdsfas",
+    "startDate": "2024-05-08",
+    "endDate": "2024-05-09",
+    "status": {
+        "id": 1,
+        "name": "InProgress"
+    },
+    "category": {
+        "id": 1,
+        "name": "WebApp"
+    },
+    "priority": {
+        "id": 2,
+        "name": "Medium"
+    },
+    "client": "Client",
+    "projectTasks": null,
+    "departments": [
+        {
+           "id": 1,
+           "name": "IT" 
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "username": "Jhon"
+        }
+    ],
+    "owner": "jb"
+  }
